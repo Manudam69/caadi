@@ -21,9 +21,12 @@ html {
     padding: 50px 80px;
 }
 .ptext {
-    position: absolute;
+    margin-top: auto;
+    position: static;
+    padding-top: 2vh;
+    padding-bottom: 2vh;
+    margin-top: 10vh;
     background-color: rgba(0, 0, 0, 0.50);
-    top: 50%;
     width: 100%;
     text-align: center;
     color: #ffffff;
@@ -35,131 +38,122 @@ html {
     background-color: rgb(255, 255, 255);
     color: #666;
 }
-
-.ayuda{
-   padding: 0;
-margin: 0;
+.ayuda {
+    padding: 0;
+    margin: 0;
     margin-bottom: 15px;
-    
-    
 }
-.ayuda>p{
+.ayuda>p {
     padding: 0;
     margin: 0;
 }
-.ayuda>p>a{
+.ayuda>p>a {
     font-size: 15px;
     margin: 0;
     color: #ffffff;
     padding: 0;
 }
-
-.titulo{
-    position: absolute;
-    background-color: rgba(0, 0, 0, 0.50);
-    top: 15%;
+.titulo {
+    position:static;
+    margin-top: 20vh;
     width: 100%;
     text-align: left;
     color: #ffffff;
     font-size: 27px;
     letter-spacing: 1px;
     text-transform: uppercase;
+    background-color: rgba(0, 0, 0, 0.50);
 }
-
 #btn {
     margin-top: 20px;
     background-color: rgb(255, 189, 113);
 }
-#btn:hover{
+#btn:hover {
     background-color: rgb(248, 179, 35);
 }
 #contacto {
     text-align: right;
 }
-.titulo>p{
+.titulo>p {
     margin-top: 0;
 }
-
-.titulo{
+.titulo {
     text-align: center;
 }
-
-.titulo>img{
+.titulo>img {
     padding-top: 10px;
 }
-
 span {
-  position: absolute;
-  top: 7px;
-  left: 16px;
-  text-align: center;
-  -webkit-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
-  display: block;
+    position: absolute;
+    top: 7px;
+    left: 16px;
+    text-align: left;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    display: block;
 }
 span.fb-inner {
-  background: no-repeat url('https://vsxed.github.com/Social-Slides/sprite.png') -41px 0;
-  width: 40px;
-  height: 40px;
+    background: no-repeat url('https://vsxed.github.com/Social-Slides/sprite.png') -41px 0;
+    width: 40px;
+    height: 40px;
 }
-
 .social-share {
-  width: 72px;
-  height: 54px;
-  display: inline-block;
-  position: relative;
-  overflow: hidden;
-  border-radius: 6px;
+    width: 72px;
+    height: 54px;
+    display: inline-block;
+    position: relative;
+    overflow: hidden;
+    border-radius: 6px;
 }
 .social-share:first-of-type {
-  margin-right: 10px;
+    margin-right: 10px;
 }
 .social-share.fb {
-  background: -webkit-gradient(radial, 37 56, 25, 36 190, 144, from(rgba(51, 88, 144, 0.99)), to(rgba(51, 88, 144, 0.99))), -webkit-gradient(radial, -10 72, 10, 310 -72, 72, from(rgba(54, 93, 152, 0.99)), to(rgba(54, 93, 152, 0.99))), -webkit-gradient(radial, 72 72, 20, -275 -72, 72, from(rgba(54, 93, 152, 0.99)), to(rgba(54, 93, 152, 0.99))) rgba(61, 105, 171, 0.99) !important;
-  background: no-repeat url('https://vsxed.github.com/Social-Slides/sprite.png') 0 -47px;
+    background: -webkit-gradient(radial, 37 56, 25, 36 190, 144, from(rgba(51, 88, 144, 0.99)), to(rgba(51, 88, 144, 0.99))), -webkit-gradient(radial, -10 72, 10, 310 -72, 72, from(rgba(54, 93, 152, 0.99)), to(rgba(54, 93, 152, 0.99))), -webkit-gradient(radial, 72 72, 20, -275 -72, 72, from(rgba(54, 93, 152, 0.99)), to(rgba(54, 93, 152, 0.99))) rgba(61, 105, 171, 0.99) !important;
+    background: no-repeat url('https://vsxed.github.com/Social-Slides/sprite.png') 0 -47px;
 }
-
 .social-share:hover > span {
-  top: -29px;
-  -webkit-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+    top: -29px;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 .social-share:hover > .cta {
-  bottom: 0;
-  -webkit-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+    bottom: 0;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 .cta {
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: bold;
-  padding: 6px 0;
-  text-align: center;
-  width: 72px;
-  position: absolute;
-  border-radius: 0 0 6px 6px;
-  bottom: -60px;
-  display: block;
-  -webkit-box-shadow: inset 0 1px 0 0 #ffffff, 0 -1px 0 0 rgba(0, 0, 0, 0.3);
-  box-shadow: inset 0 1px 0 0 #ffffff, 0 -1px 0 0 rgba(0, 0, 0, 0.3);
-  background-color: #e8e8e8;
-  background-image: -webkit-gradient(linear, left top, right bottom, from(#e8e8e8), to(#ffffff));
-  background-image: linear-gradient(top left, #e8e8e8, #ffffff);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e8e8e8', endColorstr='#ffffff', GradientType=0);;
-  -webkit-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 6px 0;
+    text-align: center;
+    width: 72px;
+    position: absolute;
+    border-radius: 0 0 6px 6px;
+    bottom: -60px;
+    display: block;
+    -webkit-box-shadow: inset 0 1px 0 0 #ffffff, 0 -1px 0 0 rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 1px 0 0 #ffffff, 0 -1px 0 0 rgba(0, 0, 0, 0.3);
+    background-color: #e8e8e8;
+    background-image: -webkit-gradient(linear, left top, right bottom, from(#e8e8e8), to(#ffffff));
+    background-image: linear-gradient(top left, #e8e8e8, #ffffff);
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#e8e8e8', endColorstr='#ffffff', GradientType=0);
+    ;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
-
 .cta.fb {
-  color: rgba(54, 93, 152, 0.99);
+    color: rgba(54, 93, 152, 0.99);
 }
-
 @media(max-width:992px) {
     .ptext {
-        top: 45%;
+        top: 40vh;
+         margin-top: 5vh;
     }
-    .titulo{
-        top: 10%;
+    .titulo {
+        top: 0%;
+        background-color: transparent;
     }
     #btn {
         width: 100%;
@@ -171,10 +165,8 @@ span.fb-inner {
         padding: 0;
     }
 }
-
-@media(max-width:568px){
-  .pimg1{
-    background-attachment:scroll;
-  }
+@media(max-width:568px) {
+    .pimg1 {
+        background-attachment: scroll;
+    }
 }
-
