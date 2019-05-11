@@ -10,28 +10,38 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
     <!-- CSS -->
     <link rel="stylesheet" href="./css/index.css">
+    
+    
 
 </head>
 
 <body>
     <div class="pimg1">
+        <div class="row">
+            <div class="col l5 titulo z-depth-2">
+                <img src="./images/caadi-logo.png" class="responsive-img">
+                <p>Bienvenido al inicio de sesión de CAADI</p>
+            </div>
+        </div>
+
         <div class="ptext z-depth-2">
             <div class="container">
                 <form class="col s12">
-                    <div class="row">
+                    <div class="row" style="margin-bottom: 0px;">
                         <div class="input-field col l5 s12">
                             <i class="material-icons prefix">account_circle</i>
-                            <input id="icon_prefix" type="text">
+                            <input id="icon_prefix" type="text" style="color: white;">
                             <label for="icon_prefix">id de usuario</label>
                         </div>
                         <div class="input-field col l5 s12">
                             <i class="material-icons prefix">https</i>
-                            <input id="icon_telephone" type="password">
+                            <input id="icon_telephone" type="password" style="color: white;">
                             <label for="icon_telephone">Contraseña</label>
                         </div>
                         <div class="col l2 s12">
@@ -39,6 +49,9 @@
                         </div>
                     </div>
                 </form>
+                <div class="row ayuda">
+                   <p><a href="https://www.youtube.com/watch?v=pUEpPfSf2JM&list=PLkdhc7hzqPFCOQBscOPZo12-WOY7pGnql">Necesitas ayuda <i class="fas fa-question-circle"></i> </a></p>
+                </div>
             </div>
         </div>
     </div>
@@ -50,16 +63,17 @@
                     <h5> Universidad Autónoma de Aguascalientes</h5>
                     <p>Antes de ingresar, realiza tu pago y acude a CAADI para registrarte.</p>
                     <div class="social-share fb">
-			<span class="fb-inner"></span>
-			<a class="cta fb" href="https://www.facebook.com/CAADI-UAA-1550200165209620">Visitar</a>
-		</div>
-                    
+                        <span class="fb-inner"></span>
+                        <a class="cta fb" href="https://www.facebook.com/CAADI-UAA-1550200165209620">Visitar</a>
+                    </div>
+
                 </div>
                 <div class="col l4 offset-l2 s12" id="contacto">
                     <h5>C.A.A.D.I.</h5>
                     <ul>
                         <li>
-                            <p>Centro de Aprendizaje Autodirigido de Idiomas <br> Edificio 211, Módulo I, Tercer Piso.
+                            <p>Centro de Aprendizaje Autodirigido de Idiomas
+                                <br> Edificio 211, Módulo I, Tercer Piso.
                                 <br>Teléfono: 910-7400 Ext. 306</p>
                         </li>
                         <h5>DEPARTAMENTO DE IDIOMAS</h5>
@@ -74,7 +88,6 @@
         <div class="footer-copyright">
             <div class="container grey-text">
                 © 2015- 2019
-                <a class="right" href="#!">More Links</a>
             </div>
         </div>
     </footer>
