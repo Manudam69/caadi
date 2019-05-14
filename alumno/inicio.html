@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inicio</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="../images/favicon.png">
+    <!--Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="../css/usuario-inicio.css">
+
+</head>
+
+<body>
+    <header>
+        <ul id="javaDropDown" class="dropdown-content">
+            <li><a href="#!">Clubs de conversación</a></li>
+            <li><a href="#!">Calificar Clubs</a></li>
+        </ul>
+        <nav>
+            <div class="nav-wrapper">
+                <a class="brand-logo hide-on-med-and-down">CAADI</a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger right"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                    <li><a href="#!">Asesorias</a></li>
+                    <li><a href="#!">Sitios de Interes</a></li>
+                    <li><a class="dropdown-trigger" href="#!" data-target='javaDropDown'>Clubs<i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li><a href="#!">Hojas de trabajo</a></li>
+                    <li><a href="#!">Bitácora</a></li>
+                    <li><a href="#!">Configuración de Perfil</a></li>
+                    <li><a href="#!">Cerrar Sesión</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <ul class="sidenav" id="mobile-demo">
+            <li>
+                <div class="user-view">
+                    <div class="background">
+                        <img src="../images/fondo-navbar.jpg" alt="imagen de perfil">
+                    </div>
+                    <a href="#" class="center-align"><img src="../images/usuario-perfil.jpg" class="circle"></a>
+                    <a href="#!"><span class="name white-text">Nombre</span></a>
+                    <a href="#!"><span class="id white-text">123456</span></a>
+                </div>
+            </li>
+            <li><a href="#!"><i class="material-icons">home</i> Inicio</a></li>
+            <li><a href="#!"><i class="material-icons">group</i> Asesorias</a></li>
+            <li><a href="#!"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interes</a></li>
+            <li><a href="#!"><i class="material-icons">record_voice_over</i> Clubs de conversación</a></li>
+            <li><a href="#!"><i class="material-icons">star</i> Calificar Clubs</a></li>
+            <li><a href="#!"><i class="material-icons">content_copy</i> Hojas de trabajo</a></li>
+            <li><a href="#!"><i class="material-icons">book</i> Bitácora</a></li>
+            <li><a href="#!"><i class="material-icons">settings</i> Configuración de Perfil</a></li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li><a href="#!"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+            <li class="center-align"><img src="../images/logo.png" class="responsive-img" width="80%;"></li>
+        </ul>
+    </header>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Funcionamiento Navbar -->
+    <script src="../js/navbar.js"></script>
+</body>
+
+</html>

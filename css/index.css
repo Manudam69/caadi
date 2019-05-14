@@ -148,12 +148,12 @@ span.fb-inner {
 }
 @media(max-width:992px) {
     .ptext {
-        top: 40vh;
-         margin-top: 5vh;
+         margin-top: 10vh;
     }
     .titulo {
         top: 0%;
-        background-color: transparent;
+        margin-top: 0;
+        background-color: rgba(0, 0, 0, 0.50);
     }
     #btn {
         width: 100%;
