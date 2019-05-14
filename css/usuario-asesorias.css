@@ -1,7 +1,9 @@
 * {
     font-family: 'Source Sans Pro', sans-serif;
 }
+
 /*Navbar*/
+
 .dropdown-content {
     margin: 0;
     display: none;
@@ -65,17 +67,20 @@ li>img {
 }
 
 /* Fin de Navbar*/
-.tabs {
-    background-color: rgb(0, 46, 104);
-}
-.tabs .tab a.active {
-    background-color: transparent;
-    color: #000;
-}
-.tabs .tab a.active:focus {
-    background-color: transparent;
+
+h4 {
+    margin-bottom: 5px;
 }
 
-.tabs .indicator {
-    background-color: rgb(255, 255, 255);
+.contenido {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+}
+.table-of-contents li a.active {
+    color: rgb(0, 51, 116);
+    border-color: rgb(0, 51, 116);
+}
+.table-of-contents li a:hover {
+    border-color: rgb(0, 51, 116);
 }
