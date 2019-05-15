@@ -68,14 +68,16 @@ li>img {
 
 /* Fin de Navbar*/
 
-h4 {
-    margin-bottom: 5px;
+.sitios>div{
+    margin: 0;
+    padding: 0;
 }
 
 .contenido {
     position: -webkit-sticky;
     position: sticky;
     top: 0;
+    text-transform: uppercase;
 }
 .table-of-contents li a.active {
     color: rgb(0, 51, 116);
@@ -83,4 +85,16 @@ h4 {
 }
 .table-of-contents li a:hover {
     border-color: rgb(0, 51, 116);
+    color: rgb(0, 51, 116);
+}
+.title{
+    text-transform: uppercase;
+}
+
+.collection{
+    border-top: 0;
+    border-bottom: 0;
+    border-right: 0;
+    border-color: rgb(0, 51, 116);
+    border-width: 2px;
 }
