@@ -1,0 +1,52 @@
+* {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 16px;
+}
+.pic {
+    margin: 0;
+    padding: 0;
+}
+#contenido {
+    margin-top: 20px;
+}
+h4 {
+    margin: 0;
+    padding: 0;
+}
+.informacion {
+    margin: 0;
+    padding: 0;
+}
+.informacion>p {
+    margin: 0;
+    padding: 0;
+}
+.informacion2>p {
+    margin: 0;
+    padding: 0;
+}
+.informacion2 {
+    margin: 0;
+    padding: 0;
+    border-left: 2px solid black;
+}
+.r {
+    text-align: right;
+}
+[type="radio"]:checked+span:after,
+[type="radio"].with-gap:checked+span:after {
+    background-color: rgb(16, 114, 239);
+}
+[type="radio"]:checked+span:after,
+[type="radio"].with-gap:checked+span:before,
+[type="radio"].with-gap:checked+span:after {
+    border: 2px solid rgb(16, 114, 239);
+}
+
+#btn {
+    margin-top: 20px;
+    background-color: rgb(0, 51, 116);
+}
+#btn:hover {
+    background-color: rgb(16, 114, 239);
+}

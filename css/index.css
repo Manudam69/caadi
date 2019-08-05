@@ -163,6 +163,9 @@ span.fb-inner {
 .input-field .prefix.active {
     color: rgb(16, 114, 239);
 }
+a > img{
+    margin-top: 10px;
+}
 
 @media(max-width:992px) {
     .ptext {
