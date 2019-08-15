@@ -2,7 +2,9 @@
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 16px;
 }
+
 /*Navbar*/
+
 .dropdown-content {
     margin: 0;
     display: none;
@@ -20,10 +22,10 @@
     will-change: width, height;
 }
 nav {
-    background-color:  rgb(0, 51, 116);
+    background-color: rgb(0, 51, 116);
 }
 .dropdown-content li a {
-    color: #ffffff;
+    color: white;
 }
 .dropdown-content>li:hover {
     background-color: rgb(0, 46, 104);
@@ -39,11 +41,11 @@ li>img {
 }
 .elementos>li>a {
     position: relative;
-    color: #ffffff;
+    color: white;
     text-decoration: none;
 }
 .elementos>li>a:hover {
-    color: #ffffff;
+    color: white;
 }
 .elementos>li>a:before {
     content: "";
@@ -66,8 +68,9 @@ li>img {
 }
 
 /* Fin de Navbar*/
+
 .tabs {
-    background-color: rgb(0, 46, 104);
+    background-color: rgb(234, 52, 54);
 }
 .tabs .tab a.active {
     background-color: transparent;
@@ -76,7 +79,9 @@ li>img {
 .tabs .tab a.active:focus {
     background-color: transparent;
 }
-
 .tabs .indicator {
-    background-color: rgb(255, 255, 255);
+    background-color: rgb(241, 166, 49);
+}
+#caadi {
+    color: rgb(241, 166, 49);
 }

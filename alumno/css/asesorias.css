@@ -78,8 +78,8 @@ h4 {
     top: 0;
 }
 .table-of-contents li a.active {
-    color: rgb(0, 51, 116);
-    border-color: rgb(0, 51, 116);
+    color: rgb(241, 166, 49);
+    border-color: rgb(241, 166, 49);
 }
 .table-of-contents li a:hover {
     border-color: rgb(0, 51, 116);

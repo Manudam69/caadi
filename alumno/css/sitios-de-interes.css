@@ -80,8 +80,8 @@ li>img {
     text-transform: uppercase;
 }
 .table-of-contents li a.active {
-    color: rgb(0, 51, 116);
-    border-color: rgb(0, 51, 116);
+    color: rgb(241, 166, 49);
+    border-color: rgb(241, 166, 49);
 }
 .table-of-contents li a:hover {
     border-color: rgb(0, 51, 116);
@@ -95,9 +95,9 @@ li>img {
     border-top: 0;
     border-bottom: 0;
     border-right: 0;
-    border-color: rgb(0, 51, 116);
+    border-color: rgb(234, 52, 54);
     border-width: 2px;
 }
-i{
-    background-color: rgb(0, 51, 116)     !important;
+li>i{
+    background-color: rgb(234, 52, 54)     !important;
 }
