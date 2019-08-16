@@ -32,7 +32,7 @@ nav {
 .dropdown-content {
     background-color: rgb(0, 51, 116);
 }
-.brand-logo {
+.logo {
     margin-left: 2rem;
 }
 li>img {
@@ -84,8 +84,8 @@ li>img {
     border-color: rgb(241, 166, 49);
 }
 .table-of-contents li a:hover {
-    border-color: rgb(0, 51, 116);
-    color: rgb(0, 51, 116);
+    border-color: rgb(241, 166, 49);
+    color: rgb(241, 166, 49);
 }
 .title{
     text-transform: uppercase;
@@ -100,4 +100,12 @@ li>img {
 }
 li>i{
     background-color: rgb(234, 52, 54)     !important;
+}
+
+p>a{
+    color: rgb(0, 51, 116);
+}
+.title{
+    color: rgb(241, 166, 49);
+    font-weight:bold;
 }
