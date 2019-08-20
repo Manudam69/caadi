@@ -71,7 +71,6 @@ li>img {
 h4 {
     margin-bottom: 5px;
 }
-
 .contenido {
     position: -webkit-sticky;
     position: sticky;
@@ -84,4 +83,14 @@ h4 {
 .table-of-contents li a:hover {
     border-color: rgb(0, 51, 116);
     color: rgb(0, 51, 116);
+}
+img,
+table,
+nav {
+    user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }

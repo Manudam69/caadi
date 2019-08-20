@@ -1,7 +1,9 @@
 * {
     font-family: 'Source Sans Pro', sans-serif;
 }
+
 /*Navbar*/
+
 .dropdown-content {
     margin: 0;
     display: none;
@@ -19,7 +21,7 @@
     will-change: width, height;
 }
 nav {
-    background-color:  rgb(0, 51, 116);
+    background-color: rgb(0, 51, 116);
 }
 .dropdown-content li a {
     color: #ffffff;
@@ -66,7 +68,16 @@ li>img {
 
 /* Fin de Navbar*/
 
-p{
+p {
     margin: 0;
     padding: 0;
+}
+img,
+nav {
+    user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }

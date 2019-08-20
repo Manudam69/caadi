@@ -79,7 +79,7 @@ li>img {
     background-color: transparent;
 }
 .tabs .indicator {
-     background-color: rgb(241, 166, 49);
+    background-color: rgb(241, 166, 49);
 }
 .input-field input:focus + label {
     color: rgb(0, 0, 0) !important;
@@ -116,8 +116,7 @@ button {
     color: white;
     background-color: rgb(241, 166, 49);
 }
-
-.contestar{
+.contestar {
     background-color: rgb(0, 51, 116);
     color: white;
     border-radius: 50px;
@@ -134,4 +133,13 @@ button {
     color: white; // text color of buttons which is white by default
     cursor: pointer;
     z-index: 2;
+}
+img,
+nav {
+    user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }

@@ -68,11 +68,10 @@ li>img {
 
 /* Fin de Navbar*/
 
-.sitios>div{
+.sitios>div {
     margin: 0;
     padding: 0;
 }
-
 .contenido {
     position: -webkit-sticky;
     position: sticky;
@@ -87,25 +86,32 @@ li>img {
     border-color: rgb(241, 166, 49);
     color: rgb(241, 166, 49);
 }
-.title{
+.title {
     text-transform: uppercase;
 }
-
-.collection{
+.collection {
     border-top: 0;
     border-bottom: 0;
     border-right: 0;
     border-color: rgb(234, 52, 54);
     border-width: 2px;
 }
-li>i{
-    background-color: rgb(234, 52, 54)     !important;
+li>i {
+    background-color: rgb(234, 52, 54) !important;
 }
-
-p>a{
+p>a {
     color: rgb(0, 51, 116);
 }
-.title{
+.title {
     color: rgb(241, 166, 49);
-    font-weight:bold;
+    font-weight: bold;
+}
+img,
+nav {
+    user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
