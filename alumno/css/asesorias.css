@@ -86,7 +86,7 @@ h4 {
 }
 img,
 table,
-nav {
+nav,.material-icons {
     user-drag: none;
     user-select: none;
     -moz-user-select: none;

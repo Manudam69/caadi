@@ -57,7 +57,7 @@ h4 {
     color: white;
 }
 
-img {
+img,.material-icons {
     user-drag: none;
     user-select: none;
     -moz-user-select: none;

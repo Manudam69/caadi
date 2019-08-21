@@ -163,11 +163,11 @@ span.fb-inner {
 .input-field .prefix.active {
     color: rgb(16, 114, 239);
 }
-a > img{
+a > img {
     padding-top: 10px;
 }
-
-img {
+img,
+.material-icons {
     user-drag: none;
     user-select: none;
     -moz-user-select: none;
@@ -175,8 +175,6 @@ img {
     -webkit-user-select: none;
     -ms-user-select: none;
 }
-
-
 @media(max-width:992px) {
     .ptext {
         margin-top: 10vh;

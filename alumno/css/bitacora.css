@@ -73,7 +73,7 @@ p {
     padding: 0;
 }
 img,
-nav {
+nav,.material-icons {
     user-drag: none;
     user-select: none;
     -moz-user-select: none;

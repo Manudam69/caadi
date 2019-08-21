@@ -75,7 +75,7 @@ li>img {
     color: rgb(241, 166, 49) !important;
 }
 img,
-nav {
+nav,.material-icons {
     user-drag: none;
     user-select: none;
     -moz-user-select: none;

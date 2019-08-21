@@ -94,7 +94,7 @@ li>img {
     background-color: blue;
 }
 img,
-nav {
+nav,.material-icons {
     user-drag: none;
     user-select: none;
     -moz-user-select: none;
