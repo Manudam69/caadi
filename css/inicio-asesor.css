@@ -69,60 +69,11 @@ li>img {
 
 /* Fin de Navbar*/
 
-.tabs {
-    background-color: rgb(234, 52, 54);
+h5{
+    text-transform: uppercase;
+    margin-top: 25px;
 }
-.tabs .tab a.active {
-    background-color: transparent;
-    color: #000;
-}
-.tabs .tab a.active:focus {
-    background-color: transparent;
-}
-.tabs .indicator {
-    background-color: rgb(241, 166, 49);
-}
-.collection {
-    margin-top: 20px;
-}
-.borrar {
-    border-radius: 50px;
-    color: white;
-    background-color: rgb(234, 52, 54);
-}
-#tab2 {
-    margin-top: 20px;
-}
-.eliminar {
-    background-color: #ed1919;
-    color: white;
-    border-radius: 50px;
-    padding: 3px;
-    margin-top: 0;
-    margin-bottom: 5px;
-}
-#descargar {
-    color: white;
-    background-color: rgb(241, 166, 49);
-}
-.contestar {
-    background-color: rgb(0, 51, 116);
-    color: white;
-    border-radius: 50px;
-    padding: 3px;
-}
-.pagination > .active > a,
-.pagination > .active > span,
-.pagination > .active > a:hover,
-.pagination > .active > span:hover,
-.pagination > .active > a:focus,
-.pagination > .active > span:focus {
-    background-color: rgb(0, 51, 116); //background color of buttons. Blue by default
-    border-color: your white; // color or borders. Also blue by default
-    color: white; // text color of buttons which is white by default
-    cursor: pointer;
-    z-index: 2;
-}
+
 img,
 nav,
 .material-icons {
@@ -133,3 +84,4 @@ nav,
     -webkit-user-select: none;
     -ms-user-select: none;
 }
+

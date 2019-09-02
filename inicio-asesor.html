@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Inicio</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <!--Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/inicio-asesor.css">
+</head>
+
+<body>
+    <header>
+        <ul id="perfil" class="dropdown-content">
+            <li><a href="./mi-perfil.html"><i class="material-icons right">settings</i>Configuración de Perfil</a></li>
+            <li><a href="#!"><i class="fas fa-sign-out-alt right"></i>Cerrar Sesión</a></li>
+        </ul>
+        <nav>
+            <div class="nav-wrapper">
+                <a class="brand-logo hide-on-med-and-down logo" href="./inicio.html"><img src="images/navbar-logo.png" class="responsive-img" width="85"></a>
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <a class="hide-on-large-only brand-logo" href="./inicio.html"><img src="images/navbar-logo.png" class="responsive-img" width="80"></a>
+                <ul class="right hide-on-med-and-down elementos">
+                    <li class="active"><a href="./inicio.html"><i class="material-icons right">home</i>Inicio</a></li>
+                    <li><a href="./asesorias.html"><i class="material-icons right">group</i>Asesorias</a></li>
+                    <li><a href="./sitios-de-interes.html"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
+                    <li><a href="./hojas-de-trabajo.html"><i class="material-icons right">content_copy</i>Revisión de hojas de trabajo</a></li>
+                    <li><a href="./bitacora.html"><i class="material-icons right">list</i>Listas de clubs</a></li>
+                    <li><a class="dropdown-trigger" href="#!" data-target='perfil'>Mi perfil<i class="material-icons right">account_circle</i></a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <ul class="sidenav" id="mobile-demo">
+            <li>
+                <div class="user-view">
+                    <div class="background">
+                        <img src="images/fondo-navbar.jpg" alt="imagen de perfil">
+                    </div>
+                    <a href="#" class="center-align"><img src="images/usuario-perfil.jpg" class="circle"></a>
+                    <a href="#!"><span class="name white-text">Nombre</span></a>
+                    <a href="#!"><span class="id white-text">123456</span></a>
+                </div>
+            </li>
+            <li class="active"><a href="./inicio.html"><i class="material-icons">home</i> Inicio</a></li>
+            <li><a href="./asesorias.html"><i class="material-icons">group</i> Asesorias</a></li>
+            <li><a href="./sitios-de-interes.html"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
+            <li><a href="./hojas-de-trabajo.html"><i class="material-icons">content_copy</i> Revisión de hojas</a></li>
+            <li><a href="./bitacora.html"><i class="material-icons">list</i> Listas de clubs</a></li>
+            <li><a href="./mi-perfil.html"><i class="material-icons">settings</i> Configuración de Perfil</a></li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li><a href="#!"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+            <li class="center-align"><img src="images/logo.png" class="responsive-img" width="80%;"></li>
+        </ul>
+    </header>
+    <h5 class="center">Clubes de conversación próximos</h5>
+
+    <div class="row container">
+        <div class="col s12 m12">
+            <div class="card-panel white">
+                <span class="black-text"> <b>IDIOMA:</b> ***** , <b>Nivel: **</b>
+                <br>
+                <b>Fecha:</b> *****
+                <br>
+                <b>Cupo:</b> *****    
+        </span>
+            </div>
+            
+        </div>
+        
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Funcionamiento Navbar -->
+    <script src="js/navbar.js"></script>
+</body>
+
+</html>

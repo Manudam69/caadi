@@ -98,10 +98,7 @@ label {
     direction: rtl;
     unicode-bidi: bidi-override;
 }
-label:hover,
-label:hover ~ label {
-    color: orange;
-}
+
 input[type="radio"]:checked ~ label {
     color: orange;
 }
@@ -145,4 +142,19 @@ p {
 }
 #btn:hover {
     background-color: rgb(242, 151, 9);
+}
+
+.resp,.hey,#dad{
+    margin: 0;
+    padding: 0;
+}
+
+[type="radio"]:checked+span:after,
+[type="radio"].with-gap:checked+span:after {
+    background-color: rgb(16, 114, 239);
+}
+[type="radio"]:checked+span:after,
+[type="radio"].with-gap:checked+span:before,
+[type="radio"].with-gap:checked+span:after {
+    border: 2px solid rgb(16, 114, 239);
 }
