@@ -68,23 +68,35 @@ li>img {
 
 /* Fin de Navbar*/
 
-h4 {
-    margin-bottom: 5px;
+.table-of-contents li a.active {
+    color: rgb(241, 166, 49) !important;
+    border-color: rgb(241, 166, 49) !important;
+}
+.table-of-contents li a:hover {
+    border-color: rgb(0, 51, 116) !important;
+    color: rgb(0, 51, 116) !important;
 }
 .contenido {
     position: -webkit-sticky;
     position: sticky;
     top: 0;
 }
-.table-of-contents li a.active {
-    color: rgb(241, 166, 49);
-    border-color: rgb(241, 166, 49);
-}
-.table-of-contents li a:hover {
-    border-color: rgb(0, 51, 116);
-    color: rgb(0, 51, 116);
+li>i{
+    background-color: rgb(0, 51, 116) !important;
 }
 
+.title{
+    color: rgb(0, 46, 104);
+}
+
+a{
+    color: rgb(241, 166, 49)    ;
+}
+
+li>.row{
+    margin: 0;
+    padding: 0;
+}
 img,
 table,
 nav,.material-icons {

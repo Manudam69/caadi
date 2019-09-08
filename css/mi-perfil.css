@@ -93,6 +93,14 @@ li>img {
 .picker--focused .picker__day--selected {
     background-color: blue;
 }
+.container{
+    margin-top: 80px;
+}
+
+.row{
+    width: 500px;
+}
+
 img,
 nav,.material-icons {
     user-drag: none;
@@ -101,4 +109,10 @@ nav,.material-icons {
     -webkit-user-drag: none;
     -webkit-user-select: none;
     -ms-user-select: none;
+}
+
+@media(max-width:992px) {
+.row{
+    width: 100%;
+}
 }
