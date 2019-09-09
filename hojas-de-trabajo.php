@@ -1,3 +1,18 @@
+<?php 
+$server="localhost";
+$pass="";
+$user="root";
+$db="caadi";
+
+$conexion=mysqli_connect($server,$user,$pass,$db);
+if(!$conexion){
+    echo "Error. SIn conexion a la base de datos";
+    echo "Errno de depuracion ".mysqli_connect_errno().PHP_EOL;
+    echo "Error de depuracion ".mysqli_connect_error().PHP_EOL;
+} else {
+    $datos = mysqli_query($conexion, "SELECT * FROM hoja_trabajo");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -84,44 +99,45 @@
 
     <div id="tab2" class="col s12">
         <div class="container">
-            <div class="row">
+        <form action="php/busqueda-hoja.php" method="POST">
+        <div class="row">
                 <div class="input-field col l3 m6 s12">
                     <i class="material-icons prefix">book</i>
-                    <input id="libreria" type="text" class="validate">
+                    <input id="libreria" type="text" name="titulo" class="validate">
                     <label for="libreria">Titulo</label>
                 </div>
 
                 <div class="col l3 m6 s12">
                     <label>Tipo</label>
-                    <select class="browser-default">
+                    <select class="browser-default" name="tipo">
                         <option value="" disabled selected>Cualquier tipo</option>
-                        <option value="1">Audio</option>
-                        <option value="2">Gramática</option>
-                        <option value="3">Lectura</option>
-                        <option value="4">Video</option>
-                        <option value="5">Vocabulario</option>
-                        <option value="6">Escritura</option>
+                        <option value="audio">Audio</option>
+                        <option value="gramatica">Gramática</option>
+                        <option value="lectura">Lectura</option>
+                        <option value="video">Video</option>
+                        <option value="vocabulario">Vocabulario</option>
+                        <option value="escritura">Escritura</option>
                     </select>
                 </div>
 
                 <div class="col l3 m7 s12">
                     <label>Idioma</label>
-                    <select class="browser-default">
+                    <select class="browser-default" name="idioma">
                         <option value="" disabled selected>Cualquier idioma</option>
-                        <option value="1">Japonés</option>
-                        <option value="2">Inglés</option>
-                        <option value="3">Español</option>
-                        <option value="4">Alemán</option>
-                        <option value="5">Italiano</option>
-                        <option value="6">Francés</option>
-                        <option value="7">Portugués</option>
-                        <option value="8">Ruso</option>
+                        <option value="japones">Japonés</option>
+                        <option value="ingles">Inglés</option>
+                        <option value="español">Español</option>
+                        <option value="aleman">Alemán</option>
+                        <option value="italiano">Italiano</option>
+                        <option value="frances">Francés</option>
+                        <option value="portuges">Portugués</option>
+                        <option value="ruso">Ruso</option>
                     </select>
                 </div>
 
                 <div class="col l3 m5 s12">
                     <label>Nivel</label>
-                    <select class="browser-default">
+                    <select class="browser-default" name="nivel">
                         <option value="" disabled selected>Cualquier nivel</option>
                         <option value="1">1-2</option>
                         <option value="2">3-4</option>
@@ -137,20 +153,32 @@
                     </button>
                 </div>
             </div>
+        </form>
+            
 
            <ul class="collection">
                 <!-- Repetir los li para agregar un nuevo elemento -->
+                <?php while($array = mysqli_fetch_array($datos)){ 
+                    //afasdfasdfasdfasdfasdf
+                    $curso = $array["id_nivel"];
+                    //echo $curso;
+                    $datos2 = mysqli_query($conexion, "SELECT idioma.nombre AS nombre, nivel.nivel AS nivel  FROM hoja_trabajo JOIN nivel JOIN idioma WHERE hoja_trabajo.id_nivel = nivel.id_nivel AND nivel.id_idioma = idioma.id_idioma ");
+                    $datos2 = mysqli_fetch_array($datos2);
+                    $idioma2 = $datos2["nombre"];
+                    $nivel = $datos2["nivel"];
+                ?>
                 <li class="collection-item avatar">
                     <a href="#!" class="left"><i class="material-icons circle z-depth-1" id="descargar">file_download</i></a>
-                    <span class="title">Nombre</span>
+                    <span class="title"><?php echo $array["tema"] ?></span>
                     <a href="#!" class="right"><i class="material-icons contestar z-depth-1">file_upload</i></a>
                     
                     <a href="../caadi/examen.html" class="right"><i class="material-icons contestar z-depth-1">exit_to_app</i></a>
-                    <p>Idioma, Nivel
+                    <p><?php echo $idioma2 ?>, <?php echo $nivel ?>
                         <br> Tipo
                         <a href="#!" class="right"><i class="material-icons eliminar z-depth-1">delete</i></a>
                     </p>
                 </li>
+                <?php } ?>
             </ul>
 
             <ul class="pagination center">
