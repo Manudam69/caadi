@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Clubs de conversación</title>
+    <title>Configuración de perfil - CAADI</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/favicon.png">
     <!--Google Icon Font-->
@@ -74,152 +74,38 @@
             <li class="center-align"><img src="images/logo.png" class="responsive-img" width="80%;"></li>
         </ul>
     </header>
-    <div class="container">
-        <h4 class="center">Datos personales</h4>
-
+    <div class="container center">
+        <img class="responsive-img" src="images/caadi-logo3.png" width="150">
         <div class="row">
-            <div class="col s12 m6">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="images/informacion.jpg">
-                        <a class="btn-floating halfway-fab waves-effect waves-light orange waves-effect waves-light btn modal-trigger" href="#modal1"><i class="material-icons">edit</i></a>
-                    </div>
-                    <div class="card-content">
-                        <!--  Informacion de contacto de usuario -->
-                        <p class="row">
-                            <i class="material-icons left">email</i> ejemplo@email.com
-                        </p>
-                        <br>
-                        <p class="row">
-                            <i class="material-icons left">smartphone</i> 123456789
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col s12 m6">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="images/info-personal.jpg">
-                        <a class="btn-floating halfway-fab waves-effect waves-light orange waves-effect waves-light btn modal-trigger" href="#modal2"><i class="material-icons">edit</i></a>
-                    </div>
-                    <div class="card-content">
-                        <!--  Informacion de contacto de usuario -->
-                        <p class="row">
-                            <i class="material-icons left">person</i> Nombres
-                        </p>
-                        <br>
-                        <p class="row">
-                            <i class="material-icons left">cake</i> Fecha de nacimiento
-                        </p>
-                    </div>
-                </div>
+            <div class="input-field col l12 s12">
+                <i class="material-icons prefix">lock</i>
+                <input id="con" type="text">
+                <label for="con">Contraseña</label>
             </div>
         </div>
 
         <div class="row">
-
-            <div class="col s12 m6 offset-m3">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="images/contrasena.jpg">
-                        <a class="btn-floating halfway-fab waves-effect waves-light orange waves-effect waves-light btn modal-trigger" href="#modal3"><i class="material-icons">edit</i></a>
-                    </div>
-                    <div class="card-content">
-                        <!--  Informacion de contacto de usuario -->
-                        <p class="row">
-                            <i class="material-icons left">email</i> ejemplo@email.com
-                        </p>
-                        <br>
-                        <p class="row">
-                            <i class="material-icons left">smartphone</i> 123456789
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <div id="modal1" class="modal">
-            <div class="modal-content container">
-                <h4>INFORMACIÓN DE CONTACTO</h4>
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">email</i>
-                    <input id="email" type="email">
-                    <label for="email">Correo eléctronico</label>
-                </div>
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">smartphone</i>
-                    <input id="tel" type="text">
-                    <label for="tel">Numero de telefono</label>
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <a href="#!" class="modal-close waves-effect waves-green btn-flat">ACTUALIZAR</a>
+            <div class="input-field col l12 s12">
+                <i class="material-icons prefix">lock</i>
+                <input id="con2" type="text">
+                <label for="con2">Nueva contraseña</label>
             </div>
         </div>
-        <div id="modal2" class="modal">
-            <div class="modal-content">
-                <h4>INFORMACIÓN PERSONAL</h4>
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">person</i>
-                    <input id="nombre" type="text">
-                    <label for="nombre">Nombres</label>
-                </div>
 
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">person</i>
-                    <input id="apellidoP" type="text">
-                    <label for="apellidoP">Apellido paterno</label>
-                </div>
-
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">person</i>
-                    <input id="apellidoM" type="text">
-                    <label for="apellidoM">Apellido materno</label>
-                </div>
-
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">cake</i>
-                    <input id="nacimiento" type="text" class="datepicker">
-                    <label for="nacimiento">Fecha de nacimiento</label>
-                </div>
-
-            </div>
-            <div class="modal-footer">
-                <a href="#!" class="modal-close waves-effect waves-green btn-flat">ACTUALIZAR</a>
+        <div class="row">
+            <div class="input-field col l12 s12">
+                <i class="material-icons prefix">lock</i>
+                <input id="con3" type="text">
+                <label for="con3">Confirmar nueva contraseña</label>
             </div>
         </div>
-        <div id="modal3" class="modal">
-            <div class="modal-content">
-                <h4>ACTUALIZAR CONTRASEÑA</h4>
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">lock_outline</i>
-                    <input id="contrasenaActual" type="password">
-                    <label for="contrasenaActual">Contraseña Actual</label>
-                </div>
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">https</i>
-                    <input id="contrasenaNueva" type="password">
-                    <label for="contrasenaNueva">Contraseña nueva</label>
-                </div>
-                <div class="input-field col s6">
-                    <i class="material-icons prefix">verified_user</i>
-                    <input id="contrasenaNueva2" type="password">
-                    <label for="contrasenaNueva2">Confirmar contraseña nueva</label>
-                </div>
 
-            </div>
-            <div class="modal-footer">
-                <a href="#!" class="modal-close waves-effect waves-green btn-flat">ACTUALIZAR</a>
-            </div>
-        </div>
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        <script src="js/navbar.js"></script>
-        <script src="js/modal.js"></script>
-        <script src="js/datepicker.js"></script>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/datepicker.js"></script>
 </body>
 
 </html>
