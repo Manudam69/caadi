@@ -93,26 +93,31 @@ li>img {
 .picker--focused .picker__day--selected {
     background-color: blue;
 }
-.container{
-    margin-top: 80px;
+#contenedor {
+    margin-top: 40px;
+}
+.row {
+    width: 400px;
 }
 
-.row{
-    width: 500px;
+
+
+#btn {
+    margin-top: 20px;
+    background-color: rgb(241, 166, 49);
 }
+#btn:hover {
+    background-color: rgb(242, 151, 9);
+}
+
 
 img,
-nav,.material-icons {
+nav,
+.material-icons {
     user-drag: none;
     user-select: none;
     -moz-user-select: none;
     -webkit-user-drag: none;
     -webkit-user-select: none;
     -ms-user-select: none;
-}
-
-@media(max-width:992px) {
-.row{
-    width: 100%;
-}
 }

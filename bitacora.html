@@ -84,16 +84,50 @@
                     </div>
                     <div class="col s10">
                         <p><b>Jhon Doe</b></p>
-                        <p>Email: ejemplo@email.com</p>
+                        <p>ID: 123456</p>
                         <p>Telefono: 123456789</p>
-                        <p>Fecha de nacimiento: 01 Ene 9999</p>
                         <p>Tipo de usuario: ********</p>
                         <p>Tiempo en CAADI: 00:00:00</p>
                         <p class="green-text">Usuario activado</p>
                         <p class="red-text">Usuario no activado</p>
                     </div>
                 </div>
+                <a class="right modal-trigger" href="#modal1">Editar mis datos</a>
             </div>
+        </div>
+    </div>
+
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>Datos personales</h4>
+            <div class="container">
+                <div class="row">
+                    <div class="input-field col s12">
+                       <i class="material-icons prefix">account_circle</i>
+                        <input placeholder="Placeholder" id="name" type="text" class="validate">
+                        <label for="name">Nombre</label>
+                    </div>
+                </div>
+                <div class="row">
+                  
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">account_circle</i>
+                        <input placeholder="Placeholder" id="lastname" type="text" class="validate">
+                        <label for="lastname">Apellidos</label>
+                    </div>
+                </div>
+                <div class="row">
+                   
+                    <div class="input-field col s12">
+                       <i class="material-icons prefix">phone</i>
+                        <input placeholder="Placeholder" id="tel" type="text" class="validate">
+                        <label for="tel">Telefono</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">CONFIRMAR</a>
         </div>
     </div>
 
@@ -135,6 +169,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <!-- Funcionamiento Navbar -->
     <script src="js/navbar.js"></script>
+    <script src="js/modal.js"></script>
 </body>
 
 </html>

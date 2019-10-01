@@ -81,3 +81,22 @@ nav,.material-icons {
     -webkit-user-select: none;
     -ms-user-select: none;
 }
+
+a{
+    color: rgb(0, 51, 116);
+}
+
+.input-field input:focus + label {
+    color: black !important;
+}
+
+/* label underline focus color */
+
+.row .input-field input:focus {
+    border-bottom: 1px solid rgb(16, 114, 239) !important;
+    -webkit-box-shadow: 0 1px 0 0 rgb(16, 114, 239) !important;
+    box-shadow: 0 1px 0 0 rgb(16, 114, 239) !important
+}
+.input-field .prefix.active {
+    color: rgb(16, 114, 239);
+}
