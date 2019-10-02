@@ -85,6 +85,29 @@ button{
     margin-top: 0;
     margin-bottom: 5px;
 }
+
+/* label focus color */
+
+.input-field input:focus + label {
+    color: rgb(0, 0, 0) !important;
+}
+
+/* label underline focus color */
+
+.row .input-field input:focus {
+    border-bottom: 1px solid rgb(0, 0, 0) !important;
+    -webkit-box-shadow: 0 1px 0 0 rgb(0, 0, 0) !important;
+    box-shadow: 0 1px 0 0 rgb(0, 0, 0) !important
+}
+.input-field .prefix.active {
+    color: rgb(0, 0, 0);
+}
+
+.btn{
+    background-color: rgb(241, 166, 49) !important;
+}
+
+
 #descargar {
     color: white;
     background-color: rgb(241, 166, 49);
@@ -94,4 +117,25 @@ button{
     color: white;
     border-radius: 50px;
     padding: 3px;
+}
+
+
+[type="radio"]:checked+span:after,
+[type="radio"].with-gap:checked+span:after {
+    background-color: rgb(16, 114, 239);
+}
+[type="radio"]:checked+span:after,
+[type="radio"].with-gap:checked+span:before,
+[type="radio"].with-gap:checked+span:after {
+    border: 2px solid rgb(16, 114, 239);
+}
+
+img,
+nav,.material-icons {
+    user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }

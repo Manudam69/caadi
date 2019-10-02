@@ -122,6 +122,11 @@ button {
     border-radius: 50px;
     padding: 3px;
 }
+
+.btn{
+    background-color: rgb(241, 166, 49) !important;
+}
+
 .pagination > .active > a,
 .pagination > .active > span,
 .pagination > .active > a:hover,

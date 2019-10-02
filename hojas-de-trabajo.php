@@ -15,6 +15,7 @@ if(!$conexion){
 ?>
     <!DOCTYPE html>
     <html lang="en">
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
@@ -94,88 +95,111 @@ if(!$conexion){
             <li class="tab"><a href="#tab2" class="white-text">Libreria</a></li>
             <li class="tab"><a href="#tab3" class="white-text">Historial</a></li>
         </ul>
-        
-        
+
+
         <div id="tab1" class="col s12">
-        <div class="container">
-            <div class="row">
-                <div class="input-field col l3 m6 s12">
-                    <i class="material-icons prefix">book</i>
-                    <input id="pendientes" type="text" class="validate">
-                    <label for="pendientes">Titulo</label>
+            <div class="container">
+                <div class="row">
+                    <div class="input-field col l3 m6 s12">
+                        <i class="material-icons prefix">book</i>
+                        <input id="pendientes" type="text" class="validate">
+                        <label for="pendientes">Titulo</label>
+                    </div>
+
+                    <div class="col l3 m6 s12">
+                        <label>Tipo</label>
+                        <select class="browser-default">
+                            <option value="" selected>Cualquier tipo</option>
+                            <option value="1">Audio</option>
+                            <option value="2">Gramática</option>
+                            <option value="3">Lectura</option>
+                            <option value="4">Video</option>
+                            <option value="5">Vocabulario</option>
+                            <option value="6">Escritura</option>
+                        </select>
+                    </div>
+
+                    <div class="col l3 m7 s12">
+                        <label>Idioma</label>
+                        <select class="browser-default">
+                            <option value="" selected>Cualquier idioma</option>
+                            <option value="1">Japonés</option>
+                            <option value="2">Inglés</option>
+                            <option value="3">Español</option>
+                            <option value="4">Alemán</option>
+                            <option value="5">Italiano</option>
+                            <option value="6">Francés</option>
+                            <option value="7">Portugués</option>
+                            <option value="8">Ruso</option>
+                        </select>
+                    </div>
+
+                    <div class="col l3 m5 s12">
+                        <label>Nivel</label>
+                        <select class="browser-default">
+                            <option value="" selected>Cualquier nivel</option>
+                            <option value="1">1-2</option>
+                            <option value="2">3-4</option>
+                            <option value="3">5 +</option>
+                        </select>
+                    </div>
                 </div>
 
-                <div class="col l3 m6 s12">
-                    <label>Tipo</label>
-                    <select class="browser-default">
-                        <option value="" selected>Cualquier tipo</option>
-                        <option value="1">Audio</option>
-                        <option value="2">Gramática</option>
-                        <option value="3">Lectura</option>
-                        <option value="4">Video</option>
-                        <option value="5">Vocabulario</option>
-                        <option value="6">Escritura</option>
-                    </select>
+                <div class="row">
+                    <div class="col m12 s12 center">
+                        <button class="btn waves-effect waves-light" type="submit" name="action">Buscar
+                            <i class="material-icons right">search</i>
+                        </button>
+                    </div>
                 </div>
 
-                <div class="col l3 m7 s12">
-                    <label>Idioma</label>
-                    <select class="browser-default">
-                        <option value="" selected>Cualquier idioma</option>
-                        <option value="1">Japonés</option>
-                        <option value="2">Inglés</option>
-                        <option value="3">Español</option>
-                        <option value="4">Alemán</option>
-                        <option value="5">Italiano</option>
-                        <option value="6">Francés</option>
-                        <option value="7">Portugués</option>
-                        <option value="8">Ruso</option>
-                    </select>
+                <ul class="collection">
+                    <!-- Repetir los li para agregar un nuevo elemento -->
+                    <li class="collection-item avatar">
+                        <a href="#!" class="left"><i class="material-icons circle z-depth-1" id="descargar">file_download</i></a>
+                        <span class="title">Nombre</span>
+                        <a href="#modal1" class="right modal-trigger"><i class="material-icons contestar z-depth-1">file_upload</i></a>
+                        <p>Idioma, Nivel
+                            <br> Tipo
+                            <a href="#!" class="right"><i class="material-icons eliminar z-depth-1">delete</i></a>
+                        </p>
+                    </li>
+                </ul>
+                
+                <div id="modal1" class="modal">
+                    <div class="modal-content">
+                        <h4>Subir hoja de trabajo resuelta</h4>
+                        <div class="container">
+                            <form action="#">
+                                <div class="file-field input-field">
+                                    <div class="btn">
+                                        <span>Archivo</span>
+                                        <input type="file">
+                                    </div>
+                                    <div class="file-path-wrapper">
+                                        <input class="file-path validate" type="text">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">ENVIAR</a>
+                    </div>
                 </div>
 
-                <div class="col l3 m5 s12">
-                    <label>Nivel</label>
-                    <select class="browser-default">
-                        <option value="" selected>Cualquier nivel</option>
-                        <option value="1">1-2</option>
-                        <option value="2">3-4</option>
-                        <option value="3">5 +</option>
-                    </select>
-                </div>
+                <ul class="pagination center">
+                    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+                    <li class="active"><a href="#!">1</a></li>
+                    <li class="waves-effect"><a href="#!">2</a></li>
+                    <li class="waves-effect"><a href="#!">3</a></li>
+                    <li class="waves-effect"><a href="#!">4</a></li>
+                    <li class="waves-effect"><a href="#!">5</a></li>
+                    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+                </ul>
+    
             </div>
-
-            <div class="row">
-                <div class="col m12 s12 center">
-                    <button class="btn waves-effect waves-light" type="submit" name="action">Buscar
-                        <i class="material-icons right">search</i>
-                    </button>
-                </div>
-            </div>
-
-            <ul class="collection">
-                <!-- Repetir los li para agregar un nuevo elemento -->
-                <li class="collection-item avatar">
-                    <a href="#!" class="left"><i class="material-icons circle z-depth-1" id="descargar">file_download</i></a>
-                    <span class="title">Nombre</span>
-                    <a href="#!" class="right"><i class="material-icons contestar z-depth-1">file_upload</i></a>
-                    <p>Idioma, Nivel
-                        <br> Tipo
-                        <a href="#!" class="right"><i class="material-icons eliminar z-depth-1">delete</i></a>
-                    </p>
-                </li>
-            </ul>
-
-            <ul class="pagination center">
-                <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-                <li class="active"><a href="#!">1</a></li>
-                <li class="waves-effect"><a href="#!">2</a></li>
-                <li class="waves-effect"><a href="#!">3</a></li>
-                <li class="waves-effect"><a href="#!">4</a></li>
-                <li class="waves-effect"><a href="#!">5</a></li>
-                <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
-            </ul>
         </div>
-    </div>
 
 
         <div id="tab2" class="col s12">

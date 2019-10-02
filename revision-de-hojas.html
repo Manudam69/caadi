@@ -126,27 +126,67 @@
                 </button>
             </div>
         </div>
-        
-         <ul class="collection">
+
+        <ul class="collection">
             <li class="collection-item avatar">
                 <i class="material-icons circle red">chrome_reader_mode</i>
-                <a href="#!" class="right"><i class="material-icons contestar z-depth-1">file_upload</i></a>
+                <a href="#modal1" class="right modal-trigger"><i class="material-icons contestar z-depth-1">file_upload</i></a>
                 <span class="title">Nombre</span>
-                
+
                 <p>ID revisión, ID Alumno
                     <br> Idioma, Nivel , Tipo
                     <a href="#!" class="right"><i class="material-icons descargar z-depth-1">file_download</i></a>
                 </p>
-               
+
             </li>
         </ul>
-        
-        
+
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <h4>Subir revisión de hoja de trabajo</h4>
+                <div class="container">
+                    <div class="row center">
+                        <div class="col l6">
+                            <p>
+                                <label>
+                                    <input name="group1" type="radio" checked />
+                                    <span>Aprobada</span>
+                                </label>
+                            </p>
+                        </div>
+                        <div class="col l6">
+                            <p>
+                                <label>
+                                    <input name="group1" type="radio" checked />
+                                    <span>Rechazada</span>
+                                </label>
+                            </p>
+                        </div>
+                    </div>
+                    <form action="#">
+                        <div class="file-field input-field">
+                            <div class="btn">
+                                <span>Archivo</span>
+                                <input type="file">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">ENVIAR</a>
+            </div>
+        </div>
+
     </div>
-    
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <!-- Funcionamiento Navbar -->
     <script src="js/navbar.js"></script>
+    <script src="js/modal.js"></script>
 </body>
 
 </html>
