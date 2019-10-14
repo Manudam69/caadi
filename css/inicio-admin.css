@@ -68,3 +68,23 @@ li>img {
 }
 
 /* Fin de Navbar*/
+
+#search:focus{
+    color:black !important;
+}
+#search{
+    color:white !important;
+}
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+    background-color: rgb(0, 51, 116); //background color of buttons. Blue by default
+    border-color: your white; // color or borders. Also blue by default
+    color: white; // text color of buttons which is white by default
+    cursor: pointer;
+    z-index: 2;
+}
