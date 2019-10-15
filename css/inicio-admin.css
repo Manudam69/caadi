@@ -88,3 +88,13 @@ li>img {
     cursor: pointer;
     z-index: 2;
 }
+
+img,
+nav,.material-icons,.sidenav,.pagination {
+    user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
