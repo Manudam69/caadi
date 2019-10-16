@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Activación - CAADI</title>
+    <title>Toma de lista - CAADI</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/favicon.png">
     <!--Google Icon Font-->
@@ -17,13 +17,14 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
     <!-- CSS -->
-    <link rel="stylesheet" href="css/activacion.css">
+    <link rel="stylesheet" href="css/control-de-clubs.css">
 </head>
 
 <body>
     <header>
         <nav>
             <div class="nav-wrapper row">
+
                 <div class="nav-wrapper col l9 s2">
                     <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a>
                     <a class="brand-logo center hide-on-med-and-down" href="./inicio-admin.html"><img src="images/navbar-logo.png" class="responsive-img" width="80"></a>
@@ -37,6 +38,7 @@
                 </form>
             </div>
         </nav>
+
         <ul id="slide-out" class="sidenav">
             <li>
                 <div class="user-view">
@@ -49,9 +51,9 @@
                 </div>
             </li>
             <li><a href="inicio-admin.html"><i class="material-icons">home</i>Inicio</a></li>
-            <li class="active"><a href="activacion.html"><i class="material-icons">verified_user</i>Activación de CAADI</a></li>
+            <li><a href="activacion.html"><i class="material-icons">verified_user</i>Activación de CAADI</a></li>
             <li><a href="control-asesorias.html"><i class="material-icons">group</i>Asesorias</a></li>
-            <li><a href="control-de-clubs.html"><i class="material-icons">record_voice_over</i>Clubs de conversación</a></li>
+            <li class="active"><a href="control-de-clubs.html"><i class="material-icons">record_voice_over</i>Clubs de conversación</a></li>
             <li><a href="#!"><i class="material-icons">assignment</i>Cursos de idiomas</a></li>
             <li><a href="#!"><i class="material-icons">compare_arrows</i>Registro Entrada/Salida</a></li>
             <li><a href="#!"><i class="material-icons">content_copy</i>Hojas de trabajo</a></li>
@@ -63,68 +65,37 @@
             </li>
             <li><a class="waves-effect" href="#!"><i class="material-icons">exit_to_app</i>Cerrar sesión</a></li>
         </ul>
+        
+        <div class="container">
+           <h4 class="center">TOMA DE LISTA DEL CLUB</h4>
+            <ul class="collection">
+                <li class="collection-item avatar">
+                    <i class="material-icons circle red">person</i>
+                    <div class="row alumno">
+                        <div class="col m2 s12">
+                            ID: 123456
+                        </div>
+                        <div class="col m5 s12">
+                            Nombre: Jhon Doe
+                        </div>
+                        <div class="col m2 s6">
+                            NIVEL: X-x
+                        </div>
+                        <div class="col m3 s6">
+                            <label>
+                                <input type="checkbox"/>
+                                <span>Asitencia</span>
+                            </label>
+
+                        </div>
+                    </div>
+
+                </li>
+            </ul>
+
+        </div>
+
     </header>
-
-    <div class="container">
-        <h4 class="center">ACTIVACIÓN DE CAADI</h4>
-        <div class="row">
-            <div class="input-field col l3 m3 s12">
-                <i class="material-icons prefix">account_box</i>
-                <input id="id" type="number">
-                <label for="id">ID</label>
-            </div>
-            <div class="col l3 m3 s12">
-                <label>Tipo de alumno</label>
-                <select class="browser-default">
-                    <option value="" selected disabled>SELECCIONAR</option>
-                    <option value="1">EXTENSIÓN</option>
-                    <option value="2">DAFI</option>
-                    <option value="3">EXTERNOS</option>
-                    <option value="4">LDII</option>
-                    <option value="5">FLE-ELE</option>
-                </select>
-            </div>
-
-            <div class="input-field col l6 m6 s12">
-                <i class="material-icons prefix">account_circle</i>
-                <input id="name" type="text">
-                <label for="name">Nombre(s)</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="input-field col l6 m6 s12">
-                <i class="material-icons prefix">person</i>
-                <input id="lastname1" type="text">
-                <label for="lastname1">Apellido Paterno</label>
-            </div>
-            <div class="input-field col l6 m6 s12">
-                <i class="material-icons prefix">person</i>
-                <input id="lastname2" type="text">
-                <label for="lastname2">Apellido Materno</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="input-field col l4 m4 s12 offset-l4">
-                <i class="material-icons prefix">phone</i>
-                <input id="tel" type="tel">
-                <label for="tel">Telefono</label>
-            </div>
-        </div>
-        <div class="row center">
-            <img src="images/fondo.jpg" class="responsive-img" width="500">
-        </div>
-        <div class="row center">
-            <a class="waves-effect waves-light btn-large boton">Tomar foto</a>
-        </div>
-        <div class="row center activacion">
-            <div class="col m6 s6"> <a class="waves-effect waves-light btn-large red">CANCELAR</a></div>
-            <div class="col m6 s6"> <a class="waves-effect waves-light btn-large green">ACTIVAR</a></div>
-
-        </div>
-    </div>
-
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <!-- Funcionamiento Navbar -->
