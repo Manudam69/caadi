@@ -1,3 +1,31 @@
+<?php 
+require("php/conexion.php");
+session_start();
+$varsesion = $_SESSION['usuario'];
+$nivelsesion = $_SESSION['tipo_persona'];
+$id_alumno = $_SESSION['id'];
+$nivel = $_SESSION['nivel'];
+    if($varsesion == null ||  $varsesion = '' || $nivelsesion != '0'){
+        echo 'No tiene autorizacion';
+        header("Location:index.php");
+    }
+$conexion=connect();
+if(!$conexion){
+    echo "Error. SIn conexion a la base de datos";
+    echo "Errno de depuracion ".mysqli_connect_errno().PHP_EOL;
+    echo "Error de depuracion ".mysqli_connect_error().PHP_EOL;
+} else {
+    $query = $conexion->query("SELECT alumno.id_alumno AS id, persona.nombre AS nombre FROM alumno JOIN persona WHERE alumno.id_persona = persona.id_persona AND alumno.id_persona =  '$id_alumno'");
+    $datos = mysqli_fetch_array($query);
+    $nombre = $datos['nombre'];
+    $id = $datos['id'];
+
+    //numeros
+    $query_club = $conexion->query("SELECT COUNT(id_club) AS numero_clubs FROM alumno_club JOIN alumno WHERE alumno_club.id_alumno = '$id'");
+    $datos = mysqli_fetch_array($query_club);
+    $num_clubs = $datos['numero_clubs'];
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +33,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Bitácora - CAADI</title>
+    <title>Inicio</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/favicon.png">
     <!--Google Icon Font-->
@@ -24,11 +52,11 @@
 <body>
     <header>
         <ul id="clubs" class="dropdown-content">
-            <li><a href="./clubs-de-converscion.php"><i class="material-icons right">record_voice_over</i>Clubs de conversación</a></li>
+            <li><a href="./clubs-de-converscion.html"><i class="material-icons right">record_voice_over</i>Clubs de conversación</a></li>
             <li><a href="./calificar-clubs.html"><i class="material-icons right">star</i>Calificar Clubs</a></li>
         </ul>
         <ul id="perfil" class="dropdown-content">
-            <li><a href="./mi-perfil.html"><i class="material-icons right">settings</i>Configuración de Perfil</a></li>
+            <li><a href="./mi-perfil.php"><i class="material-icons right">settings</i>Contraseñas</a></li>
             <li><a href="#!"><i class="fas fa-sign-out-alt right"></i>Cerrar Sesión</a></li>
         </ul>
         <nav>
@@ -38,11 +66,11 @@
                 <a class="hide-on-large-only brand-logo" href="./inicio.php"><img src="images/navbar-logo.png" class="responsive-img" width="80"></a>
                 <ul class="right hide-on-med-and-down elementos">
                     <li><a href="./inicio.php"><i class="material-icons right">home</i>Inicio</a></li>
-                    <li><a href="./asesorias.html"><i class="material-icons right">group</i>Asesorias</a></li>
-                    <li><a href="./sitios-de-interes.html"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
+                    <li><a href="./asesorias.php"><i class="material-icons right">group</i>Asesorias</a></li>
+                    <li><a href="./sitios-de-interes.php?cuenta=0"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
                     <li><a class="dropdown-trigger" href="#!" data-target='clubs'>Clubs<i class="material-icons right">arrow_drop_down</i></a></li>
                     <li><a href="./hojas-de-trabajo.php"><i class="material-icons right">content_copy</i>Hojas de trabajo</a></li>
-                    <li class="active"><a href="./bitacora.html"><i class="material-icons right">book</i>Bitácora</a></li>
+                    <li class="active"><a href="./bitacora.php"><i class="material-icons right">book</i>Bitácora</a></li>
                     <li><a class="dropdown-trigger" href="#!" data-target='perfil'>Mi perfil<i class="material-icons right">account_circle</i></a></li>
                 </ul>
             </div>
@@ -60,13 +88,13 @@
                 </div>
             </li>
             <li><a href="./inicio.php"><i class="material-icons">home</i> Inicio</a></li>
-            <li><a href="./asesorias.html"><i class="material-icons">group</i> Asesorias</a></li>
-            <li><a href="./sitios-de-interes.html"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
+            <li><a href="./asesorias.php"><i class="material-icons">group</i> Asesorias</a></li>
+            <li><a href="./sitios-de-interes.php?cuenta=0"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
             <li><a href="./clubs-de-converscion.php"><i class="material-icons">record_voice_over</i> Clubs de conversación</a></li>
             <li><a href="./calificar-clubs.html"><i class="material-icons">star</i> Calificar Clubs</a></li>
-            <li><a href="./hojas-de-trabajo.html"><i class="material-icons">content_copy</i> Hojas de trabajo</a></li>
+            <li><a href="./hojas-de-trabajo.php"><i class="material-icons">content_copy</i> Hojas de trabajo</a></li>
             <li class="active"><a href="./bitacora.html"><i class="material-icons">book</i> Bitácora</a></li>
-            <li><a href="./mi-perfil.html"><i class="material-icons">settings</i> Configuración de Perfil</a></li>
+            <li><a href="./mi-perfil.php?id=0"><i class="material-icons">settings</i> Contraseñas</a></li>
             <li>
                 <div class="divider"></div>
             </li>
@@ -83,51 +111,17 @@
                         <img src="images/usuario-perfil.jpg" alt="" class="circle responsive-img">
                     </div>
                     <div class="col s10">
-                        <p><b>Jhon Doe</b></p>
-                        <p>ID: 123456</p>
+                        <p><b><?php echo $nivel?></b></p>
+                        <p>Email: ejemplo@email.com</p>
                         <p>Telefono: 123456789</p>
+                        <p>Fecha de nacimiento: 01 Ene 9999</p>
                         <p>Tipo de usuario: ********</p>
                         <p>Tiempo en CAADI: 00:00:00</p>
                         <p class="green-text">Usuario activado</p>
                         <p class="red-text">Usuario no activado</p>
                     </div>
                 </div>
-                <a class="right modal-trigger" href="#modal1">Editar mis datos</a>
             </div>
-        </div>
-    </div>
-
-    <div id="modal1" class="modal">
-        <div class="modal-content">
-            <h4>Datos personales</h4>
-            <div class="container">
-                <div class="row">
-                    <div class="input-field col s12">
-                       <i class="material-icons prefix">account_circle</i>
-                        <input placeholder="Placeholder" id="name" type="text" class="validate">
-                        <label for="name">Nombre</label>
-                    </div>
-                </div>
-                <div class="row">
-                  
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">account_circle</i>
-                        <input placeholder="Placeholder" id="lastname" type="text" class="validate">
-                        <label for="lastname">Apellidos</label>
-                    </div>
-                </div>
-                <div class="row">
-                   
-                    <div class="input-field col s12">
-                       <i class="material-icons prefix">phone</i>
-                        <input placeholder="Placeholder" id="tel" type="text" class="validate">
-                        <label for="tel">Telefono</label>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat">CONFIRMAR</a>
         </div>
     </div>
 
@@ -145,7 +139,7 @@
 
             <tbody>
                 <tr>
-                    <td>0</td>
+                    <td><?php echo $num_clubs?> </td>
                     <td>0</td>
                     <td>0</td>
                     <td>0</td>
@@ -169,7 +163,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <!-- Funcionamiento Navbar -->
     <script src="js/navbar.js"></script>
-    <script src="js/modal.js"></script>
 </body>
 
 </html>

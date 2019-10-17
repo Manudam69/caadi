@@ -1,21 +1,21 @@
 <?php
-$server = "localhost";
-$password = "12345";
-$user = "root";
-$db = "caadi";
-
-$connection = mysqli_connect($server,$user,$password,$db);
-if(!$connection){
+include("php/conexion.php");
+session_start();
+$varsesion = $_SESSION['usuario'];
+$nivelsesion = $_SESSION['tipo_persona'];
+    if($varsesion == null ||  $varsesion = '' || $nivelsesion != '0'){
+        header("Location:index.php");
+    }
+$conexion = connect();
+if(!$conexion){
     echo "Error. Sin conexion a la base de datos";
     echo "Errno de depuracion ".mysqli_connect_errno().PHP_EOL;
     echo "Error de depuracion ".mysqli_connect_error().PHP_EOL;
     exit;
 }else{
-
-    //---------CAMBIAR EL NUMERO EN LA QUERY POR EL ID DEL USUARIO ACTIVO MEDIANTE SESION.------------
-
-    $query = "SELECT a.id_club, d.nombre as asesor, b.fecha, f.nombre as idioma from alumno_club a join club b join asesor c join persona d join nivel e join idioma f where a.id_alumno = 1 and a.id_club = b.id_club and b.id_asesor = c.id_asesor and c.id_persona = d.id_persona and b.id_nivel = e.id_nivel and e.id_idioma = f.id_idioma;";
-    $clubs_reservados = mysqli_query($connection, $query);
+    $id_alumno = $_SESSION['id_alumno'];
+    $query = "SELECT a.id_club, d.nombre as asesor, b.fecha, f.nombre as idioma from alumno_club a join club b join asesor c join persona d join nivel e join idioma f where a.id_alumno = '$id_alumno' and a.id_club = b.id_club and b.id_asesor = c.id_asesor and c.id_persona = d.id_persona and b.id_nivel = e.id_nivel and e.id_idioma = f.id_idioma;";
+    $clubs_reservados = $conexion->query($query);
 }
 ?>
 <!DOCTYPE html>
@@ -47,8 +47,8 @@ if(!$connection){
             <li><a href="./calificar-clubs.html"><i class="material-icons right">star</i>Calificar Clubs</a></li>
         </ul>
         <ul id="perfil" class="dropdown-content">
-            <li><a href="./mi-perfil.html"><i class="material-icons right">settings</i>Configuración de Perfil</a></li>
-            <li><a href="#!"><i class="fas fa-sign-out-alt right"></i>Cerrar Sesión</a></li>
+            <li><a href="./mi-perfil.php?id=0"><i class="material-icons right">settings</i>Contraseñas</a></li>
+            <li><a href="php/logout.php"><i class="fas fa-sign-out-alt right"></i>Cerrar Sesión</a></li>
         </ul>
         <nav>
             <div class="nav-wrapper">
@@ -57,11 +57,11 @@ if(!$connection){
                 <a class="hide-on-large-only brand-logo" href="./inicio.php"><img src="images/navbar-logo.png" class="responsive-img" width="80"></a>
                 <ul class="right hide-on-med-and-down elementos">
                     <li class="active"><a href="./inicio.php"><i class="material-icons right">home</i>Inicio</a></li>
-                    <li><a href="./asesorias.html"><i class="material-icons right">group</i>Asesorias</a></li>
-                    <li><a href="./sitios-de-interes.html"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
+                    <li><a href="./asesorias.php"><i class="material-icons right">group</i>Asesorias</a></li>
+                    <li><a href="./sitios-de-interes.php?cuenta=0"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
                     <li><a class="dropdown-trigger" href="#!" data-target='clubs'>Clubs<i class="material-icons right">arrow_drop_down</i></a></li>
                     <li><a href="./hojas-de-trabajo.php"><i class="material-icons right">content_copy</i>Hojas de trabajo</a></li>
-                    <li><a href="./bitacora.html"><i class="material-icons right">book</i>Bitácora</a></li>
+                    <li><a href="./bitacora.php"><i class="material-icons right">book</i>Bitácora</a></li>
                     <li><a class="dropdown-trigger" href="#!" data-target='perfil'>Mi perfil<i class="material-icons right">account_circle</i></a></li>
                 </ul> 
             </div>
@@ -79,17 +79,17 @@ if(!$connection){
                 </div>
             </li>
             <li class="active"><a href="./inicio.php"><i class="material-icons">home</i> Inicio</a></li>
-            <li><a href="./asesorias.html"><i class="material-icons">group</i> Asesorias</a></li>
-            <li><a href="./sitios-de-interes.html"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
+            <li><a href="./asesorias.php"><i class="material-icons">group</i> Asesorias</a></li>
+            <li><a href="./sitios-de-interes.php?cuenta=0"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
             <li><a href="./clubs-de-converscion.php"><i class="material-icons">record_voice_over</i> Clubs de conversación</a></li>
-            <li><a href="./calificar-clubs.html"><i class="material-icons">star</i> Calificar Clubs</a></li>
+            <li><a href="./calificar-clubs.php"><i class="material-icons">star</i> Calificar Clubs</a></li>
             <li><a href="./hojas-de-trabajo.php"><i class="material-icons">content_copy</i> Hojas de trabajo</a></li>
-            <li><a href="./bitacora.html"><i class="material-icons">book</i> Bitácora</a></li>
-            <li><a href="./mi-perfil.html"><i class="material-icons">settings</i> Configuración de Perfil</a></li>
+            <li><a href="./bitacora.php"><i class="material-icons">book</i> Bitácora</a></li>
+            <li><a href="./mi-perfil.php?id=0"><i class="material-icons">settings</i> Contraseñas</a></li>
             <li>
                 <div class="divider"></div>
             </li>
-            <li><a href="#!"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+            <li><a href="php/logout.php"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
             <li class="center-align"><img src="images/logo.png" class="responsive-img" width="80%;"></li>
         </ul>
     </header>
@@ -105,7 +105,7 @@ if(!$connection){
                 <?php while($club_reservado = mysqli_fetch_array($clubs_reservados)){
                     $idC = $club_reservado['id_club'];
                     $fecha = $club_reservado['fecha'];
-                    $row = mysqli_query($connection,"SELECT dayname('$fecha') as fecha;");
+                    $row = $conexion->query("SELECT dayname('$fecha') as fecha;");
                     $dia = mysqli_fetch_assoc($row);
                     switch ($dia['fecha']){
                         case 'Monday': $dia = 'Lunes';break;
@@ -117,7 +117,7 @@ if(!$connection){
                         case 'Sunday': $dia = 'Domingo';break;
                         default: $dia = '';
                     }
-                    $row = mysqli_query($connection,"SELECT date_format('$fecha','%d-%m-%Y') as fecha;");
+                    $row = $conexion->query("SELECT date_format('$fecha','%d-%m-%Y') as fecha;");
                     $fecha = mysqli_fetch_assoc($row);
                 ?>
                 <li class="collection-item avatar">

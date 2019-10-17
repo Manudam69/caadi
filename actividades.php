@@ -1,3 +1,18 @@
+<?php 
+require("php/conexion.php");
+$conexion = connect();
+session_start();
+$id_alumno = $_GET['id'];
+$_SESSION['id_alumno'] = $id_alumno;
+$query = "select club.fecha,idioma.nombre as idioma,nivel.nivel,persona.nombre as asesor from club,nivel,idioma,asesor,persona,alumno_club 
+          where club.id_club=alumno_club.id_club and nivel.id_nivel=club.id_nivel and idioma.id_idioma=nivel.id_idioma 
+          and asesor.id_persona=persona.id_persona and alumno_club.id_alumno=$id_alumno";
+$clubs = $conexion->query($query);
+$query_hojas = "select ht.id_hoja_trabajo,ht.tema,ht.area,idioma.nombre,nivel.nivel from hoja_trabajo ht,idioma,nivel,alumno_hoja_trabajo 
+                where nivel.id_nivel=ht.id_nivel and idioma.id_idioma=nivel.id_idioma and ht.id_hoja_trabajo = alumno_hoja_trabajo.id_hoja_trabajo 
+                and alumno_hoja_trabajo.id_alumno=$id_alumno";
+$hojas = $conexion->query($query_hojas);
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -23,7 +38,7 @@
 <body>
     <header>
         <ul id="perfil" class="dropdown-content">
-            <li><a href="./mi-perfil.html"><i class="material-icons right">settings</i>Configuración de Perfil</a></li>
+            <li><a href="./mi-perfil.php?id=2"><i class="material-icons right">settings</i>Contraseñas</a></li>
             <li><a href="#!"><i class="fas fa-sign-out-alt right"></i>Cerrar Sesión</a></li>
         </ul>
         <nav>
@@ -32,8 +47,8 @@
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <a class="hide-on-large-only brand-logo" href="./inicio.php"><img src="images/navbar-logo.png" class="responsive-img" width="80"></a>
                 <ul class="right hide-on-med-and-down elementos">
-                    <li><a href="./inicio.php"><i class="material-icons right">home</i>Inicio</a></li>
-                    <li><a href="./sitios-de-interes.html"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
+                    <li><a href="./inicio-maestro.php"><i class="material-icons right">home</i>Inicio</a></li>
+                    <li><a href="./sitios-de-interes.php?cuenta=2"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
                     <li><a class="dropdown-trigger" href="#!" data-target='perfil'>Mi perfil<i class="material-icons right">arrow_drop_down</i></a></li>
                 </ul>
             </div>
@@ -51,8 +66,8 @@
                 </div>
             </li>
             <li><a href="./inicio.php"><i class="material-icons">home</i> Inicio</a></li>
-            <li><a href="./sitios-de-interes.html"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
-            <li><a href="./mi-perfil.html"><i class="material-icons">settings</i> Configuración de Perfil</a></li>
+            <li><a href="./sitios-de-interes.php?cuenta=2"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
+            <li><a href="./mi-perfil.php?id=2"><i class="material-icons">settings</i> Contraseñas</a></li>
             <li>
                 <div class="divider"></div>
             </li>
@@ -67,30 +82,43 @@
     </ul>
 
     <div id="tab1" class="col s12">
-        <div class="container">
-            <ul class="collection">
-                <li class="collection-item avatar">
-                    <span class="title"><b>Asesor</b></span>
-                    <p>Fecha:
-                        <br>
-                    </p>Idioma: ***, Nivel: **
-                </li>
-            </ul>
-        </div>
+        <?php 
+            while ($row = mysqli_fetch_array($clubs)){
+        ?>
+                <div class="container">
+                    <ul class="collection">
+                        <li class="collection-item avatar">
+                            <span class="title"><b>Asesor del club: <?php echo $row['asesor']; ?></b></span>
+                            <p>Fecha: <?php echo $row['fecha']; ?>
+                                <br>
+                            </p>Idioma: <?php echo $row['idioma']; ?> , Nivel: <?php echo $row['nivel']; ?>
+                        </li>
+                    </ul>
+                </div>
+        <?php        
+            }
+        ?>
+
+        
     </div>
     <div id="tab2" class="col s12">
-        <div class="container">
-            <ul class="collection">
-                <li class="collection-item avatar">
-                    <span class="title"><b>Nombre: </b></span>
-                    <p>Tipo:
-                        <br>
-                    </p>Idioma: ***, Nivel: **
-                    <a href="examen.php" class="secondary-content"><i class="material-icons">open_in_new</i></a>
-                </li>
-
-            </ul>
-        </div>
+        <?php 
+            while($row = mysqli_fetch_array($hojas)){
+        ?>
+                <div class="container">
+                    <ul class="collection">
+                        <li class="collection-item avatar">
+                            <span class="title"><b>Nombre: <?php echo $row['tema']; ?> </b></span>
+                            <p>Tipo: <?php echo $row['area']; ?>
+                                <br>
+                            </p>Idioma: <?php echo $row['nombre']; ?>, Nivel: <?php echo $row['nivel']; ?>
+                            <a href="examen.php?id=<?php echo $row['id_hoja_trabajo']; ?>" class="secondary-content"><i class="material-icons">open_in_new</i></a>
+                        </li>
+                    </ul>
+                </div>
+        <?php
+            }
+        ?>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

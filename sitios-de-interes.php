@@ -21,59 +21,118 @@
 </head>
 
 <body>
-    <header>
-        <ul id="clubs" class="dropdown-content">
-            <li><a href="./clubs-de-converscion.php"><i class="material-icons right">record_voice_over</i>Clubs de conversación</a></li>
-            <li><a href="./calificar-clubs.html"><i class="material-icons right">star</i>Calificar Clubs</a></li>
-        </ul>
-        <ul id="perfil" class="dropdown-content">
-            <li><a href="./mi-perfil.html"><i class="material-icons right">settings</i>Configuración de Perfil</a></li>
-            <li><a href="#!"><i class="fas fa-sign-out-alt right"></i>Cerrar Sesión</a></li>
-        </ul>
-        <nav>
-            <div class="nav-wrapper">
-                <a class="brand-logo hide-on-med-and-down logo" href="./inicio.php"><img src="images/navbar-logo.png" class="responsive-img" width="85"></a>
-                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
-                <a class="hide-on-large-only brand-logo" href="./inicio.php"><img src="images/navbar-logo.png" class="responsive-img" width="80"></a>
-                <ul class="right hide-on-med-and-down elementos">
-                    <li><a href="./inicio.php"><i class="material-icons right">home</i>Inicio</a></li>
-                    <li><a href="./asesorias.html"><i class="material-icons right">group</i>Asesorias</a></li>
-                    <li class="active"><a href="./sitios-de-interes.html"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
-                    <li><a class="dropdown-trigger" href="#!" data-target='clubs'>Clubs<i class="material-icons right">arrow_drop_down</i></a></li>
-                    <li><a href="./hojas-de-trabajo.php"><i class="material-icons right">content_copy</i>Hojas de trabajo</a></li>
-                    <li><a href="./bitacora.html"><i class="material-icons right">book</i>Bitácora</a></li>
-                    <li><a class="dropdown-trigger" href="#!" data-target='perfil'>Mi perfil<i class="material-icons right">account_circle</i></a></li>
-                </ul>
-            </div>
-        </nav>
+    <?php
+        $cuenta = $_GET['cuenta']; 
+        switch ($cuenta){
+            case 0:
+    ?>
+                <header>
+                    <ul id="clubs" class="dropdown-content">
+                        <li><a href="./clubs-de-converscion.php"><i class="material-icons right">record_voice_over</i>Clubs de conversación</a></li>
+                        <li><a href="./calificar-clubs.html"><i class="material-icons right">star</i>Calificar Clubs</a></li>
+                    </ul>
+                    <ul id="perfil" class="dropdown-content">
+                        <li><a href="./mi-perfil.php"><i class="material-icons right">settings</i>Contraseñas</a></li>
+                        <li><a href="#!"><i class="fas fa-sign-out-alt right"></i>Cerrar Sesión</a></li>
+                    </ul>
+                    <nav>
+                        <div class="nav-wrapper">
+                            <a class="brand-logo hide-on-med-and-down logo" href="./inicio.php"><img src="images/navbar-logo.png" class="responsive-img" width="85"></a>
+                            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                            <a class="hide-on-large-only brand-logo" href="./inicio.php"><img src="images/navbar-logo.png" class="responsive-img" width="80"></a>
+                            <ul class="right hide-on-med-and-down elementos">
+                                <li><a href="./inicio.php"><i class="material-icons right">home</i>Inicio</a></li>
+                                <li><a href="./asesorias.php"><i class="material-icons right">group</i>Asesorias</a></li>
+                                <li class="active"><a href="./sitios-de-interes.php"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
+                                <li><a class="dropdown-trigger" href="#!" data-target='clubs'>Clubs<i class="material-icons right">arrow_drop_down</i></a></li>
+                                <li><a href="./hojas-de-trabajo.php"><i class="material-icons right">content_copy</i>Hojas de trabajo</a></li>
+                                <li><a href="./bitacora.html"><i class="material-icons right">book</i>Bitácora</a></li>
+                                <li><a class="dropdown-trigger" href="#!" data-target='perfil'>Mi perfil<i class="material-icons right">account_circle</i></a></li>
+                            </ul>
+                        </div>
+                    </nav>
+            
+                    <ul class="sidenav" id="mobile-demo">
+                        <li>
+                            <div class="user-view">
+                                <div class="background">
+                                    <img src="images/fondo-navbar.jpg" alt="imagen de perfil">
+                                </div>
+                                <a href="#" class="center-align"><img src="images/usuario-perfil.jpg" class="circle"></a>
+                                <a href="#!"><span class="name white-text">Nombre</span></a>
+                                <a href="#!"><span class="id white-text">123456</span></a>
+                            </div>
+                        </li>
+                        <li><a href="./inicio.php"><i class="material-icons">home</i> Inicio</a></li>
+                        <li><a href="./asesorias.php"><i class="material-icons">group</i> Asesorias</a></li>
+                        <li class="active"><a href="./sitios-de-interes.php"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
+                        <li><a href="./clubs-de-converscion.php"><i class="material-icons">record_voice_over</i> Clubs de conversación</a></li>
+                        <li><a href="./calificar-clubs.html"><i class="material-icons">star</i> Calificar Clubs</a></li>
+                        <li><a href="./hojas-de-trabajo.php"><i class="material-icons">content_copy</i> Hojas de trabajo</a></li>
+                        <li><a href="./bitacora.html"><i class="material-icons">book</i> Bitácora</a></li>
+                        <li><a href="./mi-perfil.php"><i class="material-icons">settings</i> Contraseñas</a></li>
+                        <li>
+                            <div class="divider"></div>
+                        </li>
+                        <li><a href="#!"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+                        <li class="center-align"><img src="images/logo.png" class="responsive-img" width="80%;"></li>
+                    </ul>
+                </header>
+    <?php
+            break;
+            
+            case 1:
 
-        <ul class="sidenav" id="mobile-demo">
-            <li>
-                <div class="user-view">
-                    <div class="background">
-                        <img src="images/fondo-navbar.jpg" alt="imagen de perfil">
-                    </div>
-                    <a href="#" class="center-align"><img src="images/usuario-perfil.jpg" class="circle"></a>
-                    <a href="#!"><span class="name white-text">Nombre</span></a>
-                    <a href="#!"><span class="id white-text">123456</span></a>
-                </div>
-            </li>
-            <li><a href="./inicio.php"><i class="material-icons">home</i> Inicio</a></li>
-            <li><a href="./asesorias.html"><i class="material-icons">group</i> Asesorias</a></li>
-            <li class="active"><a href="./sitios-de-interes.html"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
-            <li><a href="./clubs-de-converscion.php"><i class="material-icons">record_voice_over</i> Clubs de conversación</a></li>
-            <li><a href="./calificar-clubs.html"><i class="material-icons">star</i> Calificar Clubs</a></li>
-            <li><a href="./hojas-de-trabajo.php"><i class="material-icons">content_copy</i> Hojas de trabajo</a></li>
-            <li><a href="./bitacora.html"><i class="material-icons">book</i> Bitácora</a></li>
-            <li><a href="./mi-perfil.html"><i class="material-icons">settings</i> Configuración de Perfil</a></li>
-            <li>
-                <div class="divider"></div>
-            </li>
-            <li><a href="#!"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
-            <li class="center-align"><img src="images/logo.png" class="responsive-img" width="80%;"></li>
-        </ul>
-    </header>
+            break;
+            case 2 :
+    ?>
+                <header>
+                    <ul id="perfil" class="dropdown-content">
+                        <li><a href="./mi-perfil.php?id=2"><i class="material-icons right">settings</i>Contraseñas</a></li>
+                        <li><a href="#!"><i class="fas fa-sign-out-alt right"></i>Cerrar Sesión</a></li>
+                    </ul>
+                    <nav>
+                        <div class="nav-wrapper">
+                            <a class="brand-logo hide-on-med-and-down logo" href="./inicio-maestro.php"><img src="images/navbar-logo.png" class="responsive-img" width="85"></a>
+                            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                            <a class="hide-on-large-only brand-logo" href="./inicio-maestro.php"><img src="images/navbar-logo.png" class="responsive-img" width="80"></a>
+                            <ul class="right hide-on-med-and-down elementos">
+                                <li class="active"><a href="./inicio-maestro.php"><i class="material-icons right">home</i>Inicio</a></li>
+                                <li><a href="./sitios-de-interes.php?cuenta=2"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
+                                <li><a class="dropdown-trigger" href="#!" data-target='perfil'>Mi perfil<i class="material-icons right">arrow_drop_down</i></a></li>
+                            </ul>
+                        </div>
+                    </nav>
 
+                    <ul class="sidenav" id="mobile-demo">
+                        <li>
+                            <div class="user-view">
+                                <div class="background">
+                                    <img src="images/fondo-navbar.jpg" alt="imagen de perfil">
+                                </div>
+                                <a href="#" class="center-align"><img src="images/usuario-perfil.jpg" class="circle"></a>
+                                <a href="#!"><span class="name white-text">Nombre</span></a>
+                                <a href="#!"><span class="id white-text">123456</span></a>
+                            </div>
+                        </li>
+                        <li class="active"><a href="./inicio-maestro.php"><i class="material-icons">home</i> Inicio</a></li>
+                        <li><a href="./sitios-de-interes.php?cuenta=2"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
+                        <li><a href="./mi-perfil.php?id=2"><i class="material-icons">settings</i> Contraseñas</a></li>
+                        <li>
+                            <div class="divider"></div>
+                        </li>
+                        <li><a href="#!"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+                        <li class="center-align"><img src="images/logo.png" class="responsive-img" width="80%;"></li>
+                    </ul>
+                </header>
+    <?php
+            break;
+            case 3:
+
+            break;
+        }
+
+    ?>
     <div class="row">
 
         <div class="col s12 m12 l10">

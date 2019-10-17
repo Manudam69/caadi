@@ -1,4 +1,3 @@
-
 $('body').ready(function () {
     $('#loginForm').on('submit', function () {
         var datos_enviar = $(this).serialize();
@@ -11,14 +10,23 @@ $('body').ready(function () {
             },
             success: function (data) {
                 if(data.success){
-                    window.location = "inicio.php";
+                    console.log(data.data);
+                    switch(data.data){
+                        case '0': window.location="inicio.php"; break;
+                        case '1': window.location="inicio-admin.php";break;
+                        case '2': window.location="inicio-maestro.html";break; //cambiar a php
+                        case '3': window.location="inicio-asesor.php"; break;
+                        default: break;
+                    }
                 } else {
                     alert("Error: " + data.message);
                     $("#btn").html("Ingresar");
                 }
             },
-            error: function (data) {
-                console.log("soy el error" + data.message);
+            error: function(data){
+                console.log(data);
+                alert("Error");
+                $("#btn").html("Ingresar");
             }
         });
         return false;

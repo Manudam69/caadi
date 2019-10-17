@@ -1,3 +1,16 @@
+<?php 
+    session_start();
+        if(isset($_SESSION['usuario'])){
+            //case para regresar dependiendo el tipo de usuario
+            switch($_SESSION['tipo_persona']){
+                case '0': header("Location:inicio.php"); break; 
+                case '1': header("Location:inicio-admin.php"); break;
+                case '2': header("Location:inicio-maestro.php"); break;
+                case '3': header("Location:inicio-asesor.php"); break;
+                default: break;
+            }
+        }
+?>
 <!DOCTYPE html>
 <html lang="en">
 

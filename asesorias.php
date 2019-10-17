@@ -17,17 +17,17 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
     <!-- CSS -->
     <link rel="stylesheet" href="css/asesorias.css">
-    <title>Asesorias - CAADI</title>
+    <title>Asesorias</title>
 </head>
 
 <body>
-    <header>
+   <header>
         <ul id="clubs" class="dropdown-content">
             <li><a href="./clubs-de-converscion.php"><i class="material-icons right">record_voice_over</i>Clubs de conversación</a></li>
-            <li><a href="./calificar-clubs.html"><i class="material-icons right">star</i>Calificar Clubs</a></li>
+            <li><a href="./calificar-clubs.php"><i class="material-icons right">star</i>Calificar Clubs</a></li>
         </ul>
         <ul id="perfil" class="dropdown-content">
-            <li><a href="./mi-perfil.html"><i class="material-icons right">settings</i>Configuración de Perfil</a></li>
+            <li><a href="./mi-perfil.php"><i class="material-icons right">settings</i>Contraseñas</a></li>
             <li><a href="#!"><i class="fas fa-sign-out-alt right"></i>Cerrar Sesión</a></li>
         </ul>
         <nav>
@@ -37,11 +37,11 @@
                 <a class="hide-on-large-only brand-logo" href="./inicio.php"><img src="images/navbar-logo.png" class="responsive-img" width="80"></a>
                 <ul class="right hide-on-med-and-down elementos">
                     <li><a href="./inicio.php"><i class="material-icons right">home</i>Inicio</a></li>
-                    <li class="active"><a href="./asesorias.html"><i class="material-icons right">group</i>Asesorias</a></li>
-                    <li><a href="./sitios-de-interes.html"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
+                    <li class="active"><a href="./asesorias.php"><i class="material-icons right">group</i>Asesorias</a></li>
+                    <li><a href="./sitios-de-interes.php"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
                     <li><a class="dropdown-trigger" href="#!" data-target='clubs'>Clubs<i class="material-icons right">arrow_drop_down</i></a></li>
                     <li><a href="./hojas-de-trabajo.php"><i class="material-icons right">content_copy</i>Hojas de trabajo</a></li>
-                    <li><a href="./bitacora.html"><i class="material-icons right">book</i>Bitácora</a></li>
+                    <li><a href="./bitacora.php"><i class="material-icons right">book</i>Bitácora</a></li>
                     <li><a class="dropdown-trigger" href="#!" data-target='perfil'>Mi perfil<i class="material-icons right">account_circle</i></a></li>
                 </ul>
             </div>
@@ -59,13 +59,13 @@
                 </div>
             </li>
             <li><a href="./inicio.php"><i class="material-icons">home</i> Inicio</a></li>
-            <li class="active"><a href="./asesorias.html"><i class="material-icons">group</i> Asesorias</a></li>
-            <li><a href="./sitios-de-interes.html"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
-            <li><a href="./clubs-de-converscion.php"><i class="material-icons">record_voice_over</i> Clubs de conversación</a></li>
+            <li class="active"><a href="./asesorias.php"><i class="material-icons">group</i> Asesorias</a></li>
+            <li><a href="./sitios-de-interes.php"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
+            <li><a href="./clubs-de-converscion.html"><i class="material-icons">record_voice_over</i> Clubs de conversación</a></li>
             <li><a href="./calificar-clubs.html"><i class="material-icons">star</i> Calificar Clubs</a></li>
             <li><a href="./hojas-de-trabajo.php"><i class="material-icons">content_copy</i> Hojas de trabajo</a></li>
             <li><a href="./bitacora.html"><i class="material-icons">book</i> Bitácora</a></li>
-            <li><a href="./mi-perfil.html"><i class="material-icons">settings</i> Configuración de Perfil</a></li>
+            <li><a href="./mi-perfil.php"><i class="material-icons">settings</i> Contraseñas</a></li>
             <li>
                 <div class="divider"></div>
             </li>

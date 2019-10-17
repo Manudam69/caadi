@@ -1,24 +1,25 @@
 <?php
-$server = "localhost";
-$password = "12345";
-$user = "root";
-$db = "caadi";
-
-$connection = mysqli_connect($server,$user,$password,$db);
-if(!$connection){
+require("php/conexion.php");
+$conexion = connect();
+if(!$conexion){
     echo "Error. Sin conexion a la base de datos";
     echo "Errno de depuracion ".mysqli_connect_errno().PHP_EOL;
     echo "Error de depuracion ".mysqli_connect_error().PHP_EOL;
     exit;
 }else{
     $id = $_GET['id'];
-    $preguntas = mysqli_query($connection,"SELECT * from pregunta where id_hoja_trabajo = $id;");
-    $encabezado = mysqli_query($connection, "SELECT * from hoja_trabajo where id_hoja_trabajo = $id");
+    $preguntas = $conexion->query("SELECT * from pregunta where id_hoja_trabajo = $id;");
+    $encabezado = $conexion->query("SELECT * from hoja_trabajo where id_hoja_trabajo = $id");
     $en = mysqli_fetch_array($encabezado);
-    $datos2 = mysqli_query($connection,"SELECT idioma.nombre AS nombre, nivel.nivel AS nivel  FROM hoja_trabajo JOIN nivel JOIN idioma WHERE hoja_trabajo.id_curso = nivel.id_nivel AND nivel.id_idioma = idioma.id_idioma ");
+    $datos2 = $conexion->query("SELECT idioma.nombre AS nombre, nivel.nivel AS nivel  FROM hoja_trabajo JOIN nivel JOIN idioma 
+                                WHERE hoja_trabajo.id_nivel = nivel.id_nivel AND nivel.id_idioma = idioma.id_idioma ");
     $datos2 = mysqli_fetch_array($datos2);
     $idioma2 = $datos2["nombre"];
     $nivel = $datos2["nivel"];
+    session_start();
+    $id_alumno = $_SESSION['id_alumno'];
+    $datos_alumno = $conexion->query("select p.nombre,p.apellido_paterno from persona p, alumno where alumno.id_persona = p.id_persona and alumno.id_alumno=$id_alumno;");
+    $nombre_alumno = mysqli_fetch_array($datos_alumno);
 }
 ?>
 <!DOCTYPE html>
@@ -48,10 +49,10 @@ if(!$connection){
     <div class="container" id="contenido">
         <div class="row">
             <div class="col m6 s8">
-                Name: <b>Jhon Doe</b>
+                Name: <b> <?php echo $nombre_alumno["nombre"]."  ".$nombre_alumno["apellido_paterno"] ?> </b>
             </div>
             <div class="col m3 s4">
-                ID: 123456
+                ID: <?php echo $id_alumno; ?>
             </div>
             <div class="col m3 s12">
                 Date: 20 de Enero del 9999
@@ -108,7 +109,7 @@ if(!$connection){
             $i = $i + 1;
             $idP = $pregunta['id_pregunta'];
             $p = $pregunta['enunciado'];
-            $respuestas = mysqli_query($connection,"SELECT b.enunciado resp from pregunta a join respuesta b where a.id_pregunta = b.id_pregunta and a.id_pregunta = $idP;");
+            $respuestas = $conexion->query("SELECT b.enunciado resp from pregunta a join respuesta b where a.id_pregunta = b.id_pregunta and a.id_pregunta = $idP;");
         ?>
         <ul class="collection">
             <li class="collection-item">
