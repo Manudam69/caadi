@@ -7,7 +7,16 @@ if(!$conexion){
     echo "Error de depuracion ".mysqli_connect_error().PHP_EOL;
     exit;
 }else{
-   $clubs = $conexion->query("SELECT * FROM club");
+   session_start();
+   $idioma = $_SESSION['idioma'];
+   $nivel = $_SESSION['nivel'];
+   echo $nivel;
+   $id_alumno = $_SESSION['id_alumno'];
+   $clubs = mysqli_query($conexion, "SELECT * FROM club c JOIN nivel n JOIN idioma i WHERE  
+   c.id_nivel = n.id_nivel AND n.id_idioma = i.id_idioma AND n.nivel = '$nivel' AND i.nombre = '$idioma' 
+   AND c.cupo > 0 and fecha >= curdate() and horario > time(now()) 
+   and c.id_club not in (select id_club from alumno_club where id_alumno = $id_alumno)");
+   $club_alumno = $conexion->query("select id_club,id_alumno from alumno_club where id_alumno = $id_alumno");
 }
 ?>
 <!DOCTYPE html>
@@ -39,7 +48,7 @@ if(!$conexion){
             <li><a href="./calificar-clubs.html"><i class="material-icons right">star</i>Calificar Clubs</a></li>
         </ul>
         <ul id="perfil" class="dropdown-content">
-            <li><a href="./mi-perfil.php"><i class="material-icons right">settings</i>Contraseñas</a></li>
+            <li><a href="./mi-perfil.html"><i class="material-icons right">settings</i>Configuración de Perfil</a></li>
             <li><a href="#!"><i class="fas fa-sign-out-alt right"></i>Cerrar Sesión</a></li>
         </ul>
         <nav>
@@ -49,8 +58,8 @@ if(!$conexion){
                 <a class="hide-on-large-only brand-logo" href="./inicio.php"><img src="images/navbar-logo.png" class="responsive-img" width="80"></a>
                 <ul class="right hide-on-med-and-down elementos">
                     <li><a href="./inicio.php"><i class="material-icons right">home</i>Inicio</a></li>
-                    <li><a href="./asesorias.php"><i class="material-icons right">group</i>Asesorias</a></li>
-                    <li><a href="./sitios-de-interes.php"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
+                    <li><a href="./asesorias.html"><i class="material-icons right">group</i>Asesorias</a></li>
+                    <li><a href="./sitios-de-interes.html"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
                     <li class="active"><a class="dropdown-trigger" href="#!" data-target='clubs'>Clubs<i class="material-icons right">arrow_drop_down</i></a></li>
                     <li><a href="./hojas-de-trabajo.php"><i class="material-icons right">content_copy</i>Hojas de trabajo</a></li>
                     <li><a href="./bitacora.html"><i class="material-icons right">book</i>Bitácora</a></li>
@@ -71,13 +80,13 @@ if(!$conexion){
                 </div>
             </li>
             <li><a href="./inicio.php"><i class="material-icons">home</i> Inicio</a></li>
-            <li><a href="./asesorias.php"><i class="material-icons">group</i> Asesorias</a></li>
-            <li><a href="./sitios-de-interes.php"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
+            <li><a href="./asesorias.html"><i class="material-icons">group</i> Asesorias</a></li>
+            <li><a href="./sitios-de-interes.html"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
             <li class="active"><a href="./clubs-de-converscion.php"><i class="material-icons">record_voice_over</i> Clubs de conversación</a></li>
             <li><a href="./calificar-clubs.html"><i class="material-icons">star</i> Calificar Clubs</a></li>
             <li><a href="./hojas-de-trabajo.php"><i class="material-icons">content_copy</i> Hojas de trabajo</a></li>
             <li><a href="./bitacora.html"><i class="material-icons">book</i> Bitácora</a></li>
-            <li><a href="./mi-perfil.php"><i class="material-icons">settings</i> Contraseñas</a></li>
+            <li><a href="./mi-perfil.html"><i class="material-icons">settings</i> Configuración de Perfil</a></li>
             <li>
                 <div class="divider"></div>
             </li>
@@ -87,9 +96,10 @@ if(!$conexion){
     </header>
 
     <div class="container contenido">
-        <?php while($club = mysqli_fetch_array($clubs)){
+        <?php 
+        while($club = mysqli_fetch_array($clubs)){
             $fecha = $club['fecha'];
-            $row = $conexion->query("SELECT dayname('$fecha') as fecha;");
+            $row = mysqli_query($conexion,"SELECT dayname('$fecha') as fecha;");
             $dia = mysqli_fetch_assoc($row);
             switch ($dia['fecha']){
                 case 'Monday': $dia = 'Lunes';break;
@@ -101,31 +111,35 @@ if(!$conexion){
                 case 'Sunday': $dia = 'Domingo';break;
                 default: $dia = '';
             }
-            $row = $conexion->query("SELECT date_format('$fecha','%d-%m-%Y') as fecha;");
+            $row = mysqli_query($conexion,"SELECT date_format('$fecha','%d-%m-%Y') as fecha;");
             $fecha = mysqli_fetch_assoc($row);
             $idC = $club['id_club'];
-            $idioma = $conexion->query("SELECT a.nivel, b.nombre as idioma from club c join nivel a join idioma b where c.id_nivel = a.id_nivel and a.id_idioma = b.id_idioma and c.id_club = $idC;");
+
+            $idioma = mysqli_query($conexion,"SELECT a.nivel, b.nombre as idioma from club c join nivel a join idioma b where c.id_nivel = a.id_nivel and a.id_idioma = b.id_idioma and c.id_club = $idC;");
             $idioma = mysqli_fetch_assoc($idioma);
-            $asesor = $conexion->query("SELECT * from persona a join asesor b join club c where c.id_asesor = b.id_asesor and b.id_persona = a.id_persona and c.id_club = $idC;");
+            $asesor = mysqli_query($conexion,"SELECT * from persona a join asesor b join club c where c.id_asesor = b.id_asesor and b.id_persona = a.id_persona and c.id_club = $idC;");
             $asesor = mysqli_fetch_assoc($asesor);
+
         ?>
-        <ul class="collection">
-            <li class="collection-item avatar">
-                <i class="material-icons circle red">chrome_reader_mode</i>
+                <ul class="collection">
+                    <li class="collection-item avatar">
+                        <i class="material-icons circle red">chrome_reader_mode</i>
 
-                <span class="title"><?php echo $asesor['nombre'], " " ?></span>
-                <p><?php 
-                    echo $dia, " ";
-                    echo $fecha['fecha'], ". Horario: ", $club['horario']; ?>
-                    <br> <?php echo $idioma['idioma'], " ", $idioma['nivel'] ?>
-                    <br> Cupo <?php echo $club['cupo']; ?>
-                </p>
-                <a href="./php/reserva-club.php?id=<?php echo $idC; ?>" class="secondary-content"><i class="small material-icons">add_circle</i></a>
-            </li>
-        </ul>
-        <?php } ?>
+                        <span class="title">Asesor: <?php echo $asesor['nombre'], " " ?></span>
+                        <p><?php 
+                            echo $dia, " ";
+                            echo $fecha['fecha'], ". Horario: ", $club['horario']; ?>
+                            <br> <?php echo $idioma['idioma'], " ", $idioma['nivel'] ?>
+                            <br> Cupo <?php echo $club['cupo']; ?>
+                        </p>
+                        <a href="./php/reserva-club.php?id=<?php echo $idC; ?>" class="secondary-content"><i class="small material-icons">add_circle</i></a>
+                    </li>
+                </ul>   
+        <?php
+        }
+        ?>
     </div>
-
+    <script src=""></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="js/navbar.js"></script>
 </body>

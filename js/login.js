@@ -14,7 +14,7 @@ $('body').ready(function () {
                     switch(data.data){
                         case '0': window.location="inicio.php"; break;
                         case '1': window.location="inicio-admin.php";break;
-                        case '2': window.location="inicio-maestro.html";break; //cambiar a php
+                        case '2': window.location="inicio-maestro.php";break;
                         case '3': window.location="inicio-asesor.php"; break;
                         default: break;
                     }

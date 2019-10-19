@@ -14,7 +14,10 @@ if(!$conexion){
     exit;
 }else{
     $id_alumno = $_SESSION['id_alumno'];
-    $query = "SELECT a.id_club, d.nombre as asesor, b.fecha, f.nombre as idioma from alumno_club a join club b join asesor c join persona d join nivel e join idioma f where a.id_alumno = '$id_alumno' and a.id_club = b.id_club and b.id_asesor = c.id_asesor and c.id_persona = d.id_persona and b.id_nivel = e.id_nivel and e.id_idioma = f.id_idioma;";
+    $query = "SELECT a.id_club, d.nombre as asesor, b.fecha, b.horario, f.nombre as idioma 
+    from alumno_club a join club b join asesor c join persona d join nivel e join idioma f 
+    where a.id_alumno = '$id_alumno' and a.id_club = b.id_club and b.id_asesor = c.id_asesor 
+    and c.id_persona = d.id_persona and b.id_nivel = e.id_nivel and e.id_idioma = f.id_idioma and b.horario > time(now());";
     $clubs_reservados = $conexion->query($query);
 }
 ?>
@@ -101,6 +104,7 @@ if(!$conexion){
     <div id="tab1" class="col s12">
         <div class="container">
             <ul class="collection">
+            
                 <!-- Repetir los li para agregar un nuevo elemento -->
                 <?php while($club_reservado = mysqli_fetch_array($clubs_reservados)){
                     $idC = $club_reservado['id_club'];
@@ -121,11 +125,11 @@ if(!$conexion){
                     $fecha = mysqli_fetch_assoc($row);
                 ?>
                 <li class="collection-item avatar">
-                    <span class="title"> <?php echo $club_reservado['asesor']; ?> </span>
+                    <span class="title">Asesor: <?php echo $club_reservado['asesor']; ?> </span>
                     <a href="./php/elimina-reserva-de-club.php?id=<?php echo $idC; ?>" class="secondary-content">
                         <i class="material-icons borrar z-depth-1 small">clear</i>
                     </a>
-                    <p><?php echo $dia, " ", $fecha['fecha']; ?>
+                    <p><?php echo $dia, " ", $fecha['fecha'], ",   Horario: ",$club_reservado['horario']; ?>
                         <br> <?php echo $club_reservado['idioma']; ?>
                     </p>
                 </li>

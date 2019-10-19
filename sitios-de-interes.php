@@ -22,7 +22,8 @@
 
 <body>
     <?php
-        $cuenta = $_GET['cuenta']; 
+        session_start();
+        $cuenta = $_SESSION['cuenta']; 
         switch ($cuenta){
             case 0:
     ?>
@@ -88,7 +89,7 @@
     ?>
                 <header>
                     <ul id="perfil" class="dropdown-content">
-                        <li><a href="./mi-perfil.php?id=2"><i class="material-icons right">settings</i>Contraseñas</a></li>
+                        <li><a href="./mi-perfil.php"><i class="material-icons right">settings</i>Contraseñas</a></li>
                         <li><a href="#!"><i class="fas fa-sign-out-alt right"></i>Cerrar Sesión</a></li>
                     </ul>
                     <nav>
@@ -98,7 +99,7 @@
                             <a class="hide-on-large-only brand-logo" href="./inicio-maestro.php"><img src="images/navbar-logo.png" class="responsive-img" width="80"></a>
                             <ul class="right hide-on-med-and-down elementos">
                                 <li class="active"><a href="./inicio-maestro.php"><i class="material-icons right">home</i>Inicio</a></li>
-                                <li><a href="./sitios-de-interes.php?cuenta=2"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
+                                <li><a href="./sitios-de-interes.php"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
                                 <li><a class="dropdown-trigger" href="#!" data-target='perfil'>Mi perfil<i class="material-icons right">arrow_drop_down</i></a></li>
                             </ul>
                         </div>
@@ -116,8 +117,8 @@
                             </div>
                         </li>
                         <li class="active"><a href="./inicio-maestro.php"><i class="material-icons">home</i> Inicio</a></li>
-                        <li><a href="./sitios-de-interes.php?cuenta=2"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
-                        <li><a href="./mi-perfil.php?id=2"><i class="material-icons">settings</i> Contraseñas</a></li>
+                        <li><a href="./sitios-de-interes.php"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
+                        <li><a href="./mi-perfil.php"><i class="material-icons">settings</i> Contraseñas</a></li>
                         <li>
                             <div class="divider"></div>
                         </li>

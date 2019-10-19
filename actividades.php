@@ -2,7 +2,7 @@
 require("php/conexion.php");
 $conexion = connect();
 session_start();
-$id_alumno = $_GET['id'];
+$id_alumno = $_POST['id_alumno'];
 $_SESSION['id_alumno'] = $id_alumno;
 $query = "select club.fecha,idioma.nombre as idioma,nivel.nivel,persona.nombre as asesor from club,nivel,idioma,asesor,persona,alumno_club 
           where club.id_club=alumno_club.id_club and nivel.id_nivel=club.id_nivel and idioma.id_idioma=nivel.id_idioma 
@@ -38,8 +38,8 @@ $hojas = $conexion->query($query_hojas);
 <body>
     <header>
         <ul id="perfil" class="dropdown-content">
-            <li><a href="./mi-perfil.php?id=2"><i class="material-icons right">settings</i>Contraseñas</a></li>
-            <li><a href="#!"><i class="fas fa-sign-out-alt right"></i>Cerrar Sesión</a></li>
+            <li><a href="./mi-perfil.php"><i class="material-icons right">settings</i>Contraseñas</a></li>
+            <li><a href="./php/logout.php"><i class="fas fa-sign-out-alt right"></i>Cerrar Sesión</a></li>
         </ul>
         <nav>
             <div class="nav-wrapper">
@@ -48,7 +48,7 @@ $hojas = $conexion->query($query_hojas);
                 <a class="hide-on-large-only brand-logo" href="./inicio.php"><img src="images/navbar-logo.png" class="responsive-img" width="80"></a>
                 <ul class="right hide-on-med-and-down elementos">
                     <li><a href="./inicio-maestro.php"><i class="material-icons right">home</i>Inicio</a></li>
-                    <li><a href="./sitios-de-interes.php?cuenta=2"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
+                    <li><a href="./sitios-de-interes.php"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
                     <li><a class="dropdown-trigger" href="#!" data-target='perfil'>Mi perfil<i class="material-icons right">arrow_drop_down</i></a></li>
                 </ul>
             </div>
@@ -66,12 +66,12 @@ $hojas = $conexion->query($query_hojas);
                 </div>
             </li>
             <li><a href="./inicio.php"><i class="material-icons">home</i> Inicio</a></li>
-            <li><a href="./sitios-de-interes.php?cuenta=2"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
-            <li><a href="./mi-perfil.php?id=2"><i class="material-icons">settings</i> Contraseñas</a></li>
+            <li><a href="./sitios-de-interes.php"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
+            <li><a href="./mi-perfil.php"><i class="material-icons">settings</i> Contraseñas</a></li>
             <li>
                 <div class="divider"></div>
             </li>
-            <li><a href="#!"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+            <li><a href="./php/logout.php"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
             <li class="center-align"><img src="images/logo.png" class="responsive-img" width="80%;"></li>
         </ul>
     </header>

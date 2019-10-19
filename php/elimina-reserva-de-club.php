@@ -1,5 +1,5 @@
 <?php
-require("php/conexion.php");
+require("conexion.php");
 $conexion = connect();
 if(!$conexion){
     echo "Error. Sin conexion a la base de datos";
@@ -7,15 +7,12 @@ if(!$conexion){
     echo "Error de depuracion ".mysqli_connect_error().PHP_EOL;
     exit;
 }else{
+    session_start();
     $idC = $_GET['id'];
-     //---------CAMBIAR EL NUMERO EN LA QUERY POR EL ID DEL USUARIO ACTIVO MEDIANTE SESION.------------
-    $elimina_reserva = $conexion->query("DELETE FROM alumno_club WHERE id_alumno = 1 AND id_club = $idC;");
+    $id_alumno = $_SESSION['id_alumno'];
+    $elimina_reserva = $conexion->query("DELETE FROM alumno_club WHERE id_alumno = $id_alumno AND id_club = $idC;");
     $eliminado = $conexion->query("SELECT incrementa_cupo($idC)");
-    if($eliminado == 1){
-        header("location:../inicio.php");
-    }else{
-        echo "fracaso";
-    }
+    header("location:../inicio.php");
+   
 }
-
 ?>

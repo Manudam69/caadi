@@ -23,10 +23,9 @@
 
 <body>
     <?php 
-        $id = $_GET['id'];
         session_start();
-        $_SESSION['id_cuenta'] = $id;
-        switch ($id){
+        $cuenta = $_SESSION['cuenta'];
+        switch ($cuenta){
             case 0:
     ?>
                 <header>
@@ -46,7 +45,7 @@
                             <ul class="right hide-on-med-and-down elementos">
                                 <li><a href="./inicio.php"><i class="material-icons right">home</i>Inicio</a></li>
                                 <li><a href="./asesorias.php"><i class="material-icons right">group</i>Asesorias</a></li>
-                                <li><a href="./sitios-de-interes.php?cuenta=0"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
+                                <li><a href="./sitios-de-interes.php"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
                                 <li><a class="dropdown-trigger" href="#!" data-target='clubs'>Clubs<i class="material-icons right">arrow_drop_down</i></a></li>
                                 <li><a href="./hojas-de-trabajo.php"><i class="material-icons right">content_copy</i>Hojas de trabajo</a></li>
                                 <li><a href="./bitacora.html"><i class="material-icons right">book</i>Bitácora</a></li>
@@ -68,12 +67,12 @@
                         </li>
                         <li><a href="./inicio.php"><i class="material-icons">home</i> Inicio</a></li>
                         <li><a href="./asesorias.php"><i class="material-icons">group</i> Asesorias</a></li>
-                        <li><a href="./sitios-de-interes.php?cuenta=0"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
+                        <li><a href="./sitios-de-interes.php"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
                         <li><a href="./clubs-de-converscion.php"><i class="material-icons">record_voice_over</i> Clubs de conversación</a></li>
                         <li><a href="./calificar-clubs.html"><i class="material-icons">star</i> Calificar Clubs</a></li>
                         <li><a href="./hojas-de-trabajo.php"><i class="material-icons">content_copy</i> Hojas de trabajo</a></li>
                         <li><a href="./bitacora.html"><i class="material-icons">book</i> Bitácora</a></li>
-                        <li class="active"><a href="./mi-perfil.php?id=0"><i class="material-icons">settings</i> Contraseñas</a></li>
+                        <li class="active"><a href="./mi-perfil.php"><i class="material-icons">settings</i> Contraseñas</a></li>
                         <li>
                             <div class="divider"></div>
                         </li>
@@ -99,7 +98,7 @@
                             <a class="hide-on-large-only brand-logo" href="./inicio-maestro.php"><img src="images/navbar-logo.png" class="responsive-img" width="80"></a>
                             <ul class="right hide-on-med-and-down elementos">
                                 <li class="active"><a href="./inicio-maestro.php"><i class="material-icons right">home</i>Inicio</a></li>
-                                <li><a href="./sitios-de-interes.php?cuenta=2"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
+                                <li><a href="./sitios-de-interes.php"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
                                 <li><a class="dropdown-trigger" href="#!" data-target='perfil'>Mi perfil<i class="material-icons right">arrow_drop_down</i></a></li>
                             </ul>
                         </div>
@@ -117,7 +116,7 @@
                             </div>
                         </li>
                         <li class="active"><a href="./inicio-maestro.php"><i class="material-icons">home</i> Inicio</a></li>
-                        <li><a href="./sitios-de-interes.php?cuenta=2"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
+                        <li><a href="./sitios-de-interes.php"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
                         <li><a href="./mi-perfil.php"><i class="material-icons">settings</i> Contraseñas</a></li>
                         <li>
                             <div class="divider"></div>
@@ -133,7 +132,7 @@
         }
     ?>
     <div class="center" id="contenedor">
-        <form action="./php/actualizar_pass.php" method="post" onSubmit="return validaContrasena()">
+        <form action="./php/actualizar_pass.php" method="post">
             <img class="responsive-img" src="images/caadi-logo3.png" width="150">
             <div class="row">
                 <div class="input-field col l12 s12">
@@ -158,27 +157,34 @@
                     <label for="con3">Confirmar nueva contraseña</label>
                 </div>
             </div>
-            <input class="waves-light btn-large" id="btn" type = "submit" value="CAMBIAR CONTRASEÑA">
+            <input class="waves-light btn-large" id="btn" type = "button" value="CAMBIAR CONTRASEÑA">
         </form>       
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
     <script type="text/javascript">
-        function validaContrasena() {
-            var enviar = true;
-            var mensaje = "Error\n";
-            if ($("#con2").val()!==$("#con3").val()){
-                enviar = false;
-                mensaje+="las contraseñas no coinciden\n";
-            }
-            if ($("#con").val().trim() === "" || $("#con2").val().trim() === "" || $("#con3").val().trim() === ""){
-                enviar = false;
-                mensaje+="espacios vacios";
-            }
-            if (!enviar)
-                alert(mensaje);
-            return enviar; 
-        }
+        $('#btn').click(function(){
+            $.post('./php/verificarcontrasena.php', {pass: $('#con').val()}).then(function (res) {
+                var enviar = true;
+                var mensaje = "Error\n";
+                if ($("#con2").val()!==$("#con3").val()){
+                    enviar = false;
+                    mensaje+="las contraseñas no coinciden\n";
+                }
+                if ($("#con").val().trim() === "" || $("#con2").val().trim() === "" || $("#con3").val().trim() === ""){
+                    enviar = false;
+                    mensaje+="espacios vacios\n";
+                }
+                if (!res.ok) {
+                    enviar = false;
+                    mensaje += "la contraseña no es correcta"
+                }
+                if (enviar)
+                    $('form').submit();
+                else
+                    alert(mensaje);
+            });
+        });
     </script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
