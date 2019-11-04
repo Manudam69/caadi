@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Lista de alumnos - CAADI</title>
+    <title>Registro de visita - CAADI</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/favicon.png">
     <!--Google Icon Font-->
@@ -17,7 +17,7 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
     <!-- CSS -->
-    <link rel="stylesheet" href="css/cursos-de-idioma.css">
+    <link rel="stylesheet" href="css/entrada-salida.css">
 </head>
 
 <body>
@@ -38,10 +38,6 @@
                         </form>
                     </div>
                 </form>
-                <div class="col s12 breadcrumb">
-                    <a href="cursos-de-idiomas.html" class="breadcrumb">ADMINISTRACIÓN DE CURSOS</a>
-                    <a href="#!" class="breadcrumb">LISTA DE ALUMNOS EN EL CURSO</a>
-                </div>
             </div>
         </nav>
 
@@ -60,8 +56,8 @@
             <li><a href="activacion.html"><i class="material-icons">verified_user</i>Activación de CAADI</a></li>
             <li><a href="control-asesorias.php"><i class="material-icons">group</i>Asesorias</a></li>
             <li><a href="control-de-clubs.html"><i class="material-icons">record_voice_over</i>Clubs de conversación</a></li>
-            <li class="active"><a href="cursos-de-idiomas.html"><i class="material-icons">assignment</i>Cursos de idiomas</a></li>
-            <li><a href="entrada-salida.html"><i class="material-icons">compare_arrows</i>Registro Entrada/Salida</a></li>
+            <li><a href="#!"><i class="material-icons">assignment</i>Cursos de idiomas</a></li>
+            <li class="active"><a href="entrada-salida.html"><i class="material-icons">compare_arrows</i>Registro Entrada/Salida</a></li>
             <li><a href="#!"><i class="material-icons">content_copy</i>Hojas de trabajo</a></li>
             <li><a href="#!"><i class="material-icons">insert_chart</i>Estadisticas</a></li>
             <li><a href="#!"><i class="material-icons">today</i>Nuevo periodo</a></li>
@@ -73,46 +69,68 @@
         </ul>
 
     </header>
-    
-    <div class="container">
-        <h4 class="center">ALUMNOS EN EL CURSO</h4>
-        <div class="row center">
-            <div class="col m3 s6">
-                <p class="blue-text text-darken-4">ID DEL CURSO: </p>
-            </div>
-             <div class="col m3 s6">
-                <p class="blue-text text-darken-4">IDIOMA: </p>
-            </div>
-             <div class="col m3 s6">
-                <p class="blue-text text-darken-4">NIVEL: </p>
-            </div>
-             <div class="col m3 s6">
-                <p class="blue-text text-darken-4">CUPO: </p>
-            </div>
+
+    <ul class="tabs tabs-fixed-width tab-demo z-depth-1">
+        <li class="tab"><a href="#tab1" class="white-text">REGISTRAR</a></li>
+        <li class="tab"><a href="#tab2" class="white-text">REGISTRAR TIEMPO EXTEMPORÁNEO</a></li>
+    </ul>
+
+    <div id="tab1">
+        <div class="container">
+            <h5 class="center">INGRESE EL ID DEL ALUMNO</h5>
+            <form action="">
+                <div class="row">
+                    <div class="input-field col m6 s12 offset-m3">
+                        <i class="material-icons prefix">account_circle</i>
+                        <input id="id-alumno" type="text">
+                        <label for="id-alumno">ID DEL ALUMNO</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col m12 s12 center">
+                        <a class="waves-effect waves-light btn-large" id="btn">REGISTRAR</a>
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="row">
-            <div class="col m6 offset-m3 s12">
-                <p class="blue-text text-darken-4 center">PROFESOR:</p>
-            </div>
-        </div>
-        
-        <div class="row">
-            <ul class="collection">
-            <li class="collection-item avatar">
-                <i class="material-icons circle red">person</i>
-                <a href="#editar" class="right modal-trigger" title="EDITAR"><i class="material-icons eliminar z-depth-1">close</i></a>            
-                <span class="title">ID ALUMNO: </span>
-                <p>NOMBRE: 
-                    <br>
-                </p>
-                
-            </li>
-        </ul>
-            
-        </div>
-        
     </div>
-    
+
+    <div id="tab2" class="col s12">
+        <div class="container">
+            <h5 class="center">INGRESE EL ID DEL ALUMNO</h5>
+            <form action="">
+                <div class="row">
+                    <div class="input-field col m3 s12">
+                        <i class="material-icons prefix">account_circle</i>
+                        <input id="id-alumno2" type="text" class="validate">
+                        <label for="id-alumno2">ID DEL ALUMNO</label>
+                    </div>
+                    <div class="input-field col m3 s12">
+                        <i class="material-icons prefix">query_builder</i>
+                        <input id="horas" type="number" class="validate">
+                        <label for="horas">HORAS</label>
+                    </div>
+                    <div class="input-field col m3 s12">
+                        <i class="material-icons prefix">query_builder</i>
+                        <input id="minutos" type="text" class="validate">
+                        <label for="minutos">MINUTOS</label>
+                    </div>
+                    <div class="input-field col m3 s12">
+                        <i class="material-icons prefix">lock</i>
+                        <input id="contrasena" type="text" class="validate">
+                        <label for="contrasena">CONTRASEÑA</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col m12 s12 center">
+                        <a class="waves-effect waves-light btn-large" id="btn">REGISTRAR</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <!-- Funcionamiento Navbar -->
     <script src="js/navbar.js"></script>
