@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Agregar usuario - CAADI</title>
+    <title>Busqueda - CAADI</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/favicon.png">
     <!--Google Icon Font-->
@@ -17,7 +17,7 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
     <!-- CSS -->
-    <link rel="stylesheet" href="css/agregar-usuario.css">
+    <link rel="stylesheet" href="css/estadisticas.css">
 </head>
 
 <body>
@@ -59,68 +59,102 @@
             <li><a href="cursos-de-idiomas.html"><i class="material-icons">assignment</i>Cursos de idiomas</a></li>
             <li><a href="entrada-salida.html"><i class="material-icons">compare_arrows</i>Registro Entrada/Salida</a></li>
             <li><a href="control-hojas-de-trabajo.html"><i class="material-icons">content_copy</i>Hojas de trabajo</a></li>
-            <li><a href="estadisticas.html"><i class="material-icons">insert_chart</i>Estadisticas</a></li>
+            <li class="active"><a href="estadisticas.html"><i class="material-icons">insert_chart</i>Estadisticas</a></li>
             <li><a href="nuevo-periodo.html"><i class="material-icons">today</i>Nuevo periodo</a></li>
             <li><a href="sitios-de-interes.php"><i class="material-icons">sentiment_very_satisfied</i>Sitios de interés</a></li>
-            <li class="active"><a href="agregar-usuario.html"><i class="material-icons">person</i>Agregar usuario</a></li>
+            <li><a href="agregar-usuario.html"><i class="material-icons">person</i>Agregar usuario</a></li>
             <li>
                 <div class="divider"></div>
             </li>
             <li><a class="waves-effect" href="#!"><i class="material-icons">exit_to_app</i>Cerrar sesión</a></li>
         </ul>
-
     </header>
-    <h5 class="center">AGREGAR UN USUARIO</h5>
-    <div class="container contenido">
+    <div class="container">
+        <h5 class="center">ESTADÍSTICAS</h5>
         <form action="">
             <div class="row">
-                <div class="input-field col l3 m3 s12">
-                    <i class="material-icons prefix">account_box</i>
-                    <input id="id" type="number">
-                    <label for="id">ID</label>
-                </div>
-                <div class="col l3 m3 s12">
-                    <label>Tipo de alumno</label>
+                <div class="col m6 s12">
+                    <label>PERIODO</label>
                     <select class="browser-default">
-                        <option value="" selected disabled>SELECCIONAR</option>
-                        <option value="1">PROFESOR</option>
-                        <option value="2">ASESOR</option>
-                        <option value="3">ADMINISTRADOR</option>
+                        <option value="" selected disabled>SELECCIONAR PERIODO</option>
+                        <option value="1">01</option>
+                        <option value="2">02</option>
                     </select>
                 </div>
-
-                <div class="input-field col l6 m6 s12">
-                    <i class="material-icons prefix">account_circle</i>
-                    <input id="name" type="text">
-                    <label for="name">Nombre(s)</label>
+                <div class="col m6 s12">
+                    <label>AÑO</label>
+                    <select class="browser-default">
+                        <option value="" selected disabled>SELECCIONAR AÑO</option>
+                        <option value="1">2019</option>
+                        <option value="2">2020</option>
+                    </select>
                 </div>
             </div>
 
             <div class="row">
-                <div class="input-field col l6 m6 s12">
-                    <i class="material-icons prefix">person</i>
-                    <input id="lastname1" type="text">
-                    <label for="lastname1">Apellido Paterno</label>
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix">calendar_today</i>
+                    <input type="date" id="inicio">
+                    <label for="inicio">FECHA DE INICIO</label>
                 </div>
-                <div class="input-field col l6 m6 s12">
-                    <i class="material-icons prefix">person</i>
-                    <input id="lastname2" type="text">
-                    <label for="lastname2">Apellido Materno</label>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="input-field col l4 m4 s12 offset-l4 offset-m4">
-                    <i class="material-icons prefix">phone</i>
-                    <input id="tel" type="tel">
-                    <label for="tel">Telefono</label>
+                <div class="col m6 s12 input-field">
+                    <i class="material-icons prefix">calendar_today</i>
+                    <input type="date" id="fin">
+                    <label for="fin">FECHA DE TERMINO</label>
                 </div>
             </div>
             <div class="row center">
-                <a class="waves-effect waves-light btn-large" id="btn">AGREGAR USUARIO</a>
+                <a class="waves-effect waves-light btn-large" id="btn">buscar estadísticas</a>
             </div>
         </form>
+        <p class="center">Mostrando estadísticas del """" al """""</p>
+        <div class="row center">
+            <div class="col m6 s6"><b>ESTADÍSTICA</b></div>
+            <div class="col m6 s6"><b>CANTIDAD</b></div>
+        </div>
+        <div class="row">
+            <div class="col m6 s6">Cantidad Activaciones</div>
+            <div class="col m6 s6 center">0</div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col m6 s6">Activaciones Extension</div>
+            <div class="col m6 s6 center">0</div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col m6 s6">Activaciones DAFI</div>
+            <div class="col m6 s6 center">0</div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col m6 s6">Activaciones Externos</div>
+            <div class="col m6 s6 center">0</div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col m6 s6">Activaciones LDII</div>
+            <div class="col m6 s6 center">0</div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col m6 s6">Activaciones FLE-ELE</div>
+            <div class="col m6 s6 center">0</div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col m6 s6">Cantidad Visitas</div>
+            <div class="col m6 s6 center">0</div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col m6 s6">Tiempo Promedio en CAADI</div>
+            <div class="col m6 s6 center">0</div>
+        </div>
     </div>
+
+
+
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <!-- Funcionamiento Navbar -->
