@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hojas de trabajo - CAADI</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <!--Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/control-hojas-de-trabajo.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="nav-wrapper row">
+
+                <div class="nav-wrapper col l9 s2">
+                    <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a>
+                    <a class="brand-logo center hide-on-med-and-down" href="./inicio-admin.html"><img src="images/navbar-logo.png" class="responsive-img" width="80"></a>
+                </div>
+                <form>
+                    <div class="input-field col l3 s10">
+                        <form action="">
+                            <input id="search" type="search" required autocomplete="off">
+                            <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                            <i class="material-icons">close</i>
+                        </form>
+                    </div>
+                </form>
+            </div>
+        </nav>
+
+        <ul id="slide-out" class="sidenav">
+            <li>
+                <div class="user-view">
+                    <div class="background">
+                        <img src="images/fondo-navbar.jpg">
+                    </div>
+                    <a href="#user"><img class="circle" src="images/usuario-perfil.jpg"></a>
+                    <a href="#name"><span class="white-text name">Administrador</span></a>
+                    <a href="#email"><span class="white-text email">Nombre o algún otro dato</span></a>
+                </div>
+            </li>
+            <li><a href="inicio-admin.html"><i class="material-icons">home</i>Inicio</a></li>
+            <li><a href="activacion.html"><i class="material-icons">verified_user</i>Activación de CAADI</a></li>
+            <li><a href="control-asesorias.php"><i class="material-icons">group</i>Asesorias</a></li>
+            <li><a href="control-de-clubs.html"><i class="material-icons">record_voice_over</i>Clubs de conversación</a></li>
+            <li><a href="cursos-de-idiomas.html"><i class="material-icons">assignment</i>Cursos de idiomas</a></li>
+            <li><a href="entrada-salida.html"><i class="material-icons">compare_arrows</i>Registro Entrada/Salida</a></li>
+            <li class="active"><a href="control-hojas-de-trabajo.html"><i class="material-icons">content_copy</i>Hojas de trabajo</a></li>
+            <li><a href="#!"><i class="material-icons">insert_chart</i>Estadisticas</a></li>
+            <li><a href="nuevo-periodo.html"><i class="material-icons">today</i>Nuevo periodo</a></li>
+            <li><a href="sitios-de-interes.php"><i class="material-icons">sentiment_very_satisfied</i>Sitios de interés</a></li>
+            <li><a href="agregar-usuario.html"><i class="material-icons">person</i>Agregar usuario</a></li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li><a class="waves-effect" href="#!"><i class="material-icons">exit_to_app</i>Cerrar sesión</a></li>
+        </ul>
+    </header>
+
+    <div class="container">
+        <h5 class="center">ADMINISTRACIÓN DE HOJAS DE TRABAJO</h5>
+        <form action="">
+            <div class="row">
+                <div class="col m3 s12 input-field">
+                    <i class="material-icons prefix">library_books</i>
+                    <input id="titulo" type="text" class="validate">
+                    <label for="titulo">Titulo</label>
+                </div>
+                <div class="col m3 s12">
+                    <label>Tipo</label>
+                    <select class="browser-default">
+                        <option value="" selected>Cualquier tipo</option>
+                        <option value="1">Audio</option>
+                        <option value="2">Gramática</option>
+                        <option value="3">Lectura</option>
+                        <option value="4">Video</option>
+                        <option value="5">Vocabulario</option>
+                        <option value="6">Escritura</option>
+                    </select>
+                </div>
+                <div class="col m3 s12">
+                    <label>Idioma</label>
+                    <select class="browser-default">
+                        <option value="" selected>Cualquier idioma</option>
+                        <option value="1">Japonés</option>
+                        <option value="2">Inglés</option>
+                        <option value="3">Español</option>
+                        <option value="4">Alemán</option>
+                        <option value="5">Italiano</option>
+                        <option value="6">Francés</option>
+                        <option value="7">Portugués</option>
+                        <option value="8">Ruso</option>
+                    </select>
+                </div>
+                <div class="col m3 s12">
+                    <label>Nivel</label>
+                    <select class="browser-default">
+                        <option value="" selected>Cualquier nivel</option>
+                        <option value="1">1-2</option>
+                        <option value="2">3-4</option>
+                        <option value="3">5 +</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row center">
+                <button class="btn waves-effect waves-light" type="submit" name="action">Buscar
+                    <i class="material-icons right">search</i>
+                </button>
+                <button class="btn waves-effect waves-light modal-trigger" type="submit" name="action" data-target="agregar">AGREGAR HOJA
+                    <i class="material-icons right">add</i>
+                </button>
+            </div>
+        </form>
+
+        <div id="agregar" class="modal">
+            <div class="modal-content">
+                <h4>AGREGAR HOJA DE TRABAJO</h4>
+                <div class="container">
+                    <form action="">
+                        <div class="row">
+                            <div class="col m6 offset-m3 input-field">
+                                <i class="material-icons prefix">library_books</i>
+                                <input id="addtitulo" type="text" class="validate">
+                                <label for="addtitulo">Titulo</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col m4 s12">
+                                <label>Tipo</label>
+                                <select class="browser-default">
+                                    <option value="" selected>Cualquier tipo</option>
+                                    <option value="1">Audio</option>
+                                    <option value="2">Gramática</option>
+                                    <option value="3">Lectura</option>
+                                    <option value="4">Video</option>
+                                    <option value="5">Vocabulario</option>
+                                    <option value="6">Escritura</option>
+                                </select>
+                            </div>
+                            <div class="col m4 s12">
+                                <label>Idioma</label>
+                                <select class="browser-default">
+                                    <option value="" selected>Cualquier idioma</option>
+                                    <option value="1">Japonés</option>
+                                    <option value="2">Inglés</option>
+                                    <option value="3">Español</option>
+                                    <option value="4">Alemán</option>
+                                    <option value="5">Italiano</option>
+                                    <option value="6">Francés</option>
+                                    <option value="7">Portugués</option>
+                                    <option value="8">Ruso</option>
+                                </select>
+                            </div>
+                            <div class="col m4 s12">
+                                <label>Nivel</label>
+                                <select class="browser-default">
+                                    <option value="" selected>Cualquier nivel</option>
+                                    <option value="1">1-2</option>
+                                    <option value="2">3-4</option>
+                                    <option value="3">5 +</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col m6 offset-m3 input-field file-field">
+                                <div class="btn">
+                                    <span>ARCHIVO</span>
+                                    <input type="file">
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">CONFIRMAR</a>
+            </div>
+        </div>
+
+        <div id="editar-hoja" class="modal">
+            <div class="modal-content">
+                <h4>MODIFICAR HOJA DE TRABAJO</h4>
+                <div class="container">
+                    <form action="">
+                        <div class="row">
+                            <div class="col m6 offset-m3 input-field">
+                                <i class="material-icons prefix">library_books</i>
+                                <input id="addtitulo" type="text" class="validate">
+                                <label for="addtitulo">Titulo</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col m4 s12">
+                                <label>Tipo</label>
+                                <select class="browser-default">
+                                    <option value="" selected>Cualquier tipo</option>
+                                </select>
+                            </div>
+                            <div class="col m4 s12">
+                                <label>Idioma</label>
+                                <select class="browser-default">
+                                    <option value="" selected>Cualquier idioma</option>
+                                </select>
+                            </div>
+                            <div class="col m4 s12">
+                                <label>Nivel</label>
+                                <select class="browser-default">
+                                    <option value="" selected>Cualquier nivel</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col m6 offset-m3 input-field file-field">
+                                <div class="btn">
+                                    <span>ARCHIVO</span>
+                                    <input type="file">
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate" type="text">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <ul class="collection">
+
+                <li class="collection-item avatar">
+                    <a href="#!" class="left"><i class="material-icons circle z-depth-1" id="descargar" title="DESCARGAR">file_download</i></a>
+                    <span class="title">Nombre</span>
+                    <a href="#editar-hoja" class="right modal-trigger"><i class="material-icons editar z-depth-1" title="EDITAR">edit</i></a>
+                    <p>
+                        IDIOMA, NIVEL
+                        <br> Tipo
+                        <a href="#!" class="right"><i class="material-icons eliminar z-depth-1" title="ELIMINAR">delete</i></a>
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <ul class="pagination center">
+        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+        <li class="active"><a href="#!">1</a></li>
+        <li class="waves-effect"><a href="#!">2</a></li>
+        <li class="waves-effect"><a href="#!">3</a></li>
+        <li class="waves-effect"><a href="#!">4</a></li>
+        <li class="waves-effect"><a href="#!">5</a></li>
+        <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+    </ul>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Funcionamiento Navbar -->
+    <script src="js/navbar.js"></script>
+    <script src="js/modal.js"></script>
+</body>
+
+</html>
