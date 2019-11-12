@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cursos de idiomas - CAADI</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <!--Google Icon Font-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!-- fontawesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/cursos-de-idioma.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="nav-wrapper row">
+
+                <div class="nav-wrapper col l9 s2">
+                    <a href="#" data-target="slide-out" class="sidenav-trigger show-on-large"><i class="material-icons">menu</i></a>
+                    <a class="brand-logo center hide-on-med-and-down" href="./inicio-admin.html"><img src="images/navbar-logo.png" class="responsive-img" width="80"></a>
+                </div>
+                <form>
+                    <div class="input-field col l3 s10">
+                        <form action="">
+                            <input id="search" type="search" required autocomplete="off">
+                            <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+                            <i class="material-icons">close</i>
+                        </form>
+                    </div>
+                </form>
+            </div>
+        </nav>
+
+        <ul id="slide-out" class="sidenav">
+            <li>
+                <div class="user-view">
+                    <div class="background">
+                        <img src="images/fondo-navbar.jpg">
+                    </div>
+                    <a href="#user"><img class="circle" src="images/usuario-perfil.jpg"></a>
+                    <a href="#name"><span class="white-text name">Administrador</span></a>
+                    <a href="#email"><span class="white-text email">Nombre o algún otro dato</span></a>
+                </div>
+            </li>
+            <li><a href="inicio-admin.html"><i class="material-icons">home</i>Inicio</a></li>
+            <li><a href="activacion.html"><i class="material-icons">verified_user</i>Activación de CAADI</a></li>
+            <li><a href="control-asesorias.php"><i class="material-icons">group</i>Asesorias</a></li>
+            <li><a href="control-de-clubs.html"><i class="material-icons">record_voice_over</i>Clubs de conversación</a></li>
+            <li class="active"><a href="cursos-de-idiomas.html"><i class="material-icons">assignment</i>Cursos de idiomas</a></li>
+            <li><a href="entrada-salida.html"><i class="material-icons">compare_arrows</i>Registro Entrada/Salida</a></li>
+            <li><a href="control-hojas-de-trabajo.html"><i class="material-icons">content_copy</i>Hojas de trabajo</a></li>
+            <li><a href="estadisticas.html"><i class="material-icons">insert_chart</i>Estadisticas</a></li>
+            <li><a href="nuevo-periodo.html"><i class="material-icons">today</i>Nuevo periodo</a></li>
+            <li><a href="sitios-de-interes.php"><i class="material-icons">sentiment_very_satisfied</i>Sitios de interés</a></li>
+            <li><a href="agregar-usuario.html"><i class="material-icons">person</i>Agregar usuario</a></li>
+            <li>
+                <div class="divider"></div>
+            </li>
+            <li><a class="waves-effect" href="#!"><i class="material-icons">exit_to_app</i>Cerrar sesión</a></li>
+        </ul>
+
+    </header>
+
+    <h4 class="center">ADMINISTRACIÓN DE CURSOS</h4>
+
+    <div class="fixed-action-btn">
+        <a href="#agregar" class="btn-floating btn-large orange darken-1 modal-trigger" title="AGREGAR UN CURSO">
+            <i class="large material-icons ">add</i>
+        </a>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <form action="">
+                <div class="col m4 s12">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">g_translate</i>
+                        <input id="idioma" type="text" class="validate">
+                        <label for="idioma">Idioma</label>
+                    </div>
+                </div>
+                <div class="col m4 s12">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">format_list_numbered_rtl</i>
+                        <input id="nivel" type="text" class="validate">
+                        <label for="nivel">Nivel</label>
+                    </div>
+
+                </div>
+                <div class="col m4 s12">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">person</i>
+                        <input id="profesor" type="text" class="validate">
+                        <label for="profesor">Profesor</label>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="agregar-alumno" class="modal">
+        <form action="">
+            <div class="modal-content">
+                <h4>AGREGAR UN ALUMNO AL CURSO</h4>
+                <div class="container">
+                    <div class="row">
+                        <div class="col m4 s12 offset-m4 input-field">
+                            <input id="id_alumno" type="number">
+                            <label for="id_alumno">ID DEL ALUMNO</label>
+                        </div>
+                    </div>
+                    <div class="row center">
+                        <div class="col m4 s12 offset-m4">
+                            <a class="waves-effect waves-light btn-large" id="btn"><i class="material-icons right">search</i>BUSCAR</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <ul class="collection">
+                            <li class="collection-item avatar">
+                                <i class="material-icons circle red">person</i>
+                                <a href="#!" class="right" title="AGREGAR AL CURSO"><i class="material-icons editar z-depth-1">add</i></a>
+                                <span class="title"><p>ID:</p>
+                                Alumno: 
+                                   </span>
+                            </li>
+                        </ul>
+
+                    </div>
+                    <p>ULTIMOS CURSOS DEL ALUMNO</p>
+                    <div class="row">
+                        <ul class="collection">
+                            <li class="collection-item avatar">
+                                <i class="material-icons circle red">g_translate</i>
+                                <span class="title"><p>IDIOMA:</p>
+                                NIVEL: 
+                                   </span>
+                            </li>
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">CONFIRMAR</a>
+            </div>
+        </form>
+    </div>
+
+    <div id="agregar" class="modal">
+        <form action="">
+            <div class="modal-content">
+                <h4>AGREGAR UN CURSO</h4>
+                <div class="container">
+                    <div class="row">
+                        <div class="col m4 s12">
+                            <label>IDIOMA</label>
+                            <select class="browser-default">
+                                <option value="" selected disabled>SELECCIONAR</option>
+                                <option value="1">IDIOMA 1</option>
+                                <option value="2">IDIOMA 2</option>
+                                <option value="3">IDIOMA 3</option>
+                                <option value="4">IDIOMA 4</option>
+                                <option value="5">IDIOMA 5</option>
+                            </select>
+                        </div>
+                        <div class="col m4 s12">
+                            <label>PROFESOR</label>
+                            <select class="browser-default">
+                                <option value="" selected disabled>SELECCIONAR</option>
+                                <option value="1">PROFESOR 1</option>
+                                <option value="2">PROFESOR 2</option>
+                                <option value="3">PROFESOR 3</option>
+                            </select>
+                        </div>
+                        <div class="col m4 s12">
+                            <label>NIVEL</label>
+                            <select class="browser-default">
+                                <option value="" selected disabled>SELECCIONAR</option>
+                                <option value="1">1-2</option>
+                                <option value="2">3-4</option>
+                                <option value="3">5 +</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col m6 s12 input-field">
+                            <input id="cupo" type="number" class="validate">
+                            <label for="cupo">CUPO</label>
+                        </div>
+                        <div class="col m6 s12 input-field">
+                            <input id="clave" type="number" class="validate">
+                            <label for="clave">CLAVE DEL CURSO</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">CONFIRMAR</a>
+            </div>
+        </form>
+    </div>
+
+    <div id="editar" class="modal">
+        <form action="">
+            <div class="modal-content">
+                <h4>MODIFICAR CURSO</h4>
+                <div class="container">
+                    <div class="row">
+                        <div class="col m6 s12">
+                            <label>IDIOMA</label>
+                            <select class="browser-default">
+                                <option value="" selected disabled>SELECCIONAR</option>
+                                <option value="1">IDIOMA 1</option>
+                                <option value="2">IDIOMA 2</option>
+                                <option value="3">IDIOMA 3</option>
+                                <option value="4">IDIOMA 4</option>
+                                <option value="5">IDIOMA 5</option>
+                            </select>
+                        </div>
+                        <div class="col m6 s12">
+                            <label>PROFESOR</label>
+                            <select class="browser-default">
+                                <option value="" selected disabled>SELECCIONAR</option>
+                                <option value="1">PROFESOR 1</option>
+                                <option value="2">PROFESOR 2</option>
+                                <option value="3">PROFESOR 3</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col m6 s12">
+                            <label>NIVEL</label>
+                            <select class="browser-default">
+                                <option value="" selected disabled>SELECCIONAR</option>
+                                <option value="1">1-2</option>
+                                <option value="2">3-4</option>
+                                <option value="3">5 +</option>
+                            </select>
+                        </div>
+
+                        <div class="col m6 s12 input-field">
+                            <input id="cupo" type="number" class="validate">
+                            <label for="cupo">CUPO</label>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn-flat">CONFIRMAR</a>
+            </div>
+        </form>
+    </div>
+
+    <div class="container">
+        <ul class="collection">
+            <li class="collection-item avatar">
+                <i class="material-icons circle red">description</i>
+                <a href="#editar" class="right modal-trigger" title="EDITAR"><i class="material-icons editar z-depth-1">edit</i></a>
+                <a href="#agregar-alumno" class="right modal-trigger" title="AGREGAR UN ALUMNO AL CURSO" style="margin-right: 8px;"><i class="material-icons agregar z-depth-1">add</i></a>
+                <span class="title">Profesor: </span>
+                <p>Idioma: , Nivel:
+                    <br> Clave: , Cupo:
+                    <a href="#!" class="right" title="ELIMINAR"><i class="material-icons eliminar z-depth-1">delete</i></a>
+
+                </p>
+                <a href="detalles-curso.html" id="lista">VER LISTA DE ALUMNOS</a>
+            </li>
+        </ul>
+    </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Funcionamiento Navbar -->
+    <script src="js/navbar.js"></script>
+    <script src="js/modal.js"></script>
+    <script src="js/action-buton.js"></script>
+</body>
+
+</html>

@@ -76,24 +76,24 @@ li>img {
 
 /* Fin de Navbar*/
 
-.eliminar {
-    background-color: #ed1919;
-    color: white;
-    border-radius: 50px;
-    padding: 3px;
-    margin-top: 0;
-    margin-bottom: 5px;
+/* label focus color */
+
+.input-field input:focus + label {
+    color: rgb(0, 0, 0) !important;
 }
-.editar {
-    background-color: rgb(0, 51, 116);
-    color: white;
-    border-radius: 50px;
-    padding: 3px;
+
+/* label underline focus color */
+
+.row .input-field input:focus {
+    border-bottom: 1px solid rgb(16, 114, 239) !important;
+    -webkit-box-shadow: 0 1px 0 0 rgb(16, 114, 239) !important;
+    box-shadow: 0 1px 0 0 rgb(16, 114, 239) !important
 }
-img,
-nav,
-.material-icons,
-.sidenav {
+.input-field .prefix.active {
+    color: rgb(16, 114, 239);
+}
+
+nav,.material-icons,.sidenav,.pagination {
     user-drag: none;
     user-select: none;
     -moz-user-select: none;
@@ -101,22 +101,14 @@ nav,
     -webkit-user-select: none;
     -ms-user-select: none;
 }
-.breadcrumb {
-    background-color: rgb(0, 51, 116);
-    margin-bottom: 25px;
+h5{
+    margin-top: 50px;
 }
-.pagination > .active > a,
-.pagination > .active > span,
-.pagination > .active > a:hover,
-.pagination > .active > span:hover,
-.pagination > .active > a:focus,
-.pagination > .active > span:focus {
-    background-color: rgb(0, 51, 116); //background color of buttons. Blue by default
-    border-color: your white; // color or borders. Also blue by default
-    color: white; // text color of buttons which is white by default
-    cursor: pointer;
-    z-index: 2;
+.contenido{
+    margin-top: 50px;
 }
-table {
-    margin-bottom: 150px;
+
+#btn{
+    background-color: rgb(241, 166, 49);
 }
+

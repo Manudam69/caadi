@@ -67,6 +67,13 @@ li>img {
     transform: scaleX(1);
 }
 
+#search:focus{
+    color:black !important;
+}
+#search{
+    color:white !important;
+}
+
 /* Fin de Navbar*/
 
 .tabs {
