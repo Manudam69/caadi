@@ -8,15 +8,15 @@ if(!$conexion){
     exit;
 }else{
    session_start();
+   $periodo = $_SESSION['periodo'];
    $idioma = $_SESSION['idioma'];
    $nivel = $_SESSION['nivel'];
-   echo $nivel;
+   echo $idioma; echo $nivel;
    $id_alumno = $_SESSION['id_alumno'];
    $clubs = mysqli_query($conexion, "SELECT * FROM club c JOIN nivel n JOIN idioma i WHERE  
-   c.id_nivel = n.id_nivel AND n.id_idioma = i.id_idioma AND n.nivel = '$nivel' AND i.nombre = '$idioma' 
-   AND c.cupo > 0 and fecha >= curdate() and horario > time(now()) 
+   c.id_nivel = n.id_nivel AND n.id_idioma = i.id_idioma AND n.nivel IN $nivel AND i.nombre IN $idioma 
+   AND c.cupo > 0 and fecha >= curdate() and horario > time(now()) and c.id_periodo = $periodo
    and c.id_club not in (select id_club from alumno_club where id_alumno = $id_alumno)");
-   $club_alumno = $conexion->query("select id_club,id_alumno from alumno_club where id_alumno = $id_alumno");
 }
 ?>
 <!DOCTYPE html>
@@ -45,7 +45,7 @@ if(!$conexion){
     <header>
         <ul id="clubs" class="dropdown-content">
             <li><a href="./clubs-de-converscion.php"><i class="material-icons right">record_voice_over</i>Clubs de conversación</a></li>
-            <li><a href="./calificar-clubs.html"><i class="material-icons right">star</i>Calificar Clubs</a></li>
+            <li><a href="./calificar-clubs.php"><i class="material-icons right">star</i>Calificar Clubs</a></li>
         </ul>
         <ul id="perfil" class="dropdown-content">
             <li><a href="./mi-perfil.html"><i class="material-icons right">settings</i>Configuración de Perfil</a></li>
@@ -58,11 +58,11 @@ if(!$conexion){
                 <a class="hide-on-large-only brand-logo" href="./inicio.php"><img src="images/navbar-logo.png" class="responsive-img" width="80"></a>
                 <ul class="right hide-on-med-and-down elementos">
                     <li><a href="./inicio.php"><i class="material-icons right">home</i>Inicio</a></li>
-                    <li><a href="./asesorias.html"><i class="material-icons right">group</i>Asesorias</a></li>
+                    <li><a href="./asesorias.php"><i class="material-icons right">group</i>Asesorias</a></li>
                     <li><a href="./sitios-de-interes.html"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
                     <li class="active"><a class="dropdown-trigger" href="#!" data-target='clubs'>Clubs<i class="material-icons right">arrow_drop_down</i></a></li>
                     <li><a href="./hojas-de-trabajo.php"><i class="material-icons right">content_copy</i>Hojas de trabajo</a></li>
-                    <li><a href="./bitacora.html"><i class="material-icons right">book</i>Bitácora</a></li>
+                    <li><a href="./bitacora.php"><i class="material-icons right">book</i>Bitácora</a></li>
                     <li><a class="dropdown-trigger" href="#!" data-target='perfil'>Mi perfil<i class="material-icons right">account_circle</i></a></li>
                 </ul>
             </div>
@@ -80,12 +80,12 @@ if(!$conexion){
                 </div>
             </li>
             <li><a href="./inicio.php"><i class="material-icons">home</i> Inicio</a></li>
-            <li><a href="./asesorias.html"><i class="material-icons">group</i> Asesorias</a></li>
+            <li><a href="./asesorias.php"><i class="material-icons">group</i> Asesorias</a></li>
             <li><a href="./sitios-de-interes.html"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
             <li class="active"><a href="./clubs-de-converscion.php"><i class="material-icons">record_voice_over</i> Clubs de conversación</a></li>
-            <li><a href="./calificar-clubs.html"><i class="material-icons">star</i> Calificar Clubs</a></li>
+            <li><a href="./calificar-clubs.php"><i class="material-icons">star</i> Calificar Clubs</a></li>
             <li><a href="./hojas-de-trabajo.php"><i class="material-icons">content_copy</i> Hojas de trabajo</a></li>
-            <li><a href="./bitacora.html"><i class="material-icons">book</i> Bitácora</a></li>
+            <li><a href="./bitacora.php"><i class="material-icons">book</i> Bitácora</a></li>
             <li><a href="./mi-perfil.html"><i class="material-icons">settings</i> Configuración de Perfil</a></li>
             <li>
                 <div class="divider"></div>

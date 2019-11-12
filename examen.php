@@ -8,8 +8,11 @@ if(!$conexion){
     exit;
 }else{
     $id = $_GET['id'];
-    $preguntas = $conexion->query("SELECT * from pregunta where id_hoja_trabajo = $id;");
-    $encabezado = $conexion->query("SELECT * from hoja_trabajo where id_hoja_trabajo = $id");
+    $id_hoja = $conexion->query("SELECT id_hoja_trabajo FROM alumno_hoja_trabajo where id_alumno_hoja_trabajo=$id");
+    $hoja = mysqli_fetch_array($id_hoja);
+    $id_hoja_trabajo = $hoja['id_hoja_trabajo'];
+    $preguntas = $conexion->query("SELECT * from pregunta where id_hoja_trabajo = $id_hoja_trabajo;");
+    $encabezado = $conexion->query("SELECT * from hoja_trabajo where id_hoja_trabajo = $id_hoja_trabajo");
     $en = mysqli_fetch_array($encabezado);
     $datos2 = $conexion->query("SELECT idioma.nombre AS nombre, nivel.nivel AS nivel  FROM hoja_trabajo JOIN nivel JOIN idioma 
                                 WHERE hoja_trabajo.id_nivel = nivel.id_nivel AND nivel.id_idioma = idioma.id_idioma ");
@@ -103,6 +106,7 @@ if(!$conexion){
                   <a href="#!"><i class="material-icons z-depth-1 waves-effect waves-light" id="descargar">file_download</i></a>
             </div>
         </div>
+        <form action="./php/revisar-hoja.php?id_revision=<?php echo $id; ?>" method="POST">
         <?php
         $i = 0;
         while($pregunta = mysqli_fetch_array($preguntas)){
@@ -110,7 +114,7 @@ if(!$conexion){
             $idP = $pregunta['id_pregunta'];
             $p = $pregunta['enunciado'];
             $respuestas = $conexion->query("SELECT b.enunciado resp from pregunta a join respuesta b where a.id_pregunta = b.id_pregunta and a.id_pregunta = $idP;");
-        ?>
+            ?>
         <ul class="collection">
             <li class="collection-item">
                 <p><b><?php echo $i ?></b> <?php echo $p; ?></p>
@@ -118,7 +122,7 @@ if(!$conexion){
                 <?php while($respuesta = mysqli_fetch_array($respuestas)){ ?>
                     <div class="col m4 s12">
                         <label>
-                            <input name="group1" type="radio" />
+                            <input value ="<?php echo $respuesta['resp'];?>" name="grupo<?php echo $i; ?>" type="radio" />
                             <span><?php echo $respuesta['resp'];?></span>
                         </label>
                     </div>
@@ -126,10 +130,11 @@ if(!$conexion){
                 </div>
             </li>
         </ul>
-        <?php } ?>
+        <?php }?>
         <div class="row center">
-            <a class="waves-effect waves-light btn-large" id="btn">FINALIZAR</a>
+            <input type="submit" value="FINALIZAR" class=" waves-light btn-large" id="btn">
         </div>
+        </form>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>

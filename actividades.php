@@ -6,11 +6,11 @@ $id_alumno = $_POST['id_alumno'];
 $_SESSION['id_alumno'] = $id_alumno;
 $query = "select club.fecha,idioma.nombre as idioma,nivel.nivel,persona.nombre as asesor from club,nivel,idioma,asesor,persona,alumno_club 
           where club.id_club=alumno_club.id_club and nivel.id_nivel=club.id_nivel and idioma.id_idioma=nivel.id_idioma 
-          and asesor.id_persona=persona.id_persona and alumno_club.id_alumno=$id_alumno";
+          and asesor.id_persona=persona.id_persona and alumno_club.asistencia=2 and alumno_club.id_alumno=$id_alumno";
 $clubs = $conexion->query($query);
 $query_hojas = "select ht.id_hoja_trabajo,ht.tema,ht.area,idioma.nombre,nivel.nivel from hoja_trabajo ht,idioma,nivel,alumno_hoja_trabajo 
                 where nivel.id_nivel=ht.id_nivel and idioma.id_idioma=nivel.id_idioma and ht.id_hoja_trabajo = alumno_hoja_trabajo.id_hoja_trabajo 
-                and alumno_hoja_trabajo.id_alumno=$id_alumno";
+                and alumno_hoja_trabajo.estado=3 and alumno_hoja_trabajo.id_alumno=$id_alumno";
 $hojas = $conexion->query($query_hojas);
 ?>
 <!DOCTYPE html>

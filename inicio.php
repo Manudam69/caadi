@@ -1,25 +1,32 @@
 <?php
-include("php/conexion.php");
-session_start();
-$varsesion = $_SESSION['usuario'];
-$nivelsesion = $_SESSION['tipo_persona'];
-    if($varsesion == null ||  $varsesion = '' || $nivelsesion != '0'){
-        header("Location:index.php");
+    include("php/conexion.php");
+    session_start();
+    $varsesion = $_SESSION['usuario'];
+    $nivelsesion = $_SESSION['tipo_persona'];
+        if($varsesion == null ||  $varsesion = '' || $nivelsesion != '0'){
+            header("Location:index.php");
+        }
+    $conexion = connect();
+    if(!$conexion){
+        echo "Error. Sin conexion a la base de datos";
+        echo "Errno de depuracion ".mysqli_connect_errno().PHP_EOL;
+        echo "Error de depuracion ".mysqli_connect_error().PHP_EOL;
+        exit;
+    }else{
+        $id_alumno = $_SESSION['id_alumno'];
+        $query = "SELECT a.id_club, d.nombre as asesor, b.fecha, b.horario, f.nombre as idioma 
+        from alumno_club a join club b join asesor c join persona d join nivel e join idioma f 
+        where a.id_alumno = '$id_alumno' and a.id_club = b.id_club and b.id_asesor = c.id_asesor 
+        and c.id_persona = d.id_persona and b.id_nivel = e.id_nivel and e.id_idioma = f.id_idioma 
+        and b.horario > time(now()) and b.fecha >= curdate() and a.asistencia = 0";
+        $clubs_reservados = $conexion->query($query);
+        $query_hojas = "select ht.id_hoja_trabajo,ht.tema,ht.area,idioma.nombre,nivel.nivel from 
+        hoja_trabajo ht,idioma,nivel,alumno_hoja_trabajo where nivel.id_nivel=ht.id_nivel and 
+        idioma.id_idioma=nivel.id_idioma and ht.id_hoja_trabajo = alumno_hoja_trabajo.id_hoja_trabajo 
+        and alumno_hoja_trabajo.estado=0 and alumno_hoja_trabajo.id_alumno=$id_alumno";
+        $hojass = $conexion->query($query_hojas);
+        $_SESSION['cuenta'] = 0;
     }
-$conexion = connect();
-if(!$conexion){
-    echo "Error. Sin conexion a la base de datos";
-    echo "Errno de depuracion ".mysqli_connect_errno().PHP_EOL;
-    echo "Error de depuracion ".mysqli_connect_error().PHP_EOL;
-    exit;
-}else{
-    $id_alumno = $_SESSION['id_alumno'];
-    $query = "SELECT a.id_club, d.nombre as asesor, b.fecha, b.horario, f.nombre as idioma 
-    from alumno_club a join club b join asesor c join persona d join nivel e join idioma f 
-    where a.id_alumno = '$id_alumno' and a.id_club = b.id_club and b.id_asesor = c.id_asesor 
-    and c.id_persona = d.id_persona and b.id_nivel = e.id_nivel and e.id_idioma = f.id_idioma and b.horario > time(now());";
-    $clubs_reservados = $conexion->query($query);
-}
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -47,10 +54,10 @@ if(!$conexion){
     <header>
         <ul id="clubs" class="dropdown-content">
             <li><a href="./clubs-de-converscion.php"><i class="material-icons right">record_voice_over</i>Clubs de conversación</a></li>
-            <li><a href="./calificar-clubs.html"><i class="material-icons right">star</i>Calificar Clubs</a></li>
+            <li><a href="./clubs-realizados.php"><i class="material-icons right">star</i>Calificar Clubs</a></li>
         </ul>
         <ul id="perfil" class="dropdown-content">
-            <li><a href="./mi-perfil.php?id=0"><i class="material-icons right">settings</i>Contraseñas</a></li>
+            <li><a href="./mi-perfil.php"><i class="material-icons right">settings</i>Contraseñas</a></li>
             <li><a href="php/logout.php"><i class="fas fa-sign-out-alt right"></i>Cerrar Sesión</a></li>
         </ul>
         <nav>
@@ -61,7 +68,7 @@ if(!$conexion){
                 <ul class="right hide-on-med-and-down elementos">
                     <li class="active"><a href="./inicio.php"><i class="material-icons right">home</i>Inicio</a></li>
                     <li><a href="./asesorias.php"><i class="material-icons right">group</i>Asesorias</a></li>
-                    <li><a href="./sitios-de-interes.php?cuenta=0"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
+                    <li><a href="./sitios-de-interes.php"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
                     <li><a class="dropdown-trigger" href="#!" data-target='clubs'>Clubs<i class="material-icons right">arrow_drop_down</i></a></li>
                     <li><a href="./hojas-de-trabajo.php"><i class="material-icons right">content_copy</i>Hojas de trabajo</a></li>
                     <li><a href="./bitacora.php"><i class="material-icons right">book</i>Bitácora</a></li>
@@ -83,12 +90,12 @@ if(!$conexion){
             </li>
             <li class="active"><a href="./inicio.php"><i class="material-icons">home</i> Inicio</a></li>
             <li><a href="./asesorias.php"><i class="material-icons">group</i> Asesorias</a></li>
-            <li><a href="./sitios-de-interes.php?cuenta=0"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
+            <li><a href="./sitios-de-interes.php"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
             <li><a href="./clubs-de-converscion.php"><i class="material-icons">record_voice_over</i> Clubs de conversación</a></li>
-            <li><a href="./calificar-clubs.php"><i class="material-icons">star</i> Calificar Clubs</a></li>
+            <li><a href="./clubs-realizados.php"><i class="material-icons">star</i> Calificar Clubs</a></li>
             <li><a href="./hojas-de-trabajo.php"><i class="material-icons">content_copy</i> Hojas de trabajo</a></li>
             <li><a href="./bitacora.php"><i class="material-icons">book</i> Bitácora</a></li>
-            <li><a href="./mi-perfil.php?id=0"><i class="material-icons">settings</i> Contraseñas</a></li>
+            <li><a href="./mi-perfil.php"><i class="material-icons">settings</i> Contraseñas</a></li>
             <li>
                 <div class="divider"></div>
             </li>
@@ -125,6 +132,7 @@ if(!$conexion){
                     $fecha = mysqli_fetch_assoc($row);
                 ?>
                 <li class="collection-item avatar">
+                <i class="material-icons circle red">chrome_reader_mode</i>
                     <span class="title">Asesor: <?php echo $club_reservado['asesor']; ?> </span>
                     <a href="./php/elimina-reserva-de-club.php?id=<?php echo $idC; ?>" class="secondary-content">
                         <i class="material-icons borrar z-depth-1 small">clear</i>
@@ -140,16 +148,15 @@ if(!$conexion){
     <div id="tab2" class="col s12">
         <div class="container">
             <ul class="collection">
-                <!-- Repetir los li para agregar un nuevo elemento -->
-                <li class="collection-item avatar">
-                    <a href="#!" class="left"><i class="material-icons circle z-depth-1" id="descargar">file_download</i></a>
-                    <span class="title">Nombre</span>
-                    <a href="#!" class="right"><i class="material-icons contestar z-depth-1">file_upload</i></a>
-                    <p>Idioma, Nivel
-                        <br> Tipo
-                        <a href="#!" class="right"><i class="material-icons eliminar z-depth-1">delete</i></a>
-                    </p>
-                </li>
+                <?php while ($hojas = mysqli_fetch_array($hojass)){?>                    
+                    <li class="collection-item avatar">
+                        <a href="#!" class="left"><i class="material-icons circle z-depth-1" id="descargar">file_download</i></a>
+                        <span class="title">Título: <?php echo $hojas['tema']; ?></span>
+                        <p>Idioma: <?php echo $hojas['nombre']; ?>, Nivel <?php echo $hojas['nivel']; ?>
+                            <br> Tipo: <?php echo $hojas['area'];?>
+                        </p>
+                    </li>
+                <?php } ?>
             </ul>
 
             <ul class="pagination center">

@@ -1,19 +1,19 @@
 <?php 
-require("php/conexion.php");
-$conexion = connect();
-session_start();
-$id_persona = $_SESSION['id'];
-$_SESSION['id_persona'] = $id_persona;
-$query = "select persona.nombre from persona,profesor where profesor.id_persona = persona.id_persona and persona.id_persona=$id_persona";
-$datos = $conexion->query($query);
-$query = "select id_profesor from profesor where id_persona=$id_persona";
-$datos = $conexion->query($query);
-$profesor = mysqli_fetch_array($datos);
-$id_profesor = $profesor['id_profesor'];
-$nombre_prof = mysqli_fetch_array($datos);
-$query = "select curso.id_curso,curso.nombre as curso, idioma.nombre as idioma from curso,nivel,idioma where curso.id_nivel=nivel.id_nivel and nivel.id_idioma=idioma.id_idioma and curso.id_profesor=$id_profesor";
-$datos = $conexion->query($query);
-$_SESSION['cuenta'] = 2;
+    require("php/conexion.php");
+    $conexion = connect();
+    session_start();
+    $id_persona = $_SESSION['id'];
+    $_SESSION['id_persona'] = $id_persona;
+    $query = "select persona.nombre from persona,profesor where profesor.id_persona = persona.id_persona and persona.id_persona=$id_persona";
+    $datos = $conexion->query($query);
+    $query = "select id_profesor from profesor where id_persona=$id_persona";
+    $datos = $conexion->query($query);
+    $profesor = mysqli_fetch_array($datos);
+    $id_profesor = $profesor['id_profesor'];
+    $nombre_prof = mysqli_fetch_array($datos);
+    $query = "select curso.id_curso,curso.nombre as curso, idioma.nombre as idioma from curso,nivel,idioma where curso.id_nivel=nivel.id_nivel and nivel.id_idioma=idioma.id_idioma and curso.id_profesor=$id_profesor";
+    $datos = $conexion->query($query);
+    $_SESSION['cuenta'] = 2;
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -124,7 +124,6 @@ $_SESSION['cuenta'] = 2;
                                                 Promedio: 8.8
                                             </div>
                                             <div class="col l3 s6">
-                                                <!-- <a href="./actividades.php?id=<?php// echo $fila['id_alumno']?>">Actividades</a> -->
                                                 <button class="act" onclick = "actividad('<?php echo $fila['id_alumno'];?>')">Actividades</button>
                                             </div>
                                         </div>
@@ -151,7 +150,7 @@ $_SESSION['cuenta'] = 2;
                     $datos = $conexion->query($query);
                     while($row = mysqli_fetch_array($datos)){
                 ?>
-                    <li><a href="#<?php echo $row['id_curso'];?>"><?php echo $row['curso'];?></a></li>
+                        <li><a href="#<?php echo $row['id_curso'];?>"><?php echo $row['curso'];?></a></li>
                 <?php
                     }
                 ?>

@@ -11,7 +11,7 @@ if(!$conexion){
     $idC = $_GET['id'];
     $id_alumno = $_SESSION['id_alumno'];
     $elimina_reserva = $conexion->query("DELETE FROM alumno_club WHERE id_alumno = $id_alumno AND id_club = $idC;");
-    $eliminado = $conexion->query("SELECT incrementa_cupo($idC)");
+    $eliminado = $conexion->query("UPDATE club set cupo=cupo+1 where id_club=$idC and cupo < 10");
     header("location:../inicio.php");
    
 }
