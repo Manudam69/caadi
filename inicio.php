@@ -14,12 +14,16 @@
         exit;
     }else{
         $id_alumno = $_SESSION['id_alumno'];
+        $query_alumno = $conexion->query("select persona.nombre,persona.apellido_paterno
+        from alumno,persona where alumno.id_persona=persona.id_persona and alumno.id_alumno=$id_alumno");
+        $nombre = mysqli_fetch_array($query_alumno);
         $query = "SELECT a.id_club, d.nombre as asesor, b.fecha, b.horario, f.nombre as idioma 
         from alumno_club a join club b join asesor c join persona d join nivel e join idioma f 
         where a.id_alumno = '$id_alumno' and a.id_club = b.id_club and b.id_asesor = c.id_asesor 
         and c.id_persona = d.id_persona and b.id_nivel = e.id_nivel and e.id_idioma = f.id_idioma 
         and b.horario > time(now()) and b.fecha >= curdate() and a.asistencia = 0";
         $clubs_reservados = $conexion->query($query);
+
         $query_hojas = "select ht.id_hoja_trabajo,ht.tema,ht.area,idioma.nombre,nivel.nivel from 
         hoja_trabajo ht,idioma,nivel,alumno_hoja_trabajo where nivel.id_nivel=ht.id_nivel and 
         idioma.id_idioma=nivel.id_idioma and ht.id_hoja_trabajo = alumno_hoja_trabajo.id_hoja_trabajo 
@@ -84,8 +88,8 @@
                         <img src="images/fondo-navbar.jpg" alt="imagen de perfil">
                     </div>
                     <a href="#" class="center-align"><img src="images/usuario-perfil.jpg" class="circle"></a>
-                    <a href="#!"><span class="name white-text">Nombre</span></a>
-                    <a href="#!"><span class="id white-text">123456</span></a>
+                    <a href="#!"><span class="name white-text"><?php echo $nombre['nombre']." ".$nombre['apellido_paterno'];?></span></a>
+                    <a href="#!"><span class="id white-text"><?php echo $id_alumno;?></span></a>
                 </div>
             </li>
             <li class="active"><a href="./inicio.php"><i class="material-icons">home</i> Inicio</a></li>

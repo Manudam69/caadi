@@ -22,6 +22,10 @@ if(!$conexion){
     $hojas_historial = mysqli_query($conexion, "SELECT hoja_trabajo.id_hoja_trabajo,tema,area,tipo,nombre,nivel,estado FROM alumno_hoja_trabajo, hoja_trabajo, nivel, idioma 
     WHERE alumno_hoja_trabajo.id_hoja_trabajo = hoja_trabajo.id_hoja_trabajo and hoja_trabajo.id_nivel=nivel.id_nivel 
     AND idioma.id_idioma=nivel.id_idioma AND id_alumno=$id_alumno AND estado = 3 AND id_periodo = $periodo");
+
+    $query_alumno = $conexion->query("select persona.nombre,persona.apellido_paterno
+    from alumno,persona where alumno.id_persona=persona.id_persona and alumno.id_alumno=$id_alumno");
+    $nombre = mysqli_fetch_array($query_alumno);
 }
 ?>
 <!DOCTYPE html>
@@ -92,8 +96,8 @@ if(!$conexion){
                         <img src="images/fondo-navbar.jpg" alt="imagen de perfil">
                     </div>
                     <a href="#" class="center-align"><img src="images/usuario-perfil.jpg" class="circle"></a>
-                    <a href="#!"><span class="name white-text">Nombre</span></a>
-                    <a href="#!"><span class="id white-text">123456</span></a>
+                    <a href="#!"><span class="name white-text"><?php echo $nombre['nombre']." ".$nombre['apellido_paterno'];?></span></a>
+                    <a href="#!"><span class="id white-text"><?php echo $id_alumno;?></span></a>
                 </div>
             </li>
             <li><a href="./inicio.php"><i class="material-icons">home</i> Inicio</a></li>

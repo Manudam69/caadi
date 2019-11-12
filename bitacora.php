@@ -137,7 +137,7 @@ if(!$conexion){
             </li>
             <li><a href="./inicio.php"><i class="material-icons">home</i> Inicio</a></li>
             <li><a href="./asesorias.php"><i class="material-icons">group</i> Asesorias</a></li>
-            <li><a href="./sitios-de-interes.php?cuenta=0"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
+            <li><a href="./sitios-de-interes.php"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
             <li><a href="./clubs-de-converscion.php"><i class="material-icons">record_voice_over</i> Clubs de conversación</a></li>
             <li><a href="./clubs-realizados.php"><i class="material-icons">star</i> Calificar Clubs</a></li>
             <li><a href="./hojas-de-trabajo.php"><i class="material-icons">content_copy</i> Hojas de trabajo</a></li>

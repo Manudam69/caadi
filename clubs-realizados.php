@@ -63,10 +63,10 @@ if(!$conexion){
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <a class="hide-on-large-only brand-logo" href="./inicio.php"><img src="images/navbar-logo.png" class="responsive-img" width="80"></a>
                 <ul class="right hide-on-med-and-down elementos">
-                    <li class="active"><a href="./inicio.php"><i class="material-icons right">home</i>Inicio</a></li>
+                    <li ><a href="./inicio.php"><i class="material-icons right">home</i>Inicio</a></li>
                     <li><a href="./asesorias.php"><i class="material-icons right">group</i>Asesorias</a></li>
                     <li><a href="./sitios-de-interes.php"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
-                    <li><a class="dropdown-trigger" href="#!" data-target='clubs'>Clubs<i class="material-icons right">arrow_drop_down</i></a></li>
+                    <li class="active"><a class="dropdown-trigger" href="#!" data-target='clubs'>Clubs<i class="material-icons right">arrow_drop_down</i></a></li>
                     <li><a href="./hojas-de-trabajo.php"><i class="material-icons right">content_copy</i>Hojas de trabajo</a></li>
                     <li><a href="./bitacora.php"><i class="material-icons right">book</i>Bitácora</a></li>
                     <li><a class="dropdown-trigger" href="#!" data-target='perfil'>Mi perfil<i class="material-icons right">account_circle</i></a></li>

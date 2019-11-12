@@ -24,5 +24,5 @@
         $query = "update alumno_club set comentario='$comentario' where id_club=$id_club";
         $conexion->query($query);
     }
-    // header("location:../clubs-realizados.php")
+     header("location:../clubs-realizados.php")
  ?>

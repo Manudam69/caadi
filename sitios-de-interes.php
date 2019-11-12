@@ -1,3 +1,25 @@
+<?php 
+    require("./php/conexion.php");
+    $conexion = connect(); 
+    session_start();
+    $varsesion = $_SESSION['usuario'];
+    $nivelsesion = $_SESSION['tipo_persona'];
+    $id_alumno = $_SESSION['id'];
+        if($varsesion == null ||  $varsesion = '' || $nivelsesion != '0'){
+            header("Location:index.php");
+        }
+    $conexion = connect();
+    if(!$conexion){
+        echo "Error. Sin conexion a la base de datos";
+        echo "Errno de depuracion ".mysqli_connect_errno().PHP_EOL;
+        echo "Error de depuracion ".mysqli_connect_error().PHP_EOL;
+        exit;
+    }else{
+        $query_alumno = $conexion->query("select persona.nombre,persona.apellido_paterno
+        from alumno,persona where alumno.id_persona=persona.id_persona and alumno.id_alumno=$id_alumno");
+        $nombre = mysqli_fetch_array($query_alumno);
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,7 +44,6 @@
 
 <body>
     <?php
-        session_start();
         $cuenta = $_SESSION['cuenta']; 
         switch ($cuenta){
             case 0:
@@ -30,11 +51,11 @@
                 <header>
                     <ul id="clubs" class="dropdown-content">
                         <li><a href="./clubs-de-converscion.php"><i class="material-icons right">record_voice_over</i>Clubs de conversación</a></li>
-                        <li><a href="./calificar-clubs.php"><i class="material-icons right">star</i>Calificar Clubs</a></li>
+                        <li><a href="./clubs-realizados.php"><i class="material-icons right">star</i>Calificar Clubs</a></li>
                     </ul>
                     <ul id="perfil" class="dropdown-content">
                         <li><a href="./mi-perfil.php"><i class="material-icons right">settings</i>Contraseñas</a></li>
-                        <li><a href="#!"><i class="fas fa-sign-out-alt right"></i>Cerrar Sesión</a></li>
+                        <li><a href="./php/logout.php"><i class="fas fa-sign-out-alt right"></i>Cerrar Sesión</a></li>
                     </ul>
                     <nav>
                         <div class="nav-wrapper">
@@ -60,22 +81,22 @@
                                     <img src="images/fondo-navbar.jpg" alt="imagen de perfil">
                                 </div>
                                 <a href="#" class="center-align"><img src="images/usuario-perfil.jpg" class="circle"></a>
-                                <a href="#!"><span class="name white-text">Nombre</span></a>
-                                <a href="#!"><span class="id white-text">123456</span></a>
+                                <a href="#!"><span class="name white-text"><?php echo $nombre['nombre']." ".$nombre['apellido_paterno']; ?></span></a>
+                                <a href="#!"><span class="id white-text"><?php echo $id_alumno; ?></span></a>
                             </div>
                         </li>
                         <li><a href="./inicio.php"><i class="material-icons">home</i> Inicio</a></li>
                         <li><a href="./asesorias.php"><i class="material-icons">group</i> Asesorias</a></li>
                         <li class="active"><a href="./sitios-de-interes.php"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
                         <li><a href="./clubs-de-converscion.php"><i class="material-icons">record_voice_over</i> Clubs de conversación</a></li>
-                        <li><a href="./calificar-clubs.php"><i class="material-icons">star</i> Calificar Clubs</a></li>
+                        <li><a href="./clubs-realizados.php"><i class="material-icons">star</i> Calificar Clubs</a></li>
                         <li><a href="./hojas-de-trabajo.php"><i class="material-icons">content_copy</i> Hojas de trabajo</a></li>
                         <li><a href="./bitacora.php"><i class="material-icons">book</i> Bitácora</a></li>
                         <li><a href="./mi-perfil.php"><i class="material-icons">settings</i> Contraseñas</a></li>
                         <li>
                             <div class="divider"></div>
                         </li>
-                        <li><a href="#!"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+                        <li><a href="./php/logout.php"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
                         <li class="center-align"><img src="images/logo.png" class="responsive-img" width="80%;"></li>
                     </ul>
                 </header>

@@ -1,3 +1,24 @@
+<?php 
+        include("php/conexion.php");
+        session_start();
+        $varsesion = $_SESSION['usuario'];
+        $nivelsesion = $_SESSION['tipo_persona'];
+        $id_alumno =$_SESSION['id'];
+            if($varsesion == null ||  $varsesion = '' || $nivelsesion != '0'){
+                header("Location:index.php");
+            }
+        $conexion = connect();
+        if(!$conexion){
+            echo "Error. Sin conexion a la base de datos";
+            echo "Errno de depuracion ".mysqli_connect_errno().PHP_EOL;
+            echo "Error de depuracion ".mysqli_connect_error().PHP_EOL;
+            exit;
+        }else{
+            $query_alumno = $conexion->query("select persona.nombre,persona.apellido_paterno
+            from alumno,persona where alumno.id_persona=persona.id_persona and alumno.id_alumno=$id_alumno");
+            $nombre = mysqli_fetch_array($query_alumno);
+        }
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -23,7 +44,6 @@
 
 <body>
     <?php 
-        session_start();
         $cuenta = $_SESSION['cuenta'];
         switch ($cuenta){
             case 0:
@@ -31,11 +51,11 @@
                 <header>
                     <ul id="clubs" class="dropdown-content">
                         <li><a href="./clubs-de-converscion.php"><i class="material-icons right">record_voice_over</i>Clubs de conversación</a></li>
-                        <li><a href="./calificar-clubs.php"><i class="material-icons right">star</i>Calificar Clubs</a></li>
+                        <li><a href="./clubs-realizados.php"><i class="material-icons right">star</i>Calificar Clubs</a></li>
                     </ul>
                     <ul id="perfil" class="dropdown-content">
                         <li><a href="./mi-perfil.php"><i class="material-icons right">settings</i>Contraseñas</a></li>
-                        <li><a href="#!"><i class="fas fa-sign-out-alt right"></i>Cerrar Sesión</a></li>
+                        <li><a href="./php/logout.php"><i class="fas fa-sign-out-alt right"></i>Cerrar Sesión</a></li>
                     </ul>
                     <nav>
                         <div class="nav-wrapper">
@@ -61,22 +81,22 @@
                                     <img src="images/fondo-navbar.jpg" alt="imagen de perfil">
                                 </div>
                                 <a href="#" class="center-align"><img src="images/usuario-perfil.jpg" class="circle"></a>
-                                <a href="#!"><span class="name white-text">Nombre</span></a>
-                                <a href="#!"><span class="id white-text">123456</span></a>
+                                <a href="#!"><span class="name white-text"><?php echo $nombre['nombre']." ".$nombre['apellido_paterno']; ?></span></a>
+                                <a href="#!"><span class="id white-text"><?php echo $id_alumno; ?></span></a>
                             </div>
                         </li>
                         <li><a href="./inicio.php"><i class="material-icons">home</i> Inicio</a></li>
                         <li><a href="./asesorias.php"><i class="material-icons">group</i> Asesorias</a></li>
                         <li><a href="./sitios-de-interes.php"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
                         <li><a href="./clubs-de-converscion.php"><i class="material-icons">record_voice_over</i> Clubs de conversación</a></li>
-                        <li><a href="./calificar-clubs.php"><i class="material-icons">star</i> Calificar Clubs</a></li>
+                        <li><a href="./clubs-realizados.php"><i class="material-icons">star</i> Calificar Clubs</a></li>
                         <li><a href="./hojas-de-trabajo.php"><i class="material-icons">content_copy</i> Hojas de trabajo</a></li>
                         <li><a href="./bitacora.php"><i class="material-icons">book</i> Bitácora</a></li>
                         <li class="active"><a href="./mi-perfil.php"><i class="material-icons">settings</i> Contraseñas</a></li>
                         <li>
                             <div class="divider"></div>
                         </li>
-                        <li><a href="#!"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+                        <li><a href="./php/logout.php"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
                         <li class="center-align"><img src="images/logo.png" class="responsive-img" width="80%;"></li>
                     </ul>
                 </header>
@@ -89,7 +109,7 @@
                 <header>
                     <ul id="perfil" class="dropdown-content">
                         <li><a href="./mi-perfil.php"><i class="material-icons right">settings</i>Contraseñas</a></li>
-                        <li><a href="#!"><i class="fas fa-sign-out-alt right"></i>Cerrar Sesión</a></li>
+                        <li><a href="./php/logout.php"><i class="fas fa-sign-out-alt right"></i>Cerrar Sesión</a></li>
                     </ul>
                     <nav>
                         <div class="nav-wrapper">
@@ -97,9 +117,9 @@
                             <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                             <a class="hide-on-large-only brand-logo" href="./inicio-maestro.php"><img src="images/navbar-logo.png" class="responsive-img" width="80"></a>
                             <ul class="right hide-on-med-and-down elementos">
-                                <li class="active"><a href="./inicio-maestro.php"><i class="material-icons right">home</i>Inicio</a></li>
+                                <li ><a href="./inicio-maestro.php"><i class="material-icons right">home</i>Inicio</a></li>
                                 <li><a href="./sitios-de-interes.php"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
-                                <li><a class="dropdown-trigger" href="#!" data-target='perfil'>Mi perfil<i class="material-icons right">arrow_drop_down</i></a></li>
+                                <li class="active"><a class="dropdown-trigger" href="#!" data-target='perfil'>Mi perfil<i class="material-icons right">arrow_drop_down</i></a></li>
                             </ul>
                         </div>
                     </nav>
@@ -111,8 +131,8 @@
                                     <img src="images/fondo-navbar.jpg" alt="imagen de perfil">
                                 </div>
                                 <a href="#" class="center-align"><img src="images/usuario-perfil.jpg" class="circle"></a>
-                                <a href="#!"><span class="name white-text">Nombre</span></a>
-                                <a href="#!"><span class="id white-text">123456</span></a>
+                                <a href="#!"><span class="name white-text"><?php echo $nombre['nombre']." ".$nombre['apellido_paterno'];?></span></a>
+                                <a href="#!"><span class="id white-text"><?php echo $id_alumno ?></span></a>
                             </div>
                         </li>
                         <li class="active"><a href="./inicio-maestro.php"><i class="material-icons">home</i> Inicio</a></li>
@@ -121,7 +141,7 @@
                         <li>
                             <div class="divider"></div>
                         </li>
-                        <li><a href="#!"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+                        <li><a href="./php/logout.php"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
                         <li class="center-align"><img src="images/logo.png" class="responsive-img" width="80%;"></li>
                     </ul>
                 </header>
