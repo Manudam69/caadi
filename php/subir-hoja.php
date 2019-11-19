@@ -18,15 +18,14 @@ if(!$conexion){
 } else {
     $archivo = (isset($_FILES['archivo'])) ? $_FILES['archivo'] : null;
     if ($archivo) {
-        // $ruta_destino_archivo = "../archivos/$id_alumno/{$archivo['name']}";
         $ruta_destino_archivo = "../archivos/$id_alumno";
         if(file_exists($ruta_destino_archivo)){
-            $archivo_nombre ="../archivos/$id_alumno/{$archivo['name']}";
+            $archivo_nombre ="../archivos/$id_alumno/Hoja_rev".$id_alumno_hoja_trabajo."-al".$id_alumno.".docx";
             $archivo_ok = move_uploaded_file($archivo['tmp_name'], $archivo_nombre);
             echo "si existe";
         }else{
             mkdir($ruta_destino_archivo,0777,true);
-            $archivo_nombre ="../archivos/$id_alumno/{$archivo['name']}";
+            $archivo_nombre ="../archivos/$id_alumno/Hoja_rev".$id_alumno_hoja_trabajo."-al".$id_alumno.".docx";
             $archivo_ok = move_uploaded_file($archivo['tmp_name'], $archivo_nombre);
             echo "no existe, se creo";
         }

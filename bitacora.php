@@ -55,7 +55,7 @@ if(!$conexion){
     $registros = $conexion->query("SELECT fecha,entrada,salida, TIMEDIFF(salida,entrada) as tiempo FROM registro WHERE id_alumno = $id_alumno AND salida is not null AND id_periodo = $periodo order by fecha desc");
     $horas = $conexion->query("SELECT CONCAT( HOUR(SUM(TIMEDIFF(salida, entrada))), ':', MINUTE(SUM(TIMEDIFF(salida, entrada)))) as horas FROM registro");
     $horas = mysqli_fetch_array($horas);
-    $query = $conexion->query("select sum(ceil((UNIX_TIMESTAMP(salida)-UNIX_TIMESTAMP(entrada))/3600)) as numhora from registro");
+    $query = $conexion->query("select sum(ceil((UNIX_TIMESTAMP(salida)-UNIX_TIMESTAMP(entrada))/3600)) as numhora from registro where id_alumno=$id_alumno and id_periodo=$periodo");
     $num_horas = mysqli_fetch_array($query);
     $num_horas = $num_horas['numhora'];
     $porcentaje_horas = $num_horas * 8.5;    

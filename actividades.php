@@ -8,7 +8,7 @@ $query = "select club.fecha,idioma.nombre as idioma,nivel.nivel,persona.nombre a
           where club.id_club=alumno_club.id_club and nivel.id_nivel=club.id_nivel and idioma.id_idioma=nivel.id_idioma 
           and asesor.id_persona=persona.id_persona and alumno_club.asistencia=2 and alumno_club.id_alumno=$id_alumno";
 $clubs = $conexion->query($query);
-$query_hojas = "select ht.id_hoja_trabajo,ht.tema,ht.area,idioma.nombre,nivel.nivel from hoja_trabajo ht,idioma,nivel,alumno_hoja_trabajo 
+$query_hojas = "select ht.id_hoja_trabajo,ht.tema,ht.tipo,ht.area,idioma.nombre,nivel.nivel,alumno_hoja_trabajo.id_alumno_hoja_trabajo from hoja_trabajo ht,idioma,nivel,alumno_hoja_trabajo 
                 where nivel.id_nivel=ht.id_nivel and idioma.id_idioma=nivel.id_idioma and ht.id_hoja_trabajo = alumno_hoja_trabajo.id_hoja_trabajo 
                 and alumno_hoja_trabajo.estado=3 and alumno_hoja_trabajo.id_alumno=$id_alumno";
 $hojas = $conexion->query($query_hojas);
@@ -112,7 +112,14 @@ $hojas = $conexion->query($query_hojas);
                             <p>Tipo: <?php echo $row['area']; ?>
                                 <br>
                             </p>Idioma: <?php echo $row['nombre']; ?>, Nivel: <?php echo $row['nivel']; ?>
-                            <a href="examen.php?id=<?php echo $row['id_hoja_trabajo']; ?>" class="secondary-content"><i class="material-icons">open_in_new</i></a>
+                            <?php 
+                                if ($row['tipo'] == 1){ ?>
+                                    <a href="./archivos/<?php echo $id_alumno; ?>/Hoja_revisada<?php echo $row['id_alumno_hoja_trabajo'].'-al'.$id_alumno;?>.docx" class="secondary-content"><i class="material-icons">file_download</i></a>
+                                    
+                                    <?php }else{?>
+                                    <a href="examen.php?id=<?php echo $row['id_alumno_hoja_trabajo']; ?>" class="secondary-content"><i class="material-icons">open_in_new</i></a>
+                            <?php  }
+                            ?>
                         </li>
                     </ul>
                 </div>

@@ -19,7 +19,7 @@ if(!$conexion){
     hoja_trabajo, nivel, idioma WHERE alumno_hoja_trabajo.id_hoja_trabajo = hoja_trabajo.id_hoja_trabajo and hoja_trabajo.id_nivel=nivel.id_nivel 
     AND idioma.id_idioma=nivel.id_idioma AND id_alumno=$id_alumno AND estado = 0 AND id_periodo = $periodo");
 
-    $hojas_historial = mysqli_query($conexion, "SELECT hoja_trabajo.id_hoja_trabajo,tema,area,tipo,nombre,nivel,estado FROM alumno_hoja_trabajo, hoja_trabajo, nivel, idioma 
+    $hojas_historial = mysqli_query($conexion, "SELECT alumno_hoja_trabajo.id_alumno_hoja_trabajo,tema,area,tipo,nombre,nivel,estado FROM alumno_hoja_trabajo, hoja_trabajo, nivel, idioma 
     WHERE alumno_hoja_trabajo.id_hoja_trabajo = hoja_trabajo.id_hoja_trabajo and hoja_trabajo.id_nivel=nivel.id_nivel 
     AND idioma.id_idioma=nivel.id_idioma AND id_alumno=$id_alumno AND estado = 3 AND id_periodo = $periodo");
 
@@ -64,7 +64,7 @@ if(!$conexion){
         </ul>
         <ul id="perfil" class="dropdown-content">
             <li><a href="./mi-perfil.php"><i class="material-icons right">settings</i>Contraseñas</a></li>
-            <li><a href="./php/loguot.php"><i class="fas fa-sign-out-alt right"></i>Cerrar Sesión</a></li>
+            <li><a href="./php/logout.php"><i class="fas fa-sign-out-alt right"></i>Cerrar Sesión</a></li>
         </ul>
         <nav>
             <div class="nav-wrapper">
@@ -214,30 +214,31 @@ if(!$conexion){
                     </li>
                 </ul>
                 
-
-                <div id="modal1" class="modal">
-                    <div class="modal-content">
-                        <h4>Subir hoja de trabajo resuelta</h4>
-                        <div class="container">
-                            <form action="./php/subir-hoja.php?id_alumno_hoja_trabajo=<?php echo $hoja['id_alumno_hoja_trabajo'];?>" method="POST" enctype="multipart/form-data">
-                                <div class="file-field input-field">
-                                    <div class="btn">
-                                        <span>Archivo</span>
-                                        <input type="file" name="archivo" required="required"/>
+        <?php 
+                if ($hoja['tipo'] == 1){ ?>
+                    <div id="modal1" class="modal">
+                        <div class="modal-content">
+                            <h4>Subir hoja de trabajo resuelta</h4>
+                            <div class="container">
+                                <form action="./php/subir-hoja.php?id_alumno_hoja_trabajo=<?php echo $hoja['id_alumno_hoja_trabajo'];?>" method="POST" enctype="multipart/form-data">
+                                    <div class="file-field input-field">
+                                        <div class="btn">
+                                            <span>Archivo</span>
+                                            <input type="file" name="archivo" required="required"/>
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text">
+                                        </div>
                                     </div>
-                                    <div class="file-path-wrapper">
-                                        <input class="file-path validate" type="text">
+                                    <div class="modal-footer">
+                                        <input type="submit" class="modal-close waves-effect waves-green btn-flat" value="ENVIAR">
                                     </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <input type="submit" class="modal-close waves-effect waves-green btn-flat" value="ENVIAR">
-                                </div>
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                    
-                </div>
-                <?php } ?>
+        <?php   }
+        }  ?>
             </div>
         </div>
 
@@ -248,11 +249,11 @@ if(!$conexion){
                 <ul class="collection">
                     <li class="collection-item avatar">
                         <?php if ($hoja['tipo'] == 1){?>
-                            <a href="./archivos/hojas-de-trabajo/<?php echo $hoja['id_hoja_trabajo'].'-'.$hoja['tema'];?>.docx" class="left"><i class="material-icons circle z-depth-1" id="descargar">file_download</i></a>
+                            <a href="./archivos/<?php echo $id_alumno; ?>/Hoja_revisada<?php echo $hoja['id_alumno_hoja_trabajo'].'-al'.$id_alumno;?>.docx" class="left"><i class="material-icons circle z-depth-1" id="descargar">file_download</i></a>
                         <?php }?>
                         <span class="title">Título:<?php echo $hoja['tema']; ?> </span>
                         <?php if ($hoja['tipo'] == 0){?>
-                            <a href="../caadi/examen.php?id=<?php echo $hoja['id_hoja_trabajo'];?>" class="right"><i class="material-icons contestar z-depth-1">exit_to_app</i></a>
+                            <a href="../caadi/examen.php?id=<?php echo $hoja['id_alumno_hoja_trabajo'];?>" class="right"><i class="material-icons contestar z-depth-1">exit_to_app</i></a>
                             <?php } ?>
                             <p>Idioma: <?php echo $hoja['nombre']; ?>, Nivel <?php echo $hoja['nivel'];?>
                             <br> Tipo: <?php echo $hoja['area']?>

@@ -11,9 +11,10 @@
     $profesor = mysqli_fetch_array($datos);
     $id_profesor = $profesor['id_profesor'];
     $nombre_prof = mysqli_fetch_array($datos);
-    $query = "select curso.id_curso,curso.nombre as curso, idioma.nombre as idioma from curso,nivel,idioma where curso.id_nivel=nivel.id_nivel and nivel.id_idioma=idioma.id_idioma and curso.id_profesor=$id_profesor";
+    $query = "select curso.id_curso,curso.nombre as curso,curso.id_nivel, idioma.nombre as idioma from curso,nivel,idioma where curso.id_nivel=nivel.id_nivel and nivel.id_idioma=idioma.id_idioma and curso.id_profesor=$id_profesor";
     $datos = $conexion->query($query);
     $_SESSION['cuenta'] = 2;
+    $periodo =$_SESSION['periodo'];
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -109,19 +110,45 @@
                             
                                 <?php 
                                     $id_curso = $row['id_curso'];
-                                    $query_alumnos = " select persona.nombre, alumno.id_alumno,curso.nombre from persona, alumno, curso, curso_alumno where persona.id_persona=alumno.id_persona and curso.id_curso=curso_alumno.id_curso and alumno.id_alumno=curso_alumno.id_alumno and curso.id_curso=$id_curso";
+                                    $id_nivel = $row['id_nivel'];
+                                    $query_alumnos = " select persona.nombre as alumno,persona.apellido_paterno as apellido, alumno.id_alumno,curso.nombre from persona, alumno, curso, curso_alumno where persona.id_persona=alumno.id_persona and curso.id_curso=curso_alumno.id_curso and alumno.id_alumno=curso_alumno.id_alumno and curso.id_curso=$id_curso";
                                     $alumnos = $conexion->query($query_alumnos);
-                                    while($fila = mysqli_fetch_array($alumnos)){   
+                                    while($fila = mysqli_fetch_array($alumnos)){ 
+                                        $idalumno = $fila['id_alumno'];
+                                        //clubs de conversación realizados
+                                        $query_club = $conexion->query("select count(club.id_club) as numero_clubs, idioma.nombre from alumno_club,club,nivel,idioma where alumno_club.id_club = club.id_club and club.id_nivel=nivel.id_nivel and nivel.id_idioma=idioma.id_idioma and club.id_nivel=$id_nivel and alumno_club.id_alumno=$idalumno and club.id_periodo = $periodo  and asistencia=2 group by idioma.nombre;");
+                                        $datosclub = mysqli_fetch_array($query_club);
+                                        $num_clubs = $datosclub['numero_clubs'];
+                                        //hojas de trabajo realizadas
+                                        $num =$conexion->query("SELECT COUNT(id_alumno_hoja_trabajo) as num_hojas from alumno_hoja_trabajo where estado = 3 and id_alumno = $idalumno and alumno_hoja_trabajo.id_periodo=$periodo");
+                                        $num_hojas = mysqli_fetch_array($num);
+                                        $num_hojas = $num_hojas['num_hojas'];
+                                        //horas realizadas
+                                        $queryhoras = $conexion->query("select sum(ceil((UNIX_TIMESTAMP(salida)-UNIX_TIMESTAMP(entrada))/3600)) as numhora from registro where id_alumno=$idalumno and id_periodo=$periodo");
+                                        $num_horas = mysqli_fetch_array($queryhoras);
+                                        $num_horas = $num_horas['numhora'];
+                                         
                                         ?>
                                         <div class="row">
-                                            <div class="col l3 s6">
+                                            <div class="col l2 s6">
                                                 ID: <?php echo $fila['id_alumno']; ?>
                                             </div>
-                                            <div class="col l3 s6">
-                                                Nombre: <?php echo $fila['nombre']; ?>
+                                            <div class="col l4 s6">
+                                                Nombre: <?php echo $fila['alumno']." ".$fila['apellido']; ?>
                                             </div>
                                             <div class="col l3 s6">
-                                                Promedio: 8.8
+                                                <?php 
+                                                    if($num_clubs >=1 && $num_hojas >=2 && $num_horas >= 2){
+                                                        if($num_clubs >=2 && $num_hojas >=4 && $num_horas >= 4){
+                                                            echo "CAADI: Terminado";
+                                                        }else{
+                                                            echo "CAADI: Cumplido";
+                                                        }   
+                                                    }
+                                                    else{
+                                                        echo "CAADI: En proceso";
+                                                    }
+                                                ?>
                                             </div>
                                             <div class="col l3 s6">
                                                 <button class="act" onclick = "actividad('<?php echo $fila['id_alumno'];?>')">Actividades</button>

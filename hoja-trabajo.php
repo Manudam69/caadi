@@ -7,7 +7,7 @@ if(!$conexion){
     echo "Error de depuracion ".mysqli_connect_error().PHP_EOL;
     exit;
 }else{
-    $id = $_GET['id'];
+    $id = $_GET['id_revision'];
     $id_hoja = $conexion->query("SELECT id_hoja_trabajo FROM alumno_hoja_trabajo where id_alumno_hoja_trabajo=$id");
     $hoja = mysqli_fetch_array($id_hoja);
     $id_hoja_trabajo = $hoja['id_hoja_trabajo'];
@@ -17,25 +17,20 @@ if(!$conexion){
     $datos2 = $conexion->query("SELECT idioma.nombre AS nombre, nivel.nivel AS nivel  FROM hoja_trabajo JOIN nivel JOIN idioma 
                                 WHERE hoja_trabajo.id_nivel = nivel.id_nivel AND nivel.id_idioma = idioma.id_idioma ");
     $datos2 = mysqli_fetch_array($datos2);
-    $idioma2 = $datos2["nombre"];
-    $nivel = $datos2["nivel"];
-    session_start();
-    $id_alumno = $_SESSION['id_alumno'];
-    $datos_alumno = $conexion->query("select p.nombre,p.apellido_paterno from persona p, alumno where alumno.id_persona = p.id_persona and alumno.id_alumno=$id_alumno;");
-    $nombre_alumno = mysqli_fetch_array($datos_alumno);
-    $respuestas = $conexion -> query(" select respuesta.id_respuesta,respuesta.enunciado,pregunta.id_pregunta,alumno_hoja_trabajo_pregunta.comentario from 
+
+    $respuestas = $conexion -> query(" select respuesta.id_respuesta,respuesta.enunciado,pregunta.id_pregunta from 
     respuesta,pregunta,hoja_trabajo,alumno_hoja_trabajo,alumno_hoja_trabajo_pregunta where 
     alumno_hoja_trabajo.id_hoja_trabajo = hoja_trabajo.id_hoja_trabajo and 
     hoja_trabajo.id_hoja_trabajo=pregunta.id_hoja_trabajo and pregunta.id_pregunta=respuesta.id_pregunta and 
     alumno_hoja_trabajo_pregunta.id_respuesta=respuesta.id_respuesta and alumno_hoja_trabajo.id_alumno_hoja_trabajo=$id");
     $i=0;
     $resp_alumno=null;
-    $comentarios = null;
     while ($resp = mysqli_fetch_array($respuestas)){
         $resp_alumno[$i]=$resp['id_respuesta'];
-        $comentarios[$i]=$resp['comentario'];
         $i++; 
     }
+    $idioma2 = $datos2["nombre"];
+    $nivel = $datos2["nivel"];
 }
 ?>
 <!DOCTYPE html>
@@ -65,10 +60,10 @@ if(!$conexion){
     <div class="container" id="contenido">
         <div class="row">
             <div class="col m6 s8">
-                Name: <b> <?php echo $nombre_alumno["nombre"]."  ".$nombre_alumno["apellido_paterno"] ?> </b>
+                Name: <b>  </b>
             </div>
             <div class="col m3 s4">
-                ID: <?php echo $id_alumno; ?>
+                ID: 
             </div>
             <div class="col m3 s12">
                 Date: 20 de Enero del 9999
@@ -116,14 +111,14 @@ if(!$conexion){
                 <p><?php echo $en['adaptado']; ?></p>
             </div>
         </div>
-        <form action="./php/revisar-hoja.php?id_revision=<?php echo $id; ?>" method="POST">
+        
         <?php
         $i = 0;
         while($pregunta = mysqli_fetch_array($preguntas)){
             $i = $i + 1;
             $idP = $pregunta['id_pregunta'];
             $p = $pregunta['enunciado'];
-            $respuestas = $conexion->query("SELECT b.enunciado resp,b.id_respuesta  from pregunta a join respuesta b where a.id_pregunta = b.id_pregunta and a.id_pregunta = $idP;");
+            $respuestas = $conexion->query("SELECT b.id_respuesta, b.enunciado resp from pregunta a join respuesta b where a.id_pregunta = b.id_pregunta and a.id_pregunta = $idP;");
             ?>
         <ul class="collection">
             <li class="collection-item">
@@ -132,36 +127,23 @@ if(!$conexion){
                 <?php while($respuesta = mysqli_fetch_array($respuestas)){ ?>
                     <div class="col m4 s12">
                         <label>
-                            <?php
-                                if($resp_alumno==null){?>
-                                    <input value ="<?php echo $respuesta['id_respuesta'];?>" name="grupo<?php echo $i; ?>" type="radio" required />
-                                    <span><?php echo $respuesta['resp'];?></span>
-                            <?php }else{?>
-                                    <input value ="<?php echo $respuesta['id_respuesta'];?>"  name="grupo<?php echo $i; ?>" type="radio" 
-                                    <?php if($respuesta['id_respuesta'] == $resp_alumno[$i-1]){ echo "checked";} ?> />
-                                    <span><?php echo $respuesta['resp'];?></span>
-                            <?php }
-                            ?>
-                            
+                            <input value ="<?php echo $respuesta['id_respuesta'];?>"  name="grupo<?php echo $i; ?>" type="radio" 
+                            <?php if($respuesta['id_respuesta'] == $resp_alumno[$i-1]){ echo "checked";} ?> disabled />
+                            <span><?php echo $respuesta['resp'];?></span>
                         </label>
                     </div>
-                    <?php } 
-                        if($comentarios !=null){ 
-                                if($comentarios[$i-1] != ""){ ?>
-                                     <div class="input-field col m12  s12 " >
-                                        <i class="material-icons prefix" >mode_edit</i>
-                                        <input  placeholder="Agregar comentario" value="<?php echo $comentarios[$i-1]?>" name="text<?php echo $i; ?>" type="text" id="icon_prefix2" class="materialize-textarea" disabled="disabled" cols="50">
-                                    </div>
-                    <?php       }
-                         }
-                    ?>
-                    
+                    <?php } ?>
+        <form action="./php/comentarios-asesor.php?id=<?php echo $id?>" method="POST">
+                    <div class="input-field col m12 s12">
+                        <i class="material-icons prefix">mode_edit</i>
+                        <input placeholder="Agregar comentario" name="text<?php echo $i; ?>" type="text" id="icon_prefix2" class="materialize-textarea" cols="50">
+                    </div>
                 </div>
             </li>
         </ul>
         <?php }?>
         <div class="row center">
-            <input type="submit" value="FINALIZAR" class=" waves-light btn-large" id="btn">
+            <input type="submit" value="FINALIZAR REVISION" class=" waves-light btn-large" id="btn">
         </div>
         </form>
     </div>

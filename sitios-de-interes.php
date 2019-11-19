@@ -5,7 +5,7 @@
     $varsesion = $_SESSION['usuario'];
     $nivelsesion = $_SESSION['tipo_persona'];
     $id_alumno = $_SESSION['id'];
-        if($varsesion == null ||  $varsesion = '' || $nivelsesion != '0'){
+        if($varsesion == null ||  $varsesion = ''){
             header("Location:index.php");
         }
     $conexion = connect();
@@ -16,7 +16,7 @@
         exit;
     }else{
         $query_alumno = $conexion->query("select persona.nombre,persona.apellido_paterno
-        from alumno,persona where alumno.id_persona=persona.id_persona and alumno.id_alumno=$id_alumno");
+        from persona where id_persona=$id_alumno");
         $nombre = mysqli_fetch_array($query_alumno);
     }
 ?>
@@ -111,7 +111,7 @@
                 <header>
                     <ul id="perfil" class="dropdown-content">
                         <li><a href="./mi-perfil.php"><i class="material-icons right">settings</i>Contraseñas</a></li>
-                        <li><a href="#!"><i class="fas fa-sign-out-alt right"></i>Cerrar Sesión</a></li>
+                        <li><a href="./php/logout.php"><i class="fas fa-sign-out-alt right"></i>Cerrar Sesión</a></li>
                     </ul>
                     <nav>
                         <div class="nav-wrapper">
@@ -119,8 +119,8 @@
                             <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                             <a class="hide-on-large-only brand-logo" href="./inicio-maestro.php"><img src="images/navbar-logo.png" class="responsive-img" width="80"></a>
                             <ul class="right hide-on-med-and-down elementos">
-                                <li class="active"><a href="./inicio-maestro.php"><i class="material-icons right">home</i>Inicio</a></li>
-                                <li><a href="./sitios-de-interes.php"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
+                                <li ><a href="./inicio-maestro.php"><i class="material-icons right">home</i>Inicio</a></li>
+                                <li class="active"><a href="./sitios-de-interes.php"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
                                 <li><a class="dropdown-trigger" href="#!" data-target='perfil'>Mi perfil<i class="material-icons right">arrow_drop_down</i></a></li>
                             </ul>
                         </div>
@@ -133,24 +133,67 @@
                                     <img src="images/fondo-navbar.jpg" alt="imagen de perfil">
                                 </div>
                                 <a href="#" class="center-align"><img src="images/usuario-perfil.jpg" class="circle"></a>
-                                <a href="#!"><span class="name white-text">Nombre</span></a>
-                                <a href="#!"><span class="id white-text">123456</span></a>
+                                <a href="#!"><span class="name white-text"><?php echo $nombre['nombre']." ".$nombre['apellido_paterno']; ?></span></a>
+                                <a href="#!"><span class="id white-text"><?php echo $id_alumno; ?></span></a>
                             </div>
                         </li>
-                        <li class="active"><a href="./inicio-maestro.php"><i class="material-icons">home</i> Inicio</a></li>
-                        <li><a href="./sitios-de-interes.php"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
+                        <li ><a href="./inicio-maestro.php"><i class="material-icons">home</i> Inicio</a></li>
+                        <li class="active"><a href="./sitios-de-interes.php"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
                         <li><a href="./mi-perfil.php"><i class="material-icons">settings</i> Contraseñas</a></li>
                         <li>
                             <div class="divider"></div>
                         </li>
-                        <li><a href="#!"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+                        <li><a href="./php/logout.php"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
                         <li class="center-align"><img src="images/logo.png" class="responsive-img" width="80%;"></li>
                     </ul>
                 </header>
     <?php
             break;
-            case 3:
+            case 3: ?>
+                <header>
+                    <ul id="perfil" class="dropdown-content">
+                        <li><a href="./mi-perfil.php"><i class="material-icons right">settings</i>Contraseñas</a></li>
+                        <li><a href="./php/logout.php"><i class="fas fa-sign-out-alt right"></i>Cerrar Sesión</a></li>
+                    </ul>
+                    <nav>
+                        <div class="nav-wrapper">
+                            <a class="brand-logo hide-on-med-and-down logo" href="./inicio-asesor.php"><img src="images/navbar-logo.png" class="responsive-img" width="85"></a>
+                            <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                            <a class="hide-on-large-only brand-logo" href="./inicio-asesor.php"><img src="images/navbar-logo.png" class="responsive-img" width="80"></a>
+                            <ul class="right hide-on-med-and-down elementos">
+                                <li><a href="./inicio-asesor.php"><i class="material-icons right">home</i>Inicio</a></li>
+                                <li ><a href="./asesorias-asesorias.php"><i class="material-icons right">group</i>Asesorias</a></li>
+                                <li class="active"><a href="./sitios-de-interes.php"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
+                                <li><a href="./revision-de-hojas.php"><i class="material-icons right">content_copy</i>Revisión de hojas de trabajo</a></li>
+                                <li><a class="dropdown-trigger" href="#!" data-target='perfil'>Mi perfil<i class="material-icons right">account_circle</i></a></li>
+                            </ul>
+                        </div>
+                    </nav>
 
+                    <ul class="sidenav" id="mobile-demo">
+                        <li>
+                            <div class="user-view">
+                                <div class="background">
+                                    <img src="images/fondo-navbar.jpg" alt="imagen de perfil">
+                                </div>
+                                <a href="#" class="center-align"><img src="images/usuario-perfil.jpg" class="circle"></a>
+                                <a href="#!"><span class="name white-text"> <?php echo $nombre['nombre']." ".$nombre['apellido_paterno']; ?> </span></a>
+                                <a href="#!"><span class="id white-text"><?php echo $id_alumno; ?></span></a>
+                            </div>
+                        </li>
+                        <li><a href="./inicio-asesor.php"><i class="material-icons">home</i> Inicio</a></li>
+                        <li ><a href="./asesorias-asesor.php"><i class="material-icons">group</i> Asesorias</a></li>
+                        <li class="active"><a href="./sitios-de-interes.php"><i class="material-icons">sentiment_very_satisfied</i> Sitios de Interés</a></li>
+                        <li><a href="./revision-de-hojas.php"><i class="material-icons">content_copy</i> Revision de hojas de trabajo</a></li>
+                        <li><a href="./mi-perfil.php"><i class="material-icons">settings</i> Contraseñas</a></li>
+                        <li>
+                            <div class="divider"></div>
+                        </li>
+                        <li><a href="./php/logout.php"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
+                        <li class="center-align"><img src="images/logo.png" class="responsive-img" width="80%;"></li>
+                    </ul>
+                </header>
+    <?php 
             break;
         }
 

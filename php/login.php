@@ -42,16 +42,10 @@ if($id_usuario == "" || $pass == ""){
         $_SESSION['id'] = $id_persona;
         switch ($tipo_persona){
             case 0:
-                $nivel = $conexion->query("SELECT n.nivel AS nivel,
-                a.id_alumno AS id_alumno, i.nombre AS idioma
-                FROM nivel n JOIN curso c 
-                JOIN curso_alumno ca JOIN alumno a 
-                JOIN idioma i
-                WHERE a.id_persona = '$id_persona'
-                AND a.id_alumno = ca.id_alumno 
-                AND ca.id_curso = c.id_curso 
-                AND c.id_nivel = n.id_nivel
-                AND n.id_idioma = i.id_idioma");
+                $nivel = $conexion->query("SELECT n.nivel AS nivel,a.id_alumno AS id_alumno, i.nombre AS idioma
+                FROM nivel n JOIN curso c JOIN curso_alumno ca JOIN alumno a JOIN idioma i
+                WHERE a.id_persona = '$id_persona' AND a.id_alumno = ca.id_alumno AND ca.id_curso = c.id_curso 
+                AND c.id_nivel = n.id_nivel AND n.id_idioma = i.id_idioma");
                 $niveles = array();
                 $idiomas = array();
                 $id_alumno = "";
@@ -70,6 +64,12 @@ if($id_usuario == "" || $pass == ""){
             
             break;
             case 3:
+                $datos_asesor = $conexion -> query("SELECT id_asesor, nombre, apellido_paterno FROM asesor, persona WHERE asesor.id_persona=persona.id_persona AND persona.id_persona = $id_persona");
+                $asesor = mysqli_fetch_array($datos_asesor);
+                $id_asesor = $asesor['id_asesor'];
+                $_SESSION['id_asesor'] = $id_asesor;
+                $_SESSION['nombre'] = $asesor['nombre'];
+                $_SESSION['apellido_paterno'] = $asesor['apellido_paterno'];
             break;
         }
 
