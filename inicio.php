@@ -1,11 +1,11 @@
 <?php
     include("php/conexion.php");
     session_start();
-    $varsesion = $_SESSION['usuario'];
     $nivelsesion = $_SESSION['tipo_persona'];
-        if($varsesion == null ||  $varsesion = '' || $nivelsesion != '0'){
-            header("Location:index.php");
-        }
+    if( $nivelsesion== "" || $nivelsesion == null || $nivelsesion != 0){
+        session_destroy();
+        header("Location:index.php");
+    }
     $conexion = connect();
     if(!$conexion){
         echo "Error. Sin conexion a la base de datos";
@@ -14,22 +14,18 @@
         exit;
     }else{
         $id_alumno = $_SESSION['id_alumno'];
-        $query_alumno = $conexion->query("select persona.nombre,persona.apellido_paterno
-        from alumno,persona where alumno.id_persona=persona.id_persona and alumno.id_alumno=$id_alumno");
-        $nombre = mysqli_fetch_array($query_alumno);
-        $query = "SELECT a.id_club, d.nombre as asesor, b.fecha, b.horario, f.nombre as idioma 
-        from alumno_club a join club b join asesor c join persona d join nivel e join idioma f 
-        where a.id_alumno = '$id_alumno' and a.id_club = b.id_club and b.id_asesor = c.id_asesor 
-        and c.id_persona = d.id_persona and b.id_nivel = e.id_nivel and e.id_idioma = f.id_idioma 
-        and b.horario > time(now()) and b.fecha >= curdate() and a.asistencia = 0";
+        $nombre = $_SESSION['nombre'];
+        $apellido_paterno=$_SESSION['apellido_paterno'];
+        $periodo = $_SESSION['periodo'];
+        //query para obtener los clubs reservados
+        $query = "SELECT a.id_club, d.nombre as asesor, b.fecha, b.horario, f.nombre as idioma from alumno_club a join club b join asesor c join persona d join nivel e join idioma f 
+        where a.id_alumno = '$id_alumno' and a.id_club = b.id_club and b.id_asesor = c.id_asesor and c.id_persona = d.id_persona and b.id_nivel = e.id_nivel and e.id_idioma = f.id_idioma 
+        and b.horario > time(now()) and b.fecha >= curdate() and a.asistencia = 0 and b.id_periodo=$periodo";
         $clubs_reservados = $conexion->query($query);
-
-        $query_hojas = "select ht.id_hoja_trabajo,ht.tema,ht.area,idioma.nombre,nivel.nivel from 
-        hoja_trabajo ht,idioma,nivel,alumno_hoja_trabajo where nivel.id_nivel=ht.id_nivel and 
-        idioma.id_idioma=nivel.id_idioma and ht.id_hoja_trabajo = alumno_hoja_trabajo.id_hoja_trabajo 
-        and alumno_hoja_trabajo.estado=0 and alumno_hoja_trabajo.id_alumno=$id_alumno";
+        //query para obtener las hojas de trabajo pendientes
+        $query_hojas = "select ht.id_hoja_trabajo,ht.tema,ht.area,idioma.nombre,nivel.nivel from hoja_trabajo ht,idioma,nivel,alumno_hoja_trabajo where nivel.id_nivel=ht.id_nivel and 
+        idioma.id_idioma=nivel.id_idioma and ht.id_hoja_trabajo = alumno_hoja_trabajo.id_hoja_trabajo and alumno_hoja_trabajo.estado=0 and alumno_hoja_trabajo.id_alumno=$id_alumno and alumno_hoja_trabajo.id_periodo=$periodo";
         $hojass = $conexion->query($query_hojas);
-        $_SESSION['cuenta'] = 0;
     }
 ?>
 <!DOCTYPE html>
@@ -88,7 +84,7 @@
                         <img src="images/fondo-navbar.jpg" alt="imagen de perfil">
                     </div>
                     <a href="#" class="center-align"><img src="images/usuario-perfil.jpg" class="circle"></a>
-                    <a href="#!"><span class="name white-text"><?php echo $nombre['nombre']." ".$nombre['apellido_paterno'];?></span></a>
+                    <a href="#!"><span class="name white-text"><?php echo $nombre." ".$apellido_paterno;?></span></a>
                     <a href="#!"><span class="id white-text"><?php echo $id_alumno;?></span></a>
                 </div>
             </li>

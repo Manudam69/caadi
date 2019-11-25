@@ -1,5 +1,11 @@
 <?php
 require("php/conexion.php");
+session_start();
+$nivelsesion = $_SESSION['tipo_persona'];
+if( $nivelsesion== "" || $nivelsesion == null || $nivelsesion != 2 || $nivelsesion != 0){
+    session_destroy();
+    header("Location:index.php");
+}
 $conexion = connect();
 if(!$conexion){
     echo "Error. Sin conexion a la base de datos";
@@ -8,9 +14,12 @@ if(!$conexion){
     exit;
 }else{
     $id = $_GET['id'];
-    $id_hoja = $conexion->query("SELECT id_hoja_trabajo FROM alumno_hoja_trabajo where id_alumno_hoja_trabajo=$id");
+    $id_hoja = $conexion->query("SELECT id_hoja_trabajo,fecha FROM alumno_hoja_trabajo where id_alumno_hoja_trabajo=$id");
     $hoja = mysqli_fetch_array($id_hoja);
     $id_hoja_trabajo = $hoja['id_hoja_trabajo'];
+    $fecha = $hoja['fecha'];
+    $fechahoy = $conexion -> query("select date(now()) as fecha");
+    $hoy = mysqli_fetch_array($fechahoy);
     $preguntas = $conexion->query("SELECT * from pregunta where id_hoja_trabajo = $id_hoja_trabajo;");
     $encabezado = $conexion->query("SELECT * from hoja_trabajo where id_hoja_trabajo = $id_hoja_trabajo");
     $en = mysqli_fetch_array($encabezado);
@@ -19,9 +28,9 @@ if(!$conexion){
     $datos2 = mysqli_fetch_array($datos2);
     $idioma2 = $datos2["nombre"];
     $nivel = $datos2["nivel"];
-    session_start();
+    $id_persona = $_SESSION['id_persona'];
     $id_alumno = $_SESSION['id_alumno'];
-    $datos_alumno = $conexion->query("select p.nombre,p.apellido_paterno from persona p, alumno where alumno.id_persona = p.id_persona and alumno.id_alumno=$id_alumno;");
+    $datos_alumno = $conexion->query("select p.nombre,p.apellido_paterno,p.id_persona from persona p, alumno where alumno.id_persona = p.id_persona and alumno.id_persona=$id_alumno;");
     $nombre_alumno = mysqli_fetch_array($datos_alumno);
     $respuestas = $conexion -> query(" select respuesta.id_respuesta,respuesta.enunciado,pregunta.id_pregunta,alumno_hoja_trabajo_pregunta.comentario from 
     respuesta,pregunta,hoja_trabajo,alumno_hoja_trabajo,alumno_hoja_trabajo_pregunta where 
@@ -45,7 +54,7 @@ if(!$conexion){
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Inicio</title>
+    <title>Hoja de trabajo</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="images/favicon.png">
     <!--Google Icon Font-->
@@ -68,10 +77,15 @@ if(!$conexion){
                 Name: <b> <?php echo $nombre_alumno["nombre"]."  ".$nombre_alumno["apellido_paterno"] ?> </b>
             </div>
             <div class="col m3 s4">
-                ID: <?php echo $id_alumno; ?>
+                ID: <?php echo $nombre_alumno['id_persona']; ?>
             </div>
             <div class="col m3 s12">
-                Date: 20 de Enero del 9999
+            <?php if($fecha == NULL){
+                echo "Date: ".$hoy['fecha'];
+            }else{
+                echo "Date: ".$fecha;
+            } 
+            ?>
             </div>
 
         </div>

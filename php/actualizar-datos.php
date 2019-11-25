@@ -5,8 +5,7 @@ require("./conexion.php");
     $apellido = $_POST['apellido'];
     $telefono = $_POST['telefono'];
     session_start();
-    $id_persona = $_SESSION['id'];
-    echo $nombre;
+    $id_persona = $_SESSION['id_persona'];
     if ($nombre != null)
         $conexion->query("update persona set nombre='$nombre' where id_persona=$id_persona");
     if ($apellido != null)

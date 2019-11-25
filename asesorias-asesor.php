@@ -1,16 +1,20 @@
 <?php
     include("./php/conexion.php");
-    $conexion = connect();
-
     session_start();
-
+    $nivelsesion = $_SESSION['tipo_persona'];
+    if($nivelsesion == null ||  $nivelsesion = '' || $nivelsesion != 3){
+        echo 'No tiene autorizacion';
+        session_destroy();
+        header("Location:index.php");
+    }
+    $conexion = connect();
     if(!$conexion){
         echo "Error. Sin conexion a la base de datos";
         echo "Errno de depuracion ".mysqli_connect_errno().PHP_EOL;
         echo "Error de depuracion ".mysqli_connect_error().PHP_EOL;
         exit;
     }else{
-        $id_persona = $_SESSION['id'];
+        $id_persona = $_SESSION['id_persona'];
         $id_asesor = $_SESSION['id_asesor'];
         $nombre = $_SESSION['nombre'];
         $apellido_paterno = $_SESSION['apellido_paterno'];

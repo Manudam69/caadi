@@ -1,30 +1,29 @@
 <?php 
     require("php/conexion.php");
     session_start();
-    $varsesion = $_SESSION['usuario'];
     $nivelsesion = $_SESSION['tipo_persona'];
-    $id_alumno = $_SESSION['id'];
-    $nivel = $_SESSION['nivel'];
-    $periodo = $_SESSION['periodo'];
-        if($varsesion == null ||  $varsesion = '' || $nivelsesion != '0'){
-            echo 'No tiene autorizacion';
-            header("Location:index.php");
-        }
+    if($nivelsesion == null ||  $nivelsesion = '' || $nivelsesion != '0'){
+        echo 'No tiene autorizacion';
+        session_destroy();
+        header("Location:index.php");
+    }
     $conexion=connect();
     if(!$conexion){
         echo "Error. SIn conexion a la base de datos";
         echo "Errno de depuracion ".mysqli_connect_errno().PHP_EOL;
         echo "Error de depuracion ".mysqli_connect_error().PHP_EOL;
     } else {
+        $id_alumno = $_SESSION['id_alumno'];
+        $nivel = $_SESSION['nivel'];
+        $periodo = $_SESSION['periodo'];
+        $nombre = $_SESSION['nombre'];
+        $apellido_paterno = $_SESSION['apellido_paterno'];
         $query_idiomas = $conexion->query("select idioma.nombre from idioma,curso,nivel,curso_alumno where 
         curso.id_curso=curso_alumno.id_curso and curso.id_nivel=nivel.id_nivel and nivel.id_idioma=idioma.id_idioma 
         and curso_alumno.id_alumno=$id_alumno and curso.id_periodo=$periodo");
         $dias = [" ","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado"];
         $horarios =[" ","07:00:00","08:00:00","09:00:00","10:00:00","11:00:00","12:00:00","13:00:00","14:00:00","15:00:00","16:00:00",
                     "17:00:00","18:00:00","19:00:00"];
-        $query_alumno = $conexion->query("select persona.nombre,persona.apellido_paterno
-        from alumno,persona where alumno.id_persona=persona.id_persona and alumno.id_alumno=$id_alumno");
-        $nombre = mysqli_fetch_array($query_alumno);
     }
 ?>
 <!DOCTYPE html>
@@ -83,7 +82,7 @@
                         <img src="images/fondo-navbar.jpg" alt="imagen de perfil">
                     </div>
                     <a href="#" class="center-align"><img src="images/usuario-perfil.jpg" class="circle"></a>
-                    <a href="#!"><span class="name white-text"><?php echo $nombre['nombre']." ".$nombre['apellido_paterno'];?></span></a>
+                    <a href="#!"><span class="name white-text"><?php echo $nombre." ".$apellido_paterno;?></span></a>
                     <a href="#!"><span class="id white-text"><?php echo $id_alumno; ?></span></a>
                 </div>
             </li>
@@ -107,45 +106,41 @@
         <div class="col s12 m12 l10">
             <div class="container horarios center-align">
                 <h4>Horarios de asesorías</h4>
-                <div id="jap" class="section scrollspy">
-                </div>
-            <?php while($idioma=mysqli_fetch_array($query_idiomas)){
-                    $idioma_nombre =$idioma['nombre'];
-                    $asesorias = $conexion->query("select idioma.nombre as idioma,asesoria.dia, asesoria.horario,persona.nombre 
-                    from asesor,persona,asesoria,idioma where asesoria.id_idioma=idioma.id_idioma and idioma.nombre ='$idioma_nombre' 
-                    and asesoria.id_asesor=asesor.id_asesor and asesor.id_persona=persona.id_persona");
-                    $asesoria = null;
-                    $i=0;
-                    while($asesoria_todas = mysqli_fetch_array($asesorias)){
-                        $asesoria[$i]=$asesoria_todas;
-                        $i++;
-                    }
-                
-                    if($asesoria != null){ ?> 
-                        <div id="<?php echo $idioma_nombre;?>" class="section scrollspy">
-                            <table class="highlight centered responsive-table">
-                                <caption>
-                                <h5><?php echo $idioma_nombre; ?></h5></caption>
-                                <?php 
-                                for($x=0;$x<14;$x++) {
-                                    for($y=0;$y<7;$y++){
-                                        if( $x==0){echo "<th>".$dias[$y]."</th>";}
-                                        elseif($y==0){echo "<tr><td>".$horarios[$x]."</td>";}
-                                        elseif($x!=0 and $y==0){ echo "<tr>";}
-                                        else{echo "<td>";}
-                                        for($j=0;$j<count($asesoria);$j++){
-                                            if($asesoria[$j]['horario']==$horarios[$x] and $asesoria[$j]['dia']==$dias[$y]){
-                                                echo $asesoria[$j]['nombre']." <br>";
+                <?php 
+                    while($idioma=mysqli_fetch_array($query_idiomas)){
+                            $idioma_nombre =$idioma['nombre'];
+                            $asesorias = $conexion->query("select idioma.nombre as idioma,asesoria.dia, asesoria.horario,persona.nombre from asesor,persona,asesoria,idioma where asesoria.id_idioma=idioma.id_idioma and idioma.nombre ='$idioma_nombre' 
+                            and asesoria.id_asesor=asesor.id_asesor and asesor.id_persona=persona.id_persona");
+                            $asesoria = null;
+                            $i=0;
+                            while($asesoria_todas = mysqli_fetch_array($asesorias)){
+                                $asesoria[$i]=$asesoria_todas;
+                                $i++;
+                            }
+                            if($asesoria != null){ ?> 
+                                <div id="<?php echo $idioma_nombre;?>" class="section scrollspy">
+                                    <table class="highlight centered responsive-table">
+                                        <caption><h5><?php echo $idioma_nombre; ?></h5></caption>
+                                        <?php 
+                                        for($x=0;$x<14;$x++) {
+                                            for($y=0;$y<7;$y++){
+                                                if( $x==0){echo "<th>".$dias[$y]."</th>";}
+                                                elseif($y==0){echo "<tr><td>".$horarios[$x]."</td>";}
+                                                elseif($x!=0 and $y==0){ echo "<tr>";}
+                                                else{echo "<td>";}
+                                                for($j=0;$j<count($asesoria);$j++){
+                                                    if($asesoria[$j]['horario']==$horarios[$x] and $asesoria[$j]['dia']==$dias[$y]){
+                                                        echo $asesoria[$j]['nombre']." <br>";
+                                                    }
+                                                }
+                                                echo "</td>";
                                             }
-                                        }
-                                        echo "</td>";
-                                    }
-                                    echo "</tr>";
-                                } 
-                                ?>
-                            </table>
-                        </div>
-                    <?php } ?>     
+                                            echo "</tr>";
+                                        } 
+                                        ?>
+                                    </table>
+                                </div>
+                            <?php } ?>     
                     <div id="<?php echo $idioma_nombre; ?>" class="section scrollspy">
             </div>
             <?php } ?>

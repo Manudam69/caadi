@@ -1,6 +1,12 @@
 <?php 
     session_start();
-    $id_persona = $_SESSION['id'];
+    $nivelsesion = $_SESSION['tipo_persona'];
+    if($nivelsesion == null ||  $nivelsesion = '' || $nivelsesion != 3){
+        echo 'No tiene autorizacion';
+        session_destroy();
+        header("Location:index.php");
+    }
+    $id_persona = $_SESSION['id_persona'];
     $nombre = $_SESSION['nombre'];
     $apellido_paterno = $_SESSION['apellido_paterno'];
 ?>

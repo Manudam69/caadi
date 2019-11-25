@@ -1,29 +1,30 @@
 <?php
-include("php/conexion.php");
-session_start();
-$varsesion = $_SESSION['usuario'];
-$nivelsesion = $_SESSION['tipo_persona'];
-$periodo = $_SESSION['periodo'];
-    if($varsesion == null ||  $varsesion = '' || $nivelsesion != '0'){
+    include("php/conexion.php");
+    session_start();
+    $nivelsesion = $_SESSION['tipo_persona'];
+    if($nivelsesion == null ||  $nivelsesion = '' || $nivelsesion != '0'){
+        echo 'No tiene autorizacion';
+        session_destroy();
         header("Location:index.php");
     }
-$conexion = connect();
-if(!$conexion){
-    echo "Error. Sin conexion a la base de datos";
-    echo "Errno de depuracion ".mysqli_connect_errno().PHP_EOL;
-    echo "Error de depuracion ".mysqli_connect_error().PHP_EOL;
-    exit;
-}else{
-    $id_alumno = $_SESSION['id_alumno'];
-    $query =$conexion->query("select nombre, apellido_paterno from persona where id_persona=$id_alumno");
-    $datos = mysqli_fetch_array($query);
-
-    $query ="select club.id_club,club.fecha,club.horario,idioma.nombre as idioma,nivel.nivel,persona.nombre as asesor from club,
-    nivel,idioma,asesor,persona,alumno_club where club.id_club=alumno_club.id_club and nivel.id_nivel=club.id_nivel and 
-    idioma.id_idioma=nivel.id_idioma and asesor.id_persona=persona.id_persona and club.fecha < curdate() 
-    and alumno_club.asistencia=1 and alumno_club.id_alumno=$id_alumno and alumno_club.id_periodo = $periodo";
-    $clubs = $conexion->query($query);
-}
+    $conexion = connect();
+    if(!$conexion){
+        echo "Error. Sin conexion a la base de datos";
+        echo "Errno de depuracion ".mysqli_connect_errno().PHP_EOL;
+        echo "Error de depuracion ".mysqli_connect_error().PHP_EOL;
+        exit;
+    }else{
+        $periodo = $_SESSION['periodo'];
+        $id_alumno = $_SESSION['id_alumno'];
+        $id_persona = $_SESSION['id_persona'];
+        $nombre = $_SESSION['nombre'];
+        $apellido_paterno = $_SESSION['apellido_paterno'];
+        $query ="select club.id_club,club.fecha,club.horario,idioma.nombre as idioma,nivel.nivel,persona.nombre as asesor from club,
+        nivel,idioma,asesor,persona,alumno_club where club.id_club=alumno_club.id_club and nivel.id_nivel=club.id_nivel and 
+        idioma.id_idioma=nivel.id_idioma and asesor.id_persona=persona.id_persona and club.fecha < curdate() 
+        and alumno_club.asistencia=1 and alumno_club.id_alumno=$id_alumno and alumno_club.id_periodo = $periodo";
+        $clubs = $conexion->query($query);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -81,8 +82,8 @@ if(!$conexion){
                         <img src="images/fondo-navbar.jpg" alt="imagen de perfil">
                     </div>
                     <a href="#" class="center-align"><img src="images/usuario-perfil.jpg" class="circle"></a>
-                    <a href="#!"><span class="name white-text"><?php echo $datos['nombre']." ". $datos['apellido_paterno'];?></span></a>
-                    <a href="#!"><span class="id white-text"><?php echo $id_alumno; ?></span></a>
+                    <a href="#!"><span class="name white-text"><?php echo $nombre." ". $apellido_paterno;?></span></a>
+                    <a href="#!"><span class="id white-text"><?php echo $id_persona; ?></span></a>
                 </div>
             </li>
             <li class="active"><a href="./inicio.php"><i class="material-icons">home</i> Inicio</a></li>

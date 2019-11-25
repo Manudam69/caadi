@@ -9,14 +9,13 @@
         echo "Error de depuracion ".mysqli_connect_error().PHP_EOL;
     } else {
         $id_asesor = $_SESSION['id_asesor'];
-        $id_persona = $_SESSION['id'];
+        $id_persona = $_SESSION['id_persona'];
         $nombre = $_SESSION['nombre'];
         $apellido_paterno = $_SESSION['apellido_paterno'];
         $periodo = $_SESSION['periodo'];
         $clubs = mysqli_query($conexion, "SELECT * FROM club c JOIN nivel n JOIN idioma i WHERE  
         c.id_nivel = n.id_nivel AND n.id_idioma = i.id_idioma AND c.cupo > 0 and fecha = curdate() 
         and horario > time(now()) and c.id_periodo = $periodo and c.id_asesor = $id_asesor"); 
-        $_SESSION['cuenta'] = 3; 
     }
 ?>
 

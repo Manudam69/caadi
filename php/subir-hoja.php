@@ -2,8 +2,7 @@
 require("./conexion.php");
 $conexion = connect();
 session_start();
-$varsesion = $_SESSION['usuario'];
-$id_alumno = $_SESSION['id'];
+$id_alumno = $_SESSION['id_alumno'];
 $nivelsesion = $_SESSION['tipo_persona'];
 $periodo = $_SESSION['periodo'];
 $id_alumno_hoja_trabajo = $_GET['id_alumno_hoja_trabajo'];

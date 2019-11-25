@@ -8,16 +8,13 @@ if(!$conexion){
 } else {
 
     $calificacion = $_POST['group1']; 
-    echo $calificacion;
     $id_revision = $_POST['id_revision'];
-    echo $id_revision;
     $query =$conexion->query("select id_alumno from alumno_hoja_trabajo where id_alumno_hoja_trabajo = $id_revision");
     $datos = mysqli_fetch_array($query);
     $id_alumno = $datos['id_alumno'];
 
     $archivo = (isset($_FILES['archivo'])) ? $_FILES['archivo'] : null;
     if ($archivo) {
-        echo "hola";
         $ruta_destino_archivo = "../archivos/$id_alumno";
         if(file_exists($ruta_destino_archivo)){
             $archivo_nombre ="../archivos/$id_alumno/Hoja_revisada".$id_revision."-al".$id_alumno.".docx";

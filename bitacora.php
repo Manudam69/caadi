@@ -1,69 +1,66 @@
 <?php 
-require("php/conexion.php");
-session_start();
-$varsesion = $_SESSION['usuario'];
-$nivelsesion = $_SESSION['tipo_persona'];
-$id_alumno = $_SESSION['id'];
-$nivel = $_SESSION['nivel'];
-$periodo = $_SESSION['periodo'];
-    if($varsesion == null ||  $varsesion = '' || $nivelsesion != '0'){
-        echo 'No tiene autorizacion';
+    require("php/conexion.php");
+    session_start();
+    $nivelsesion = $_SESSION['tipo_persona'];
+    if( $nivelsesion== "" || $nivelsesion == null || $nivelsesion != 0){
+        session_destroy();
         header("Location:index.php");
     }
-$conexion=connect();
-if(!$conexion){
-    echo "Error. SIn conexion a la base de datos";
-    echo "Errno de depuracion ".mysqli_connect_errno().PHP_EOL;
-    echo "Error de depuracion ".mysqli_connect_error().PHP_EOL;
-} else {
+    $conexion=connect();
+    if(!$conexion){
+        echo "Error. SIn conexion a la base de datos";
+        echo "Errno de depuracion ".mysqli_connect_errno().PHP_EOL;
+        echo "Error de depuracion ".mysqli_connect_error().PHP_EOL;
+    } else {
+        $nivel = $_SESSION['nivel'];
+        $periodo = $_SESSION['periodo'];
+        $id_alumno = $_SESSION['id_alumno'];
+        $id_persona = $_SESSION['id_persona'];
+        $nombre = $_SESSION['nombre'];
+        $apellido_paterno = $_SESSION['apellido_paterno'];
+        //Alumno Activo o no
+        $activacion = $conexion->query("Select * from alumno_periodo where id_alumno = $id_alumno and id_periodo = $periodo");
+        $activo = mysqli_fetch_array($activacion);
+        $querytelefono = $conexion -> query("select telefono from persona where id_persona=$id_persona");
+        $telefono = mysqli_fetch_array($querytelefono);
+        //clubs de conversación realizados
+        $query_club = $conexion->query("SELECT COUNT(alumno_club.id_club) AS numero_clubs FROM alumno_club JOIN alumno 
+        WHERE alumno_club.id_alumno=alumno.id_alumno and alumno_club.asistencia=2 and alumno_club.id_periodo=$periodo and alumno_club.id_alumno = $id_alumno");
+        $datos = mysqli_fetch_array($query_club);
+        $num_clubs = $datos['numero_clubs'];
+        $porcentaje_clubs = $num_clubs * 16.5;
+        if ($porcentaje_clubs>33) $porcentaje_clubs = 33;
 
-    //Alumno Activo o no
-    $activacion = $conexion->query("Select * from alumno_periodo where id_alumno = $id_alumno and id_periodo = $periodo");
-    $activo = mysqli_fetch_array($activacion);
+        $query ="select club.fecha,club.horario,alumno_club.asistencia,idioma.nombre as idioma,nivel.nivel,persona.nombre as asesor from club,
+        nivel,idioma,asesor,persona,alumno_club where club.id_club=alumno_club.id_club and nivel.id_nivel=club.id_nivel and 
+        idioma.id_idioma=nivel.id_idioma and asesor.id_persona=persona.id_persona and club.fecha < curdate() and alumno_club.id_alumno=$id_alumno 
+        and alumno_club.id_periodo=$periodo";
+        $clubs = $conexion->query($query);
 
-    //datos del alumno
-    $query = $conexion->query("SELECT alumno.id_alumno,persona.nombre, persona.apellido_paterno, persona.telefono 
-    FROM persona, alumno WHERE alumno.id_persona = persona.id_persona AND alumno.id_persona =  $id_alumno");
-    $datos_alumno = mysqli_fetch_array($query);
-    
-    //clubs de conversación realizados
-    $query_club = $conexion->query("SELECT COUNT(alumno_club.id_club) AS numero_clubs FROM alumno_club JOIN alumno 
-    WHERE alumno_club.id_alumno=alumno.id_alumno and alumno_club.asistencia=2 and alumno_club.id_periodo=$periodo and alumno_club.id_alumno = $id_alumno");
-    $datos = mysqli_fetch_array($query_club);
-    $num_clubs = $datos['numero_clubs'];
-    $porcentaje_clubs = $num_clubs * 16.5;
-    if ($porcentaje_clubs>33) $porcentaje_clubs = 33;
+        //hojas de trabajo realizadas
+        $query_hojas = "SELECT ht.id_hoja_trabajo,ht.tema,ht.area,idioma.nombre,nivel.nivel FROM hoja_trabajo ht,idioma,nivel,alumno_hoja_trabajo 
+        WHERE nivel.id_nivel=ht.id_nivel AND idioma.id_idioma=nivel.id_idioma AND ht.id_hoja_trabajo = alumno_hoja_trabajo.id_hoja_trabajo 
+        AND alumno_hoja_trabajo.estado=3 AND alumno_hoja_trabajo.id_alumno=$id_alumno AND alumno_hoja_trabajo.id_periodo = $periodo";
+        $hojas_total = $conexion->query($query_hojas);
+        $num =$conexion->query("SELECT COUNT(id_alumno_hoja_trabajo) as num_hojas from alumno_hoja_trabajo where estado = 3 and id_alumno = $id_alumno and alumno_hoja_trabajo.id_periodo=$periodo");
+        $num_hojas = mysqli_fetch_array($num);
+        $num_hojas = $num_hojas['num_hojas'];
+        $porcentaje_hojas = $num_hojas * 16.5;
+        if($porcentaje_hojas > 33) $porcentaje_hojas = 33;
 
-    $query ="select club.fecha,club.horario,alumno_club.asistencia,idioma.nombre as idioma,nivel.nivel,persona.nombre as asesor from club,
-    nivel,idioma,asesor,persona,alumno_club where club.id_club=alumno_club.id_club and nivel.id_nivel=club.id_nivel and 
-    idioma.id_idioma=nivel.id_idioma and asesor.id_persona=persona.id_persona and club.fecha < curdate() and alumno_club.id_alumno=$id_alumno 
-    and alumno_club.id_periodo=$periodo";
-    $clubs = $conexion->query($query);
+        //Visitas al CAADI
+        $registros = $conexion->query("SELECT fecha,entrada,salida, TIMEDIFF(salida,entrada) as tiempo FROM registro WHERE id_alumno = $id_alumno AND salida is not null AND id_periodo = $periodo order by fecha desc");
+        $horas = $conexion->query("SELECT CONCAT( HOUR(SUM(TIMEDIFF(salida, entrada))), ':', MINUTE(SUM(TIMEDIFF(salida, entrada)))) as horas FROM registro");
+        $horas = mysqli_fetch_array($horas);
+        $query = $conexion->query("select sum(ceil((UNIX_TIMESTAMP(salida)-UNIX_TIMESTAMP(entrada))/3600)) as numhora from registro where id_alumno=$id_alumno and id_periodo=$periodo");
+        $num_horas = mysqli_fetch_array($query);
+        $num_horas = $num_horas['numhora'];
+        $porcentaje_horas = $num_horas * 8.5;    
+        if($porcentaje_horas > 34) $porcentaje_horas = 34;
 
-    //hojas de trabajo realizadas
-    $query_hojas = "SELECT ht.id_hoja_trabajo,ht.tema,ht.area,idioma.nombre,nivel.nivel FROM hoja_trabajo ht,idioma,nivel,alumno_hoja_trabajo 
-    WHERE nivel.id_nivel=ht.id_nivel AND idioma.id_idioma=nivel.id_idioma AND ht.id_hoja_trabajo = alumno_hoja_trabajo.id_hoja_trabajo 
-    AND alumno_hoja_trabajo.estado=3 AND alumno_hoja_trabajo.id_alumno=$id_alumno AND alumno_hoja_trabajo.id_periodo = $periodo";
-    $hojas_total = $conexion->query($query_hojas);
-    $num =$conexion->query("SELECT COUNT(id_alumno_hoja_trabajo) as num_hojas from alumno_hoja_trabajo where estado = 3 and id_alumno = $id_alumno and alumno_hoja_trabajo.id_periodo=$periodo");
-    $num_hojas = mysqli_fetch_array($num);
-    $num_hojas = $num_hojas['num_hojas'];
-    $porcentaje_hojas = $num_hojas * 16.5;
-    if($porcentaje_hojas > 33) $porcentaje_hojas = 33;
-
-    //Visitas al CAADI
-    $registros = $conexion->query("SELECT fecha,entrada,salida, TIMEDIFF(salida,entrada) as tiempo FROM registro WHERE id_alumno = $id_alumno AND salida is not null AND id_periodo = $periodo order by fecha desc");
-    $horas = $conexion->query("SELECT CONCAT( HOUR(SUM(TIMEDIFF(salida, entrada))), ':', MINUTE(SUM(TIMEDIFF(salida, entrada)))) as horas FROM registro");
-    $horas = mysqli_fetch_array($horas);
-    $query = $conexion->query("select sum(ceil((UNIX_TIMESTAMP(salida)-UNIX_TIMESTAMP(entrada))/3600)) as numhora from registro where id_alumno=$id_alumno and id_periodo=$periodo");
-    $num_horas = mysqli_fetch_array($query);
-    $num_horas = $num_horas['numhora'];
-    $porcentaje_horas = $num_horas * 8.5;    
-    if($porcentaje_horas > 34) $porcentaje_horas = 34;
-
-    $total = $porcentaje_clubs + $porcentaje_hojas + $porcentaje_horas;
-    if($total > 100) $total = 100;
-}
+        $total = $porcentaje_clubs + $porcentaje_hojas + $porcentaje_horas;
+        if($total > 100) $total = 100;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -131,8 +128,8 @@ if(!$conexion){
                         <img src="images/fondo-navbar.jpg" alt="imagen de perfil">
                     </div>
                     <a href="#" class="center-align"><img src="images/usuario-perfil.jpg" class="circle"></a>
-                    <a href="#!"><span class="name white-text"><?php echo $datos_alumno['nombre']," ",$datos_alumno['apellido_paterno']; ?></span></a>
-                    <a href="#!"><span class="id white-text"><?php echo $datos_alumno['id_alumno']; ?></span></a>
+                    <a href="#!"><span class="name white-text"><?php echo $nombre." ".$apellido_paterno; ?></span></a>
+                    <a href="#!"><span class="id white-text"><?php echo $id_persona; ?></span></a>
                 </div>
             </li>
             <li><a href="./inicio.php"><i class="material-icons">home</i> Inicio</a></li>
@@ -159,8 +156,8 @@ if(!$conexion){
                         <img src="images/usuario-perfil.jpg" alt="" class="circle responsive-img">
                     </div>
                     <div class="col s10">
-                        <p><b><?php echo $datos_alumno['nombre']," ",$datos_alumno['apellido_paterno'];?></b></p>
-                        <p>Telefono: <?php echo $datos_alumno['telefono']; ?> </p>
+                        <p><b><?php echo $nombre," ",$apellido_paterno;?></b></p>
+                        <p>Telefono: <?php echo $telefono['telefono']; ?> </p>
                         <p>Tipo de usuario: <?php switch($nivelsesion){ case 0: echo "Alumno";
                                                                             break;
                                                                         case 1: echo "Administrador";

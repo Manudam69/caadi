@@ -1,17 +1,34 @@
 <?php 
 require("php/conexion.php");
-$conexion = connect();
 session_start();
-$id_alumno = $_POST['id_alumno'];
-$_SESSION['id_alumno'] = $id_alumno;
-$query = "select club.fecha,idioma.nombre as idioma,nivel.nivel,persona.nombre as asesor from club,nivel,idioma,asesor,persona,alumno_club 
-          where club.id_club=alumno_club.id_club and nivel.id_nivel=club.id_nivel and idioma.id_idioma=nivel.id_idioma 
-          and asesor.id_persona=persona.id_persona and alumno_club.asistencia=2 and alumno_club.id_alumno=$id_alumno";
-$clubs = $conexion->query($query);
-$query_hojas = "select ht.id_hoja_trabajo,ht.tema,ht.tipo,ht.area,idioma.nombre,nivel.nivel,alumno_hoja_trabajo.id_alumno_hoja_trabajo from hoja_trabajo ht,idioma,nivel,alumno_hoja_trabajo 
-                where nivel.id_nivel=ht.id_nivel and idioma.id_idioma=nivel.id_idioma and ht.id_hoja_trabajo = alumno_hoja_trabajo.id_hoja_trabajo 
-                and alumno_hoja_trabajo.estado=3 and alumno_hoja_trabajo.id_alumno=$id_alumno";
-$hojas = $conexion->query($query_hojas);
+$nivelsesion = $_SESSION['tipo_persona'];
+if( $nivelsesion== "" || $nivelsesion == null || $nivelsesion != 2){
+    session_destroy();
+    header("Location:index.php");
+}
+$conexion = connect();
+if(!$conexion){
+    echo "Error. Sin conexion a la base de datos";
+    echo "Errno de depuracion ".mysqli_connect_errno().PHP_EOL;
+    echo "Error de depuracion ".mysqli_connect_error().PHP_EOL;
+    exit;
+}else{
+    $id_persona = $_SESSION['id_persona'];
+    $nombre = $_SESSION['nombre'];
+    $apellido_paterno=$_SESSION['apellido_paterno'];
+    $id_alumno = $_POST['id_alumno'];
+    $_SESSION['id_alumno'] = $id_alumno;
+    $id_nivel = $_GET['id_nivel'];
+    $query = "select club.fecha,idioma.nombre as idioma,nivel.nivel,persona.nombre as asesor from club,nivel,idioma,asesor,persona,alumno_club 
+              where club.id_club=alumno_club.id_club and nivel.id_nivel=club.id_nivel and idioma.id_idioma=nivel.id_idioma 
+              and asesor.id_persona=persona.id_persona and alumno_club.asistencia=2 and alumno_club.id_alumno=$id_alumno and club.id_nivel=$id_nivel";
+    $clubs = $conexion->query($query);
+    $query_hojas = "select ht.id_hoja_trabajo,ht.tema,ht.tipo,ht.area,idioma.nombre,nivel.nivel,alumno_hoja_trabajo.id_alumno_hoja_trabajo from hoja_trabajo ht,idioma,nivel,alumno_hoja_trabajo 
+                    where nivel.id_nivel=ht.id_nivel and idioma.id_idioma=nivel.id_idioma and ht.id_hoja_trabajo = alumno_hoja_trabajo.id_hoja_trabajo 
+                    and alumno_hoja_trabajo.estado=3 and alumno_hoja_trabajo.id_alumno=$id_alumno and ht.id_nivel=$id_nivel";
+    $hojas = $conexion->query($query_hojas);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -61,8 +78,8 @@ $hojas = $conexion->query($query_hojas);
                         <img src="images/fondo-navbar.jpg" alt="imagen de perfil">
                     </div>
                     <a href="#" class="center-align"><img src="images/usuario-perfil.jpg" class="circle"></a>
-                    <a href="#!"><span class="name white-text">Nombre</span></a>
-                    <a href="#!"><span class="id white-text">123456</span></a>
+                    <a href="#!"><span class="name white-text"><?php echo $nombre." ".$apellido_paterno;?></span></a>
+                    <a href="#!"><span class="id white-text"><?php echo $id_persona; ?></span></a>
                 </div>
             </li>
             <li><a href="./inicio.php"><i class="material-icons">home</i> Inicio</a></li>
@@ -82,7 +99,7 @@ $hojas = $conexion->query($query_hojas);
     </ul>
 
     <div id="tab1" class="col s12">
-        <?php 
+        <?php if($clubs != null && $clubs != ""){
             while ($row = mysqli_fetch_array($clubs)){
         ?>
                 <div class="container">
@@ -96,13 +113,13 @@ $hojas = $conexion->query($query_hojas);
                     </ul>
                 </div>
         <?php        
-            }
+            }}
         ?>
 
         
     </div>
     <div id="tab2" class="col s12">
-        <?php 
+        <?php if($hojas != null){
             while($row = mysqli_fetch_array($hojas)){
         ?>
                 <div class="container">
@@ -124,7 +141,7 @@ $hojas = $conexion->query($query_hojas);
                     </ul>
                 </div>
         <?php
-            }
+            }}
         ?>
     </div>
 

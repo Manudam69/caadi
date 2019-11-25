@@ -9,7 +9,7 @@ if(!$connection){
     exit;
 }else{
     $id_alumno_hoja_trabajo = $_GET['id_alumno_hoja_trabajo'];
-    $id_alumno = $_SESSION['id'];
+    $id_alumno = $_SESSION['id_alumno'];
     $periodo = $_SESSION['periodo'];
     
     $delete = $connection->query("delete from alumno_hoja_trabajo where id_alumno_hoja_trabajo=$id_alumno_hoja_trabajo");

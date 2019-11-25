@@ -2,12 +2,12 @@
     require("./php/conexion.php");
     $conexion = connect(); 
     session_start();
-    $varsesion = $_SESSION['usuario'];
     $nivelsesion = $_SESSION['tipo_persona'];
-    $id_alumno = $_SESSION['id'];
-        if($varsesion == null ||  $varsesion = ''){
-            header("Location:index.php");
-        }
+    if($nivelsesion == null ||  $nivelsesion = ''){
+        echo 'No tiene autorizacion';
+        session_destroy();
+        header("Location:index.php");
+    }
     $conexion = connect();
     if(!$conexion){
         echo "Error. Sin conexion a la base de datos";
@@ -15,9 +15,11 @@
         echo "Error de depuracion ".mysqli_connect_error().PHP_EOL;
         exit;
     }else{
-        $query_alumno = $conexion->query("select persona.nombre,persona.apellido_paterno
-        from persona where id_persona=$id_alumno");
-        $nombre = mysqli_fetch_array($query_alumno);
+        $id_persona=$_SESSION['id_persona'];
+        $nombre=$_SESSION['nombre'];
+        $apellido_paterno = $_SESSION['apellido_paterno'];
+        $nivelsesion = $_SESSION['tipo_persona'];
+
     }
 ?>
 <!DOCTYPE html>
@@ -43,9 +45,8 @@
 </head>
 
 <body>
-    <?php
-        $cuenta = $_SESSION['cuenta']; 
-        switch ($cuenta){
+    <?php 
+        switch ($nivelsesion){
             case 0:
     ?>
                 <header>
@@ -81,8 +82,8 @@
                                     <img src="images/fondo-navbar.jpg" alt="imagen de perfil">
                                 </div>
                                 <a href="#" class="center-align"><img src="images/usuario-perfil.jpg" class="circle"></a>
-                                <a href="#!"><span class="name white-text"><?php echo $nombre['nombre']." ".$nombre['apellido_paterno']; ?></span></a>
-                                <a href="#!"><span class="id white-text"><?php echo $id_alumno; ?></span></a>
+                                <a href="#!"><span class="name white-text"><?php echo $nombre." ".$apellido_paterno; ?></span></a>
+                                <a href="#!"><span class="id white-text"><?php echo $id_persona; ?></span></a>
                             </div>
                         </li>
                         <li><a href="./inicio.php"><i class="material-icons">home</i> Inicio</a></li>
@@ -102,11 +103,10 @@
                 </header>
     <?php
             break;
-            
             case 1:
 
             break;
-            case 2 :
+            case 2:
     ?>
                 <header>
                     <ul id="perfil" class="dropdown-content">
@@ -133,8 +133,8 @@
                                     <img src="images/fondo-navbar.jpg" alt="imagen de perfil">
                                 </div>
                                 <a href="#" class="center-align"><img src="images/usuario-perfil.jpg" class="circle"></a>
-                                <a href="#!"><span class="name white-text"><?php echo $nombre['nombre']." ".$nombre['apellido_paterno']; ?></span></a>
-                                <a href="#!"><span class="id white-text"><?php echo $id_alumno; ?></span></a>
+                                <a href="#!"><span class="name white-text"><?php echo $nombre." ".$apellido_paterno; ?></span></a>
+                                <a href="#!"><span class="id white-text"><?php echo $id_persona; ?></span></a>
                             </div>
                         </li>
                         <li ><a href="./inicio-maestro.php"><i class="material-icons">home</i> Inicio</a></li>
@@ -162,7 +162,7 @@
                             <a class="hide-on-large-only brand-logo" href="./inicio-asesor.php"><img src="images/navbar-logo.png" class="responsive-img" width="80"></a>
                             <ul class="right hide-on-med-and-down elementos">
                                 <li><a href="./inicio-asesor.php"><i class="material-icons right">home</i>Inicio</a></li>
-                                <li ><a href="./asesorias-asesorias.php"><i class="material-icons right">group</i>Asesorias</a></li>
+                                <li ><a href="./asesorias-asesor.php"><i class="material-icons right">group</i>Asesorias</a></li>
                                 <li class="active"><a href="./sitios-de-interes.php"><i class="material-icons right">sentiment_very_satisfied</i>Sitios de Interés</a></li>
                                 <li><a href="./revision-de-hojas.php"><i class="material-icons right">content_copy</i>Revisión de hojas de trabajo</a></li>
                                 <li><a class="dropdown-trigger" href="#!" data-target='perfil'>Mi perfil<i class="material-icons right">account_circle</i></a></li>
@@ -177,8 +177,8 @@
                                     <img src="images/fondo-navbar.jpg" alt="imagen de perfil">
                                 </div>
                                 <a href="#" class="center-align"><img src="images/usuario-perfil.jpg" class="circle"></a>
-                                <a href="#!"><span class="name white-text"> <?php echo $nombre['nombre']." ".$nombre['apellido_paterno']; ?> </span></a>
-                                <a href="#!"><span class="id white-text"><?php echo $id_alumno; ?></span></a>
+                                <a href="#!"><span class="name white-text"> <?php echo $nombre." ".$apellido_paterno; ?> </span></a>
+                                <a href="#!"><span class="id white-text"><?php echo $id_persona; ?></span></a>
                             </div>
                         </li>
                         <li><a href="./inicio-asesor.php"><i class="material-icons">home</i> Inicio</a></li>

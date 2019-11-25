@@ -1,19 +1,27 @@
 <?php 
     require("./php/conexion.php");
+    session_start();
+    $nivelsesion = $_SESSION['tipo_persona'];
+    if($nivelsesion == null ||  $nivelsesion = '' || $nivelsesion != '0'){
+        echo 'No tiene autorizacion';
+        session_destroy();
+        header("Location:index.php");
+    }
     $conexion = connect();
     if(!$conexion){
         echo "Error. Sin conexion a la base de datos";
         echo "Errno de depuracion ".mysqli_connect_errno().PHP_EOL;
         echo "Error de depuracion ".mysqli_connect_error().PHP_EOL;
     } else {
+        $id_persona = $_SESSION['id_persona'];
+        $nombre = $_SESSION['nombre'];
+        $apellido_paterno = $_SESSION['apellido_paterno'];
         $id_club = $_GET['id_club'];
-        session_start();
         $_SESSION['id_club'] = $id_club;
         $query = $conexion->query("select persona.nombre from persona, asesor,club where persona.id_persona=asesor.id_persona and asesor.id_asesor=club.id_asesor and id_club=$id_club");
         $asesor = mysqli_fetch_array($query);
         $query = $conexion->query("select date(now()) as fecha");
         $fecha = mysqli_fetch_array($query);
-    
     }
 ?>
 <!DOCTYPE html>
@@ -73,8 +81,8 @@
                         <img src="images/fondo-navbar.jpg" alt="imagen de perfil">
                     </div>
                     <a href="#" class="center-align"><img src="images/usuario-perfil.jpg" class="circle"></a>
-                    <a href="#!"><span class="name white-text">Nombre</span></a>
-                    <a href="#!"><span class="id white-text">123456</span></a>
+                    <a href="#!"><span class="name white-text"><?php echo $nombre." ".$apellido_paterno; ?></span></a>
+                    <a href="#!"><span class="id white-text"><?php echo $id_persona; ?></span></a>
                 </div>
             </li>
             <li><a href="./inicio.php"><i class="material-icons">home</i> Inicio</a></li>
@@ -101,13 +109,13 @@
                         
                         <div class="row">
                             <div class="col m3 s6">
-                                Alumno(a): <b>Jhon Doe</b>
+                                Alumno(a): <b><?php echo $nombre." ".$apellido_paterno; ?></b>
                             </div>
                             <div class="col m3 s6">
                                 Asesor(a): <b><?php echo $asesor['nombre']; ?></b>
                             </div>
                             <div class="col m3 s6">
-                                ID: <b>123456</b>
+                                ID: <b><?php echo $id_persona;?></b>
                             </div>
                             <div class="col m3 s6">
                                 Fecha: <b><?php echo $fecha['fecha']; ?></b>
@@ -247,7 +255,6 @@
                                     </div>
                             </div>
                             <div class="row center">
-                                <!-- <a class="waves-effect waves-light btn-large" id="btn">GUARDAR</a> -->
                                 <input class ="waves-effect waves-light btn-large" type="submit" value="GUARDAR">
                             </div>
                         </form>

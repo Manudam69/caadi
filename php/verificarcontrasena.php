@@ -6,13 +6,13 @@ if ($method != "POST") {
 } else {
   session_start();
   $pass = $_POST['pass'];
-  $idAlumno = $_SESSION['id'];
-  if ($pass == null || $pass == '' || $idAlumno == null || $idAlumno == '') {
+  $id_persona = $_SESSION['id_persona'];
+  if ($pass == null || $pass == '' || $id_persona == null || $id_persona == '') {
     $response = array('ok' => false);
   } else {
     require("conexion.php");
     $conn = connect();
-    $contrasena = $conn->query("select contrasena from persona where id_persona=$idAlumno");
+    $contrasena = $conn->query("select contrasena from persona where id_persona=$id_persona");
     $contrasena = mysqli_fetch_array($contrasena);
     $contrasena = $contrasena['contrasena']; 
     if ($contrasena == $pass) {

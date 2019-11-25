@@ -16,14 +16,15 @@ if($id_usuario == "" || $pass == ""){
     $json['data'] = null;
     
 } else {
-    $datos = $conexion->query("SELECT persona.nombre_usuario AS nombre, persona.tipo_persona AS tipo_persona, 
-    persona.id_persona AS id_persona FROM persona WHERE persona.id_persona='$id_usuario' AND persona.contrasena = '$pass'");
+    $datos = $conexion->query("SELECT tipo_persona, id_persona,nombre,apellido_paterno FROM persona 
+    WHERE id_persona=$id_usuario AND contrasena = '$pass'");
     $usuario = mysqli_fetch_array($datos);
-    $id = $usuario['nombre'];
     $tipo_persona = $usuario['tipo_persona'];
     $id_persona = $usuario['id_persona'];
+    $nombre = $usuario['nombre'];
+    $apellido_paterno = $usuario['apellido_paterno'];
 
-    if($id == "" && $password == ""){
+    if($id_persona == "" && $pass == ""){
         $json['success'] = false;
         $json['message'] = 'No se encontro un usuario con estos datos';
         $json['data'] = null;
@@ -37,9 +38,11 @@ if($id_usuario == "" || $pass == ""){
         $periodo = mysqli_fetch_array($query);
         session_start();
         $_SESSION['periodo'] = $periodo['id_periodo'];
-        $_SESSION['usuario'] = $id;
         $_SESSION['tipo_persona'] = $tipo_persona;
-        $_SESSION['id'] = $id_persona;
+        $_SESSION['id_persona'] = $id_persona;
+        $_SESSION['nombre'] = $nombre;
+        $_SESSION['apellido_paterno'] = $apellido_paterno;
+
         switch ($tipo_persona){
             case 0:
                 $nivel = $conexion->query("SELECT n.nivel AS nivel,a.id_alumno AS id_alumno, i.nombre AS idioma
@@ -61,15 +64,14 @@ if($id_usuario == "" || $pass == ""){
             case 1:
             break;
             case 2:
-            
+                $query_profesor = $conexion->query("select id_profesor from profesor where id_persona=$id_persona");
+                $profesor = mysqli_fetch_array($query_profesor);
+                $_SESSION['id_profesor']= $profesor['id_profesor'];
             break;
             case 3:
-                $datos_asesor = $conexion -> query("SELECT id_asesor, nombre, apellido_paterno FROM asesor, persona WHERE asesor.id_persona=persona.id_persona AND persona.id_persona = $id_persona");
-                $asesor = mysqli_fetch_array($datos_asesor);
-                $id_asesor = $asesor['id_asesor'];
-                $_SESSION['id_asesor'] = $id_asesor;
-                $_SESSION['nombre'] = $asesor['nombre'];
-                $_SESSION['apellido_paterno'] = $asesor['apellido_paterno'];
+                $query_asesor = $conexion->query("select id_asesor from asesor where id_persona=$id_persona");
+                $asesor = mysqli_fetch_array($query_asesor);
+                $_SESSION['id_asesor']= $asesor['id_asesor'];
             break;
         }
 

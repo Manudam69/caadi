@@ -1,20 +1,26 @@
 <?php 
     require("php/conexion.php");
-    $conexion = connect();
     session_start();
-    $id_persona = $_SESSION['id'];
-    $_SESSION['id_persona'] = $id_persona;
-    $query = "select persona.nombre from persona,profesor where profesor.id_persona = persona.id_persona and persona.id_persona=$id_persona";
-    $datos = $conexion->query($query);
-    $query = "select id_profesor from profesor where id_persona=$id_persona";
-    $datos = $conexion->query($query);
-    $profesor = mysqli_fetch_array($datos);
-    $id_profesor = $profesor['id_profesor'];
-    $nombre_prof = mysqli_fetch_array($datos);
-    $query = "select curso.id_curso,curso.nombre as curso,curso.id_nivel, idioma.nombre as idioma from curso,nivel,idioma where curso.id_nivel=nivel.id_nivel and nivel.id_idioma=idioma.id_idioma and curso.id_profesor=$id_profesor";
-    $datos = $conexion->query($query);
-    $_SESSION['cuenta'] = 2;
-    $periodo =$_SESSION['periodo'];
+    $nivelsesion = $_SESSION['tipo_persona'];
+    if( $nivelsesion== "" || $nivelsesion == null || $nivelsesion != 2){
+        session_destroy();
+        header("Location:index.php");
+    }
+    $conexion = connect();
+    if(!$conexion){
+        echo "Error. Sin conexion a la base de datos";
+        echo "Errno de depuracion ".mysqli_connect_errno().PHP_EOL;
+        echo "Error de depuracion ".mysqli_connect_error().PHP_EOL;
+        exit;
+    }else{
+        $id_persona = $_SESSION['id_persona'];
+        $nombre = $_SESSION['nombre'];
+        $apellido_parterno = $_SESSION['apellido_paterno'];
+        $id_profesor = $_SESSION['id_profesor'];
+        $datos = $conexion->query("select curso.id_curso,curso.nombre as curso,curso.id_nivel, idioma.nombre as idioma from curso,nivel,idioma where curso.id_nivel=nivel.id_nivel and nivel.id_idioma=idioma.id_idioma and curso.id_profesor=$id_profesor");
+        $periodo =$_SESSION['periodo'];
+    }
+    
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -80,8 +86,8 @@
                         <img src="images/fondo-navbar.jpg" alt="imagen de perfil">
                     </div>
                     <a href="#" class="center-align"><img src="images/usuario-perfil.jpg" class="circle"></a>
-                    <a href="#!"><span class="name white-text">Nombre</span></a>
-                    <a href="#!"><span class="id white-text">123456</span></a>
+                    <a href="#!"><span class="name white-text"><?php echo $nombre." ".$apellido_parterno;?></span></a>
+                    <a href="#!"><span class="id white-text"><?php echo $id_persona;?></span></a>
                 </div>
             </li>
             <li class="active"><a href="./inicio-maestro.php"><i class="material-icons">home</i> Inicio</a></li>
@@ -97,7 +103,7 @@
     <div class="row">
         <div class="col s12 m12 l10">
             <div class="container">
-                <h5 class="center">CURSOS DEL PROFESOR <?php echo $nombre_prof['nombre'];?> </h5>
+                <h5 class="center">CURSOS DEL PROFESOR <?php echo $nombre;?> </h5>
                 <?php 
                     while($row = mysqli_fetch_array($datos)){
                 ?>
@@ -106,7 +112,7 @@
                         <li class="collection-item avatar">
                             <i class="material-icons circle">assignment_ind</i>
                             <span class="title"> <?php echo $row['curso']."  ".$row['idioma']; ?></span>
-                            <form action="actividades.php" method="POST">
+                            <form action="actividades.php?id_nivel=<?php echo $row['id_nivel'];?>" method="POST">
                             
                                 <?php 
                                     $id_curso = $row['id_curso'];
@@ -174,7 +180,7 @@
         <div class="col hide-on-med-and-down s0 m0 l2 contenido">
             <ul class="section table-of-contents">
                 <?php 
-                    $datos = $conexion->query($query);
+                    $datos = $conexion->query("select curso.id_curso,curso.nombre as curso,curso.id_nivel, idioma.nombre as idioma from curso,nivel,idioma where curso.id_nivel=nivel.id_nivel and nivel.id_idioma=idioma.id_idioma and curso.id_profesor=$id_profesor");
                     while($row = mysqli_fetch_array($datos)){
                 ?>
                         <li><a href="#<?php echo $row['id_curso'];?>"><?php echo $row['curso'];?></a></li>

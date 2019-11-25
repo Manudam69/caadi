@@ -1,25 +1,29 @@
 <?php
 require("php/conexion.php");
+session_start();
+$nivelsesion = $_SESSION['tipo_persona'];
+if($nivelsesion == null ||  $nivelsesion = '' || $nivelsesion != '0'){
+    echo 'No tiene autorizacion';
+    session_destroy();
+    header("Location:index.php");
+}
 $conexion = connect();
 if(!$conexion){
     echo "Error. Sin conexion a la base de datos";
     echo "Errno de depuracion ".mysqli_connect_errno().PHP_EOL;
-    echo "Error de depuracion ".mysqli_connect_error().PHP_EOL;
     exit;
 }else{
-   session_start();
    $periodo = $_SESSION['periodo'];
    $idioma = $_SESSION['idioma'];
    $nivel = $_SESSION['nivel'];
    $id_alumno = $_SESSION['id_alumno'];
+   $id_persona= $_SESSION['id_persona'];
+   $nombre = $_SESSION['nombre'];
+   $apellido_paterno = $_SESSION['apellido_paterno'];
    $clubs = mysqli_query($conexion, "SELECT * FROM club c JOIN nivel n JOIN idioma i WHERE  
    c.id_nivel = n.id_nivel AND n.id_idioma = i.id_idioma AND n.nivel IN $nivel AND i.nombre IN $idioma 
    AND c.cupo > 0 and fecha >= curdate() and horario > time(now()) and c.id_periodo = $periodo
    and c.id_club not in (select id_club from alumno_club where id_alumno = $id_alumno)");
-
-    $query_alumno = $conexion->query("select persona.nombre,persona.apellido_paterno
-    from alumno,persona where alumno.id_persona=persona.id_persona and alumno.id_alumno=$id_alumno");
-    $nombre = mysqli_fetch_array($query_alumno);
 }
 ?>
 <!DOCTYPE html>
@@ -78,8 +82,8 @@ if(!$conexion){
                         <img src="images/fondo-navbar.jpg" alt="imagen de perfil">
                     </div>
                     <a href="#" class="center-align"><img src="images/usuario-perfil.jpg" class="circle"></a>
-                    <a href="#!"><span class="name white-text"> <?php echo $nombre['nombre']." ".$nombre['apellido_paterno']; ?> </span></a>
-                    <a href="#!"><span class="id white-text"> <?php echo $id_alumno; ?> </span></a>
+                    <a href="#!"><span class="name white-text"> <?php echo $nombre." ".$apellido_paterno; ?> </span></a>
+                    <a href="#!"><span class="id white-text"> <?php echo $id_persona; ?> </span></a>
                 </div>
             </li>
             <li><a href="./inicio.php"><i class="material-icons">home</i> Inicio</a></li>
