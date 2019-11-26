@@ -1,3 +1,16 @@
+<?php
+require("./php/conexion.php");
+$conexion = connect();
+if (!$conexion) {
+    echo "Error. SIn conexion a la base de datos";
+    echo "Errno de depuracion ".mysqli_connect_errno().PHP_EOL;
+    echo "Error de depuracion ".mysqli_connect_error().PHP_EOL;
+}
+$query_txt = "SELECT CONCAT(nombre, ' ', apellido_paterno, ' ', apellido_materno) AS nombre,
+    reg.id_alumno, entrada FROM registro reg JOIN alumno al ON reg.id_alumno = al.id_alumno 
+    JOIN persona per ON al.id_persona = per.id_persona WHERE salida IS NULL";
+$query = mysqli_query($conexion, $query_txt);
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -72,33 +85,47 @@
     <div class="container">
         <h4 class="center">ALUMNOS EN CAADI</h4>
         <ul class="collection">
-
-            <li class="collection-item avatar">
+            <?php
+            $i = 0;
+            while ($registro = mysqli_fetch_array($query)) {
+            ?>
+            <li class="collection-item avatar pagina pagina-<?php echo intdiv($i, 10) + 1; ?>">
                 <i class="material-icons circle red">person</i>
-                <span class="title">Nombre</span>
-                <p>ID:
-                    <br> Hora de entrada
+                <span class="title">Nombre: <?php echo $registro['nombre']; ?></span>
+                <p>
+                    ID: <?php echo $registro['id_alumno']; ?>
+                    <br>
+                    Hora de entrada: <?php echo $registro['entrada']; ?>
                 </p>
-                Inscrito a curso
             </li>
+            <?php
+            $i++;
+            }
+            ?>
         </ul>
 
         <ul class="pagination center">
             <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-            <li class="active"><a href="#!">1</a></li>
-            <li class="waves-effect"><a href="#!">2</a></li>
-            <li class="waves-effect"><a href="#!">3</a></li>
-            <li class="waves-effect"><a href="#!">4</a></li>
-            <li class="waves-effect"><a href="#!">5</a></li>
-            <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+            <?php
+            $j = 0;
+            while ($j < ceil($i/10)) {
+            ?>
+            <li class="waves-effect <?php if ($j == 0) echo "active"; ?>"><a class="page-link" href="#!"><?php echo $j + 1; ?></a></li>
+            <?php
+            $j++;
+            }
+            ?>
+            <li class="waves-effect"><a class="page-link" href="#!"><i class="material-icons">chevron_right</i></a></li>
         </ul>
 
     </div>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <!-- Funcionamiento Navbar -->
     <script src="js/navbar.js"></script>
+    <script src="js/paginacion.js"></script>
 </body>
 
 </html>

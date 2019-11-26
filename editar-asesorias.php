@@ -1,3 +1,16 @@
+<?php
+require("./php/conexion.php");
+$conexion = connect();
+if (!$conexion) {
+    echo "Error. SIn conexion a la base de datos";
+    echo "Errno de depuracion ".mysqli_connect_errno().PHP_EOL;
+    echo "Error de depuracion ".mysqli_connect_error().PHP_EOL;
+}
+$query_asesorias_txt = "SELECT CONCAT(per.nombre, ' ', per.apellido_paterno) AS nombre, 
+    UPPER(idi.nombre) as idioma, dia, horario FROM asesoria ase JOIN idioma idi ON ase.id_idioma = idi.id_idioma 
+    JOIN asesor ON ase.id_asesor = asesor.id_asesor JOIN persona per ON asesor.id_persona = per.id_persona";
+$query_asesorias = $conexion->query($query_asesorias_txt);
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -77,7 +90,7 @@
     </header>
 
     <div id="editar" class="modal">
-        <form action="">
+        <form id="frmEditar" action="">
             <div class="modal-content">
                 <h4>MODIFICAR ASESORÍA</h4>
 
@@ -153,26 +166,37 @@
     <div class="container">
         <h4 class="center">LISTA DE ASESORIAS</h4>
         <ul class="collection">
-            <li class="collection-item avatar">
+            <?php 
+            $i = 0;
+            while ($asesoria = mysqli_fetch_array($query_asesorias)) {
+            ?>
+            <li class="collection-item avatar pagina pagina-<?php echo intdiv($i, 10) + 1; ?>">
                 <i class="material-icons circle red">local_library</i>
                 <a href="#editar" class="right modal-trigger" title="EDITAR ASESORIA"><i class="material-icons editar z-depth-1">edit</i></a>
-                <span class="title">Asesor: </span>
-                <p>Día: , Horario:
-                    <br> Idioma:
+                <span class="title">Asesor: <?php echo $asesoria['nombre']; ?></span>
+                <p>Día: <?php echo $asesoria['nombre']; ?>, Horario: <?php echo $asesoria['horario']; ?>
+                    <br> Idioma: <?php echo $asesoria['idioma']; ?>
                     <a href="#!" class="right"><i class="material-icons eliminar z-depth-1" title="ELIMINAR ASESORIA">delete</i></a>
                 </p>
-
             </li>
+            <?php
+            $i++; 
+            }
+            ?>
         </ul>
 
         <ul class="pagination center">
-            <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
-            <li class="active"><a href="#!">1</a></li>
-            <li class="waves-effect"><a href="#!">2</a></li>
-            <li class="waves-effect"><a href="#!">3</a></li>
-            <li class="waves-effect"><a href="#!">4</a></li>
-            <li class="waves-effect"><a href="#!">5</a></li>
-            <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+        <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+            <?php
+            $j = 0;
+            while ($j < ceil($i/10)) {
+            ?>
+            <li class="waves-effect <?php if ($j == 0) echo "active"; ?>"><a class="page-link" href="#!"><?php echo $j + 1; ?></a></li>
+            <?php
+            $j++;
+            }
+            ?>
+            <li class="waves-effect"><a class="page-link" href="#!"><i class="material-icons">chevron_right</i></a></li>
         </ul>
     </div>
 
@@ -180,6 +204,8 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/paginacion.js"></script>
     <!-- Funcionamiento Navbar -->
     <script src="js/navbar.js"></script>
     <script src="js/modal.js"></script>

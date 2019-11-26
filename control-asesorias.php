@@ -1,3 +1,19 @@
+<?php
+require("./php/conexion.php");
+$conexion = connect();
+if (!$conexion) {
+    echo "Error. SIn conexion a la base de datos";
+    echo "Errno de depuracion ".mysqli_connect_errno().PHP_EOL;
+    echo "Error de depuracion ".mysqli_connect_error().PHP_EOL;
+}
+$query_idiomas_txt = "SELECT UPPER(nombre) AS idioma FROM asesoria ase JOIN idioma idi ON ase.id_idioma = idi.id_idioma GROUP BY idioma";
+$query_idiomas = mysqli_query($conexion, $query_idiomas_txt);
+$horario_mostrar = array("7:00-8:00", "8:00-9:00", "9:00-10:00", "10:00-11:00", "11:00-12:00", "12:00-13:00",
+    "13:00-14:00", "14:00-15:00", "15:00-16:00", "16:00-17:00", "17:00-18:00", "18:00-19:00", "19:00-20:00");
+$horario = array("07:00:00", "08:00:00", "09:00:00", "10:00:00", "11:00:00", "12:00:00", "13:00:00", "14:00:00",
+    "15:00:00", "16:00:00", "17:00:00", "18:00:00", "19:00:00");
+$dias = array("Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado");
+?>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -141,10 +157,22 @@
                 </div>
             </form>
         </div>
-
+        <?php 
+        while ($idioma = mysqli_fetch_array($query_idiomas)) { 
+            $nombre_idioma = $idioma['idioma'];
+            $query_asesorias_txt = "SELECT CONCAT(per.nombre, ' ', per.apellido_paterno) AS nombre, 
+            UPPER(idi.nombre) as idioma, dia, horario FROM asesoria ase JOIN idioma idi ON ase.id_idioma = idi.id_idioma 
+            JOIN asesor ON ase.id_asesor = asesor.id_asesor JOIN persona per ON asesor.id_persona = per.id_persona 
+            WHERE UPPER(idi.nombre) = '$nombre_idioma'";
+            $query_asesorias = $conexion->query($query_asesorias_txt);
+            $asesorias = array();
+            while ($asesoria = mysqli_fetch_array($query_asesorias))
+                $asesorias[] = array("nombre"=>$asesoria['nombre'], "idioma"=>$asesoria['idioma'], "dia"=>$asesoria['dia'], "horario"=>$asesoria['horario']);
+        ?>
         <table class="highlight centered responsive-table">
             <caption>
-                <h5>INGLÉS</h5></caption>
+                <h5><?php echo $nombre_idioma; ?></h5>
+            </caption>
             <thead>
                 <tr>
                     <th>Hora/Día</th>
@@ -158,117 +186,34 @@
             </thead>
 
             <tbody>
+                <?php 
+                for ($i = 0; $i < count($horario_mostrar); $i++) {
+                ?>
                 <tr>
-                    <td>7:00-8:00</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td><?php echo $horario_mostrar[$i]; ?></td>
+                    <?php 
+                    for ($j = 0; $j < count($dias); $j++) {
+                        $asesoria = array_filter($asesorias, function ($as) use ($nombre_idioma, $horario, $i, $dias, $j) {
+                            return $as['idioma'] == $nombre_idioma && $as['horario'] == $horario[$i] && $as['dia']== $dias[$j];
+                        });
+                        if (count($asesoria) == 0) echo "<td></td>";
+                        else {
+                            $k = 0;
+                            echo "<td>";
+                            foreach ($asesoria as $key => $value) {
+                                if ($k != 0) echo "<br>";
+                                echo $value['nombre'];
+                                $k++;
+                            }
+                            echo "</td>";
+                        }
+                    }
+                    ?>
                 </tr>
-                <tr>
-                    <td>8:00-9:00</td>
-                    <td>AIDA</td>
-                    <td></td>
-                    <td>AIDA </td>
-                    <td></td>
-                    <td>AIDA </td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>9:00-10:00</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td>Karen I</td>
-                </tr>
-                <tr>
-                    <td>10:00-11:00</td>
-                    <td>JESSICA</td>
-                    <td>AIDA</td>
-                    <td>AIDA</td>
-                    <td>AIDA</td>
-                    <td>AIDA</td>
-                    <td>Kary y Dany</td>
-                </tr>
-                <tr>
-                    <td>11:00-12:00</td>
-                    <td></td>
-                    <td>JESSICA</td>
-                    <td>JESSICA</td>
-                    <td>JESSICA</td>
-                    <td>JESSICA</td>
-                    <td>Diego</td>
-                </tr>
-                <tr>
-                    <td>12:00-13:00</td>
-                    <td></td>
-                    <td>JESSICA</td>
-                    <td></td>
-                    <td>JESSICA</td>
-                    <td></td>
-                    <td>Diego</td>
-                </tr>
-                <tr>
-                    <td>13:00-14:00</td>
-                    <td>Martha</td>
-                    <td>Martha</td>
-                    <td>Martha</td>
-                    <td>Martha</td>
-                    <td>Martha</td>
-                    <td>Rocío</td>
-                </tr>
-                <tr>
-                    <td>14:00-15:00</td>
-                    <td>Martha y Andrea</td>
-                    <td>Kary y Dany</td>
-                    <td>Stefania y Ana</td>
-                    <td>Kary y Dany</td>
-                    <td></td>
-                    <td>Diego</td>
-                </tr>
-                <tr>
-                    <td>15:00-16:00</td>
-                    <td>Martha y Andrea</td>
-                    <td>Liliana</td>
-                    <td>Liliana</td>
-                    <td>Paulina</td>
-                    <td></td>
-                    <td>Stefania y Ana</td>
-                </tr>
-                <tr>
-                    <td>16:00-17:00</td>
-                    <td>Checo y Ale</td>
-                    <td>Liliana</td>
-                    <td>Liliana</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>17:00-18:00</td>
-                    <td></td>
-                    <td>LUZ MARIA</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>18:00-17:00</td>
-                    <td>LUZ MARIA</td>
-                    <td>Liliana</td>
-                    <td></td>
-                    <td></td>
-                    <td>LUZ MARIA</td>
-                    <td></td>
-                </tr>
+                <?php } ?>
             </tbody>
         </table>
-
+        <?php } ?>
     </div>
 
 
